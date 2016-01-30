@@ -6,20 +6,21 @@ window.addEventListener("load", function() {
 	var idTitulo = 0;
 	for (var i = 0; i < titulos.length; i++) {
 		var link = titulos[i].getElementsByTagName("a")[0];
-		link.setAttribute("name", "titulo" + i);
+		link.setAttribute("name", "noticia" + i + 1);
+		link.setAttribute("style", "border: none");
 		link.addEventListener("show", function() {
-			idTitulo = i;
+			idTitulo = i + 1;
 		});
 	}
 	window.addEventListener("keyup", function() {
 		var keyCode = window.event.keyCode;
-		if (keyCode == 39 && idTitulo < titulos.length) {
+		if (keyCode == 39 && idTitulo <= titulos.length) {
 			idTitulo++;
-			window.location = "#titulo" + idTitulo;
+			window.location = "#noticia" + idTitulo;
 			document.body.scrollTop -= 100;
-		} else if (keyCode == 37 && idTitulo >= 1) {
+		} else if (keyCode == 37 && idTitulo >= 2) {
 			idTitulo--;
-			window.location = "#titulo" + idTitulo;
+			window.location = "#noticia" + idTitulo;
 			document.body.scrollTop -= 100;
 		}
 	});
