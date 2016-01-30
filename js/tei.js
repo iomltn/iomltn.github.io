@@ -6,7 +6,7 @@ window.addEventListener("load", function() {
 	var idTitulo = 0;
 	for (var i = 0; i < titulos.length; i++) {
 		var link = titulos[i].getElementsByTagName("a")[0];
-		link.setAttribute("id", "#titulo" + i);
+		link.setAttribute("name", "#titulo" + i);
 		link.addEventListener("show", function() {
 			idTitulo = i;
 		});
