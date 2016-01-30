@@ -15,7 +15,7 @@ window.addEventListener("load", function() {
 		var keyCode = window.event.keyCode;
 		if (keyCode == 39 && idTitulo < titulos.length) {
 			idTitulo++;
-		} else if (keyCode == 37 && idTitulo > 1) {
+		} else if (keyCode == 37 && idTitulo >= 1) {
 			idTitulo--;
 		}
 		window.location = "#titulo" + idTitulo;
