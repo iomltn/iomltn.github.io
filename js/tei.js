@@ -3,7 +3,7 @@
 */
 window.addEventListener("load", function() {
 	var titulos = document.getElementsByClassName("post-title");
-	var idTitulo = 0;
+	var idTitulo = 1;
 	for (var i = 0; i < titulos.length; i++) {
 		var link = titulos[i].getElementsByTagName("a")[0];
 		link.setAttribute("name", "noticia" + i + 1);
