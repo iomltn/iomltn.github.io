@@ -2,6 +2,21 @@
 	Teste e estudos iomltn@gmail.com
 */
 window.addEventListener("load", function() {
+	var titulos = document.getElementsByClassName("post-title");
+	var idTitulo = 0;
+	for (var i = 0; i < titulos.length; i++) {
+		titulos[i].setAttribute("id", "#titulo" + i);
+		titulos[i].addEventListener("show", function() {
+			idTitulo = i;
+		});
+	}
+	window.addEventListener("keyup", function() {
+		var keyCode = window.event.keyCode;
+		if (keyCode == 39) {
+			idTitulo++;
+			window.location = "#titulo" + idTitulo;
+		}
+	});
 	var Objeto = function() {
 		var scrollTop = 0;
 		var larguraPagina = 0;
