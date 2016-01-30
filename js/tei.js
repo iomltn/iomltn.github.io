@@ -5,17 +5,20 @@ window.addEventListener("load", function() {
 	var titulos = document.getElementsByClassName("post-title");
 	var idTitulo = 0;
 	for (var i = 0; i < titulos.length; i++) {
-		titulos[i].setAttribute("id", "#titulo" + i);
-		titulos[i].addEventListener("show", function() {
+		var link = titulos[i].getElementsByTagName("a")[0];
+		link.setAttribute("id", "#titulo" + i);
+		link.addEventListener("show", function() {
 			idTitulo = i;
 		});
 	}
 	window.addEventListener("keyup", function() {
 		var keyCode = window.event.keyCode;
-		if (keyCode == 39) {
+		if (keyCode == 39 && idTitulo < titulos.length) {
 			idTitulo++;
-			window.location = "#titulo" + idTitulo;
+		} else if (keyCode == 37 && idTitulo > 1) {
+			idTitulo--;
 		}
+		window.location = "#titulo" + idTitulo;
 	});
 	var Objeto = function() {
 		var scrollTop = 0;
