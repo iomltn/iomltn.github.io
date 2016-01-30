@@ -15,10 +15,10 @@ window.addEventListener("load", function() {
 		var keyCode = window.event.keyCode;
 		if (keyCode == 39 && idTitulo < titulos.length) {
 			idTitulo++;
-			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo).offsetTop - 100}, 'slow');
+			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
 		} else if (keyCode == 37 && idTitulo >= 1) {
 			idTitulo--;
-			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo).offsetTop - 100}, 'slow');
+			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
 		} else if (keyCode == 37 && idTitulo == 0) {
 			$('html, body').animate({scrollTop:0}, 'slow');
 		}
