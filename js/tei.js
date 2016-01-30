@@ -16,7 +16,7 @@ window.addEventListener("load", function() {
 			var div = document.createElement("div");
 			div.setAttribute("id", "setaTopo");
 			div.addEventListener("click", function() {
-				document.body.scrollTop = 0;
+				$('html, body').scrollTop(0);
 			});
 			document.body.appendChild(div);
 			return div;
