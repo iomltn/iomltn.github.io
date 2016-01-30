@@ -6,7 +6,7 @@ window.addEventListener("load", function() {
 	var idTitulo = 0;
 	for (var i = 0; i < titulos.length; i++) {
 		var link = titulos[i].getElementsByTagName("a")[0];
-		link.setAttribute("name", "titulo" + i);
+		link.setAttribute("name", "noticia" + i);
 		link.addEventListener("show", function() {
 			idTitulo = i;
 		});
@@ -15,12 +15,12 @@ window.addEventListener("load", function() {
 		var keyCode = window.event.keyCode;
 		if (keyCode == 39 && idTitulo < titulos.length) {
 			idTitulo++;
-			window.location = "#titulo" + idTitulo;
-			document.body.scrollTop -= 100;
+			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo).offsetTop - 100}, 'slow');
 		} else if (keyCode == 37 && idTitulo >= 1) {
 			idTitulo--;
-			window.location = "#titulo" + idTitulo;
-			document.body.scrollTop -= 100;
+			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo).offsetTop - 100}, 'slow');
+		} else if (keyCode == 37 && idTitulo == 0) {
+			$('html, body').animate({scrollTop:0}, 'slow');
 		}
 	});
 	var Objeto = function() {
