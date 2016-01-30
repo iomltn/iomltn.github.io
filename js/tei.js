@@ -5,26 +5,22 @@ window.addEventListener("load", function() {
 	var titulos = document.getElementsByClassName("post-title");
 	var idTitulo = 0;
 	for (var i = 0; i < titulos.length; i++) {
-		titulos[i].setAttribute("id", "noticia" + i);
-		/*var link = titulos[i].getElementsByTagName("a")[0];
-		link.setAttribute("name", "noticia" + i);
+		var link = titulos[i].getElementsByTagName("a")[0];
+		link.setAttribute("name", "titulo" + i);
 		link.addEventListener("show", function() {
 			idTitulo = i;
 		});
-		*/
 	}
 	window.addEventListener("keyup", function() {
 		var keyCode = window.event.keyCode;
 		if (keyCode == 39 && idTitulo < titulos.length) {
 			idTitulo++;
-			$('html,body').stop().animate({scrollTop: $("noticia" + idTitulo).offset().top}, 2000);
-			//window.location = "#titulo" + idTitulo;
-			//document.body.scrollTop -= 100;
+			window.location = "#titulo" + idTitulo;
+			document.body.scrollTop -= 100;
 		} else if (keyCode == 37 && idTitulo >= 1) {
 			idTitulo--;
-			$('html,body').stop().animate({scrollTop: $("noticia" + idTitulo).offset().top}, 2000);
-			//window.location = "#titulo" + idTitulo;
-			//document.body.scrollTop -= 100;
+			window.location = "#titulo" + idTitulo;
+			document.body.scrollTop -= 100;
 		}
 	});
 	var Objeto = function() {
