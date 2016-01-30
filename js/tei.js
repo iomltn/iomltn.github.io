@@ -20,7 +20,7 @@ window.addEventListener("load", function() {
 			idTitulo--;
 			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
 		} else if (keyCode == 37 && idTitulo == 0) {
-			$('html, body').animate({scrollTop:0}, 'slow');
+			$('html, body').animate({scrollTop:0}, 5000);
 		}
 	});
 	var Objeto = function() {
