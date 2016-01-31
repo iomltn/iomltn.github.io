@@ -17,6 +17,7 @@ window.addEventListener("load", function() {
 		});
 	}
 	window.addEventListener("keyup", function() {
+		console.log(idTitulo);
 		var keyCode = window.event.keyCode;
 		if (keyCode == 39 && idTitulo == -1) {
 			idTitulo++;
