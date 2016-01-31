@@ -69,11 +69,5 @@ window.addEventListener("load", function() {
 	var o = new Objeto();
 	document.addEventListener("scroll", function() {
 		o.verifica();
-		var scrollTop = document.body.scrollTop;
-		for (var i = 0; i < titulos.length; i++) {
-			if (scrollTop >= titulos[i].offsetTop) {
-				idTitulo = i;
-			}
-		}
 	});
 });
