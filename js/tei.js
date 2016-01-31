@@ -30,9 +30,6 @@ window.addEventListener("load", function() {
 		} else if (keyCode == 37 && idTitulo >= 1) {
 			idTitulo--;
 			$('html, body').stop().animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
-		} else if (keyCode == 37 && idTitulo == 0) {
-			$('html, body').stop().animate({scrollTop:0}, 10000);
-			idTitulo--;
 		} else if (keyCode == 37 && idTitulo == -1) {
 			idTitulo = titulos.length - 1;
 			$('html, body').stop().animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
