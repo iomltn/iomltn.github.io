@@ -21,7 +21,7 @@ window.addEventListener("load", function() {
 		if (keyCode == 39 && idTitulo == -1) {
 			idTitulo++;
 			$('html, body').stop().animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 10000);			
-		} else if (keyCode == 39 && idTitulo == titulos.length) {
+		} else if (keyCode == 39 && idTitulo == titulos.length - 1) {
 			idTitulo = 0;
 			$('html, body').stop().animate({scrollTop: 0}, 'slow');
 		} else if (keyCode == 39 && idTitulo < titulos.length - 1) {
