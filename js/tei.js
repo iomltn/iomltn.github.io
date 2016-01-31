@@ -72,7 +72,7 @@ window.addEventListener("load", function() {
 		var scrollTop = document.body.scrollTop;
 		for (var i = 0; i < titulos.length; i++) {
 			if (scrollTop >= titulos[i].offsetTop - 100) {
-				idTitulo = i;
+				idTitulo = i + 1;
 				break;
 			}
 		}
