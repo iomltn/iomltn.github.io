@@ -27,7 +27,7 @@ window.addEventListener("load", function() {
 		} else if (keyCode == 39 && idTitulo < titulos.length - 1) {
 			idTitulo++;
 			$('html, body').stop().animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
-		} else if (keyCode == 37 && idTitulo >= 1) {
+		} else if (keyCode == 37 && idTitulo >= 0) {
 			idTitulo--;
 			$('html, body').stop().animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
 		} else if (keyCode == 37 && idTitulo == -1) {
