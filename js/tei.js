@@ -21,6 +21,9 @@ window.addEventListener("load", function() {
 		if (keyCode == 39 && idTitulo == -1) {
 			idTitulo++;
 			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 10000);			
+		} else if (keyCode == 39 && idTitulo == titulos.length - 1) {
+			idTitulo = 0;
+			$('html, body').animate({scrollTop: 0}, 'slow');
 		} else if (keyCode == 39 && idTitulo < titulos.length && idTitulo > -1) {
 			idTitulo++;
 			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
@@ -33,9 +36,6 @@ window.addEventListener("load", function() {
 		} else if (keyCode == 37 && idTitulo == -1) {
 			idTitulo = titulos.length - 1;
 			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
-		} else if (keyCode == 39 && idTitulo == titulos.length - 2) {
-			idTitulo = 0;
-			$('html, body').animate({scrollTop: 0}, 'slow');
 		}
 	});
 	var Objeto = function() {
