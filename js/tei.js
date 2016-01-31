@@ -33,7 +33,8 @@ window.addEventListener("load", function() {
 		} else if (keyCode == 37 && idTitulo == -1) {
 			idTitulo = titulos.length - 1;
 			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
-		} else if (keyCode == 39 && idTitulo == titulos.length - 1) {
+		} else if (keyCode == 39 && idTitulo == titulos.length - 2) {
+			idTitulo = 0;
 			$('html, body').animate({scrollTop: 0}, 'slow');
 		}
 	});
@@ -51,6 +52,7 @@ window.addEventListener("load", function() {
 			var div = document.createElement("div");
 			div.setAttribute("id", "setaTopo");
 			div.addEventListener("click", function() {
+				idTitulo = 0;
 				$('html, body').animate({scrollTop:0}, 'slow');
 			});
 			document.body.appendChild(div);
