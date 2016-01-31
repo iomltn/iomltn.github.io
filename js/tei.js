@@ -18,14 +18,17 @@ window.addEventListener("load", function() {
 	}
 	window.addEventListener("keyup", function() {
 		var keyCode = window.event.keyCode;
-		if (keyCode == 39 && idTitulo < titulos.length) {
+		if (keyCode == 39 && idTitulo == -1) {
+			idTitulo++;
+			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 10000);			
+		} else if (keyCode == 39 && idTitulo < titulos.length && idTitulo > -1) {
 			idTitulo++;
 			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
 		} else if (keyCode == 37 && idTitulo >= 1) {
 			idTitulo--;
 			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
 		} else if (keyCode == 37 && idTitulo == 0) {
-			$('html, body').animate({scrollTop:0}, 5000);
+			$('html, body').animate({scrollTop:0}, 10000);
 			idTitulo--;
 		} else if (keyCode == 37 && idTitulo == -1) {
 			idTitulo = titulos.length - 1;
