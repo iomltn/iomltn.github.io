@@ -2,6 +2,11 @@
 	Teste e estudos iomltn@gmail.com
 */
 window.addEventListener("load", function() {
+	try {
+		document.getElementById("lomadeeAdsM").remove();
+	} catch(e) {
+
+	}
 	var titulos = document.getElementsByClassName("post-title");
 	var idTitulo = -1;
 	for (var i = 0; i < titulos.length; i++) {
