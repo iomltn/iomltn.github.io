@@ -49,7 +49,7 @@ window.addEventListener("load", function() {
 			var div = document.createElement("div");
 			div.setAttribute("id", "setaTopo");
 			div.addEventListener("click", function() {
-				idTitulo = 0;
+				idTitulo = -1;
 				$('html, body').animate({scrollTop:0}, 'slow');
 			});
 			document.body.appendChild(div);
@@ -69,5 +69,11 @@ window.addEventListener("load", function() {
 	var o = new Objeto();
 	document.addEventListener("scroll", function() {
 		o.verifica();
+		var scrollTop = document.body.scrollTop;
+		for (var i = 0; i < titulos.length; i++) {
+			if (scrollTop >= titulos[i].offsetTop) {
+				idTitulo = i;
+			}
+		}
 	});
 });
