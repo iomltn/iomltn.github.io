@@ -7,7 +7,7 @@ window.addEventListener("load", function() {
 	for (var i = 0; i < titulos.length; i++) {
 		var link = titulos[i].getElementsByTagName("a")[0];
 		link.setAttribute("name", "noticia" + i);
-		link.addEventListener("show", function() {
+		link.addEventListener("pageshow", function() {
 			idTitulo = i;
 		});
 	}
@@ -22,6 +22,11 @@ window.addEventListener("load", function() {
 		} else if (keyCode == 37 && idTitulo == 0) {
 			$('html, body').animate({scrollTop:0}, 5000);
 			idTitulo--;
+		} else if (keyCode == 37 && idTitulo == -1) {
+			idTitulo = titulos.length - 1;
+			$('html, body').animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 'slow');
+		} else if (keyCode == 39 && idTitulo == titulos.length - 1) {
+			$('html, body').animate({scrollTop: 0}, 'slow');
 		}
 	});
 	var Objeto = function() {
