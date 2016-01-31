@@ -69,5 +69,4 @@ window.addEventListener("load", function() {
 	var o = new Objeto();
 	document.addEventListener("scroll", function() {
 		o.verifica();
-	});
 });
