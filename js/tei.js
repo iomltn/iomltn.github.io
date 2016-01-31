@@ -1,8 +1,6 @@
 /**
 	Teste e estudos iomltn@gmail.com
 */
-console.clear();
-console.log("Oi mundo");
 window.addEventListener("load", function() {
 	try {
 		document.getElementById("lomadeeAdsM").remove();
@@ -71,4 +69,5 @@ window.addEventListener("load", function() {
 	var o = new Objeto();
 	document.addEventListener("scroll", function() {
 		o.verifica();
+	});
 });
