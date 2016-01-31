@@ -22,7 +22,7 @@ window.addEventListener("load", function() {
 			idTitulo++;
 			$('html, body').stop().animate({scrollTop: document.getElementsByName("noticia" + idTitulo)[0].offsetTop - 100}, 10000);			
 		} else if (keyCode == 39 && idTitulo == titulos.length - 1) {
-			idTitulo = 0;
+			idTitulo = -1;
 			$('html, body').stop().animate({scrollTop: 0}, 'slow');
 		} else if (keyCode == 39 && idTitulo < titulos.length - 1) {
 			idTitulo++;
