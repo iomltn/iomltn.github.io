@@ -73,6 +73,7 @@ window.addEventListener("load", function() {
 		for (var i = 0; i < titulos.length; i++) {
 			if (scrollTop >= titulos[i].offsetTop - 100) {
 				idTitulo = i;
+				break;
 			}
 		}
 	});
