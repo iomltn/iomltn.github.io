@@ -1,4 +1,4 @@
-var AvuaAsBandaDeLato = function() {
+var AvuaAsBandaDeLado = function() {
 	var idNoticia = -1;
 	var titulos = document.getElementsByClassName("post-title");
 	for (var i = 0; i < titulos.length; i++) {
@@ -15,7 +15,7 @@ var AvuaAsBandaDeLato = function() {
 			$('html, body').stop().animate({scrollTop: document.getElementsByName("noticia" + idNoticia)[0].offsetTop - 100}, 10000);			
 		} else if (keyCode == 37 && idNoticia == 0) {
 			idNoticia--;
-			$('html, body').stop().animate({scrollTop: document.getElementsByName("noticia" + idNoticia)[0].offsetTop - 100}, 10000);			
+			$('html, body').stop().animate({scrollTop: 0}, 10000);			
 		} else if (keyCode == 39 && idNoticia == titulos.length - 1) {
 			idNoticia = -1;
 			$('html, body').stop().animate({scrollTop: 0}, 'slow');
@@ -63,9 +63,8 @@ var SobePraCima = function() {
 	}
 };
 var sobe = new SobePraCima();
-var avua = new AvuaAsBandaDeLato();
+var avua = new AvuaAsBandaDeLado();
 if (document.body.addEventListener) {
-	console.log("ok 1");
 	document.body.addEventListener("scroll", function() {
 		sobe.verifica();
 	});
@@ -73,7 +72,6 @@ if (document.body.addEventListener) {
 		avua.setEventTeclado(e);
 	});
 } else {
-	console.log("ok 2");
 	document.body.attachEvent("onscroll", function() {
 		sobe.verifica();
 	});
@@ -81,4 +79,3 @@ if (document.body.addEventListener) {
 		avua.setEventTeclado(e);
 	});
 }
-console.log("ok 3");
