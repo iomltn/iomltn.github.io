@@ -68,14 +68,14 @@ if (document.body.addEventListener) {
 	document.body.addEventListener("scroll", function() {
 		sobe.verifica();
 	});
-	document.body.addEventListener("keyup"), function(e) {
+	document.body.addEventListener("keyup", function(e) {
 		avua.setEventTeclado(e);
-	}
+	});
 } else {
 	document.body.attachEvent("onscroll", function() {
 		sobe.verifica();
 	});
 	document.body.attachEvent("onkeyup", function(e) {
 		avua.setEventTeclado(e);
-	})
+	});
 }
