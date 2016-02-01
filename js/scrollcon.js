@@ -65,6 +65,7 @@ var SobePraCima = function() {
 var sobe = new SobePraCima();
 var avua = new AvuaAsBandaDeLato();
 if (document.body.addEventListener) {
+	console.log("ok 1");
 	document.body.addEventListener("scroll", function() {
 		sobe.verifica();
 	});
@@ -72,6 +73,7 @@ if (document.body.addEventListener) {
 		avua.setEventTeclado(e);
 	});
 } else {
+	console.log("ok 2");
 	document.body.attachEvent("onscroll", function() {
 		sobe.verifica();
 	});
@@ -79,3 +81,4 @@ if (document.body.addEventListener) {
 		avua.setEventTeclado(e);
 	});
 }
+console.log("ok 3");
