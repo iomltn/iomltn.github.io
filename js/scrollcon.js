@@ -8,6 +8,17 @@ var AvuaAsBandaDeLado = function() {
 			idNoticia = i;
 		});
 	}
+	this.verificaNoticiaAtual = function() {
+		var alturaClient = document.body.clientHeight;
+		var posicaoScroll = document.body.scroll;
+		var posicaoTopElemento;
+		for (int i = 0; i < titulos.length; i++) {
+			posicaoTopElemento = titulos[i].offsetTop;
+			if (posicaoScroll > posicaoTopElemento && (posicaoScroll + alturaClient) < posicaoTopElemento) {
+				idNoticia = i;
+			};		
+		};
+	};
 	this.setEventTeclado = function(e) {
 		var keyCode = e.keyCode;
 		if (keyCode == 39 && idNoticia == -1) {
