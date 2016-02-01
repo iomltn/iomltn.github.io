@@ -78,6 +78,7 @@ var avua = new AvuaAsBandaDeLado();
 if (document.body.addEventListener) {
 	document.body.addEventListener("scroll", function() {
 		sobe.verifica();
+		avua.verificaNoticiaAtual();
 	});
 	document.body.addEventListener("keyup", function(e) {
 		avua.setEventTeclado(e);
