@@ -1,6 +1,9 @@
 /**
 	Teste e estudos iomltn@gmail.com
 */
+var antiLomadee = document.createElement("style");
+antiLomadee.innerHTML = "#lomadeeAdsM {display: none ! important}";
+document.getElementsByTagName("head")[0].appendChild(antiLomadee);
 window.addEventListener("load", function() {
 	try {
 		document.getElementById("lomadeeAdsM").remove();
