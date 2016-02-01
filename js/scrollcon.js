@@ -1,7 +1,9 @@
 var AvuaAsBandaDeLado = function() {
 	var idNoticia = -1;
+	var posicaoTopElemento = 0;
 	var titulos = document.getElementsByClassName("post-title");
 	for (var i = 0; i < titulos.length; i++) {
+		posicaoTopElemento = titulos[i].offsetTop;
 		var link = titulos[i].getElementsByTagName("a")[0];
 		link.setAttribute("name", "noticia" + i);
 		link.addEventListener("pageshow", function() {
@@ -12,7 +14,7 @@ var AvuaAsBandaDeLado = function() {
 		var alturaClient = document.body.clientHeight;
 		var posicaoScroll = document.body.scroll;
 		var posicaoTopElemento;
-		for (int i = 0; i < titulos.length; i++) {
+		for (var i = 0; i < titulos.length; i++) {
 			posicaoTopElemento = titulos[i].offsetTop;
 			if (posicaoScroll > posicaoTopElemento && (posicaoScroll + alturaClient) < posicaoTopElemento) {
 				idNoticia = i;
