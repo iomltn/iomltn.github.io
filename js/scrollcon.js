@@ -11,13 +11,15 @@ var AvuaAsBandaDeLado = function() {
 		});
 	}
 	this.verificaNoticiaAtual = function() {
-		var alturaClient = document.body.clientHeight;
+		var alturaCliente = document.body.clientHeight;
 		var posicaoScroll = document.body.scroll;
 		var posicaoTopElemento;
 		for (var i = 0; i < titulos.length; i++) {
 			posicaoTopElemento = titulos[i].offsetTop;
-			if (posicaoScroll > posicaoTopElemento && (posicaoScroll + alturaClient) < posicaoTopElemento) {
+			if (posicaoTopElemento > posicaoScroll  && posicaoTopElemento < (posicaoScroll + alturaCliente)) {
 				idNoticia = i;
+				console.log(idNoticia);
+				break;
 			};		
 		};
 	};
@@ -88,6 +90,7 @@ if (document.body.addEventListener) {
 } else {
 	window.attachEvent("onscroll", function() {
 		sobe.verifica();
+		avua.verificaNoticiaAtual();
 	});
 	document.body.attachEvent("onkeyup", function(e) {
 		avua.setEventTeclado(e);
