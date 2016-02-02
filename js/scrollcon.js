@@ -81,6 +81,7 @@ if (document.body.addEventListener) {
 	document.body.addEventListener("scroll", function() {
 		sobe.verifica();
 		avua.verificaNoticiaAtual();
+		console.log("scroll1");
 	});
 	document.body.addEventListener("keyup", function(e) {
 		avua.setEventTeclado(e);
@@ -88,8 +89,9 @@ if (document.body.addEventListener) {
 } else {
 	document.body.attachEvent("onscroll", function() {
 		sobe.verifica();
+		console.log("scroll2");
 	});
 	document.body.attachEvent("onkeyup", function(e) {
 		avua.setEventTeclado(e);
 	});
-}
+};
