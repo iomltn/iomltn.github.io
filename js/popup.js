@@ -1,6 +1,6 @@
 var estilo_popup = document.createElement("style");
-estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 550px; height: 396px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px; display: none; }";
-estilo_popup.innerHTML += "#popup #imagem {border-radius: 8px; display: none;}";
+estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 550px; height: 396px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px;}";
+estilo_popup.innerHTML += "#popup #imagem {border-radius: 8px;}";
 estilo_popup.innerHTML += "#popup #imagem_fechar {position: absolute; top: -9px; right: -9px; cursor: pointer;}";
 document.getElementsByTagName("head")[0].appendChild(estilo_popup);
 
