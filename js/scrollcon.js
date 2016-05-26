@@ -12,7 +12,7 @@ var AvuaAsBandaDeLado = function() {
 	}
 	this.verificaNoticiaAtual = function() {
 		var alturaCliente = document.body.clientHeight;
-		var posicaoScroll = document.body.scroll;
+		var posicaoScroll = $(window).scrollTop();;
 		var posicaoTopElemento;
 		for (var i = 0; i < titulos.length; i++) {
 			posicaoTopElemento = titulos[i].offsetTop;
@@ -68,7 +68,7 @@ var SobePraCima = function() {
 	}
 	elementoDiv = getElementoDiv();
 	this.verifica = function() {
-		scrollTop = document.body.scrollTop;
+		scrollTop = $(window).scrollTop();
 		larguraPagina = document.body.clientWidth;
 		if (scrollTop > 1598 && larguraPagina >= 730) {
 			elementoDiv.setAttribute("style", "display: block");
