@@ -31,8 +31,8 @@ var mostrar_popup = function() {
 }
 var verifica_se_mostra = function() {
 	scrollTop = $(window).scrollTop();
-	//if (scrollTop > 1482 && visiblidade_popup) {
-	if (scrollTop > 10 && visibilidade_popup) {
+	if (scrollTop > 1482 && visiblidade_popup) {
+	//if (scrollTop > 10 && visibilidade_popup) {
 		mostrar_popup();
 		visibilidade_popup = false;
 	}
