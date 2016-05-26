@@ -81,6 +81,7 @@ var sobe = new SobePraCima();
 var avua = new AvuaAsBandaDeLado();
 if (document.body.addEventListener) {
 	window.addEventListener("scroll", function() {
+		$('html, body').stop();
 		sobe.verifica();
 		avua.verificaNoticiaAtual();
 	});
@@ -89,6 +90,7 @@ if (document.body.addEventListener) {
 	});
 } else {
 	window.attachEvent("onscroll", function() {
+		$('html, body').stop();
 		sobe.verifica();
 		avua.verificaNoticiaAtual();
 	});
