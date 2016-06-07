@@ -44,6 +44,11 @@ if (document.body.addEventListener) {
 	window.addEventListener("scroll", function() {
 		verifica_se_mostra();
 	});
+	document.body.addEventListener("keyup", function(e) {
+		if (e.keyCode == 27) {
+			$(popup).fadeOut("fast");
+		}
+	});
 
 } else  {
 	imagem.attachEvent("onload", function() {
@@ -51,6 +56,11 @@ if (document.body.addEventListener) {
 	});
 	window.attachEvent("onscroll", function() {
 		verifica_se_mostra();
+	});
+	document.body.attachEvent("onkeyup", function(e) {
+		if (e.keyCode == 27) {
+			$(popup).fadeOut("fast");
+		}
 	});
 }
 $(imagem_fechar).click(function(){
