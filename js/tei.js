@@ -31,7 +31,7 @@ window.onload = function() {
 					var imagens = document.body.getElementsByTagName("img");
 					console.log(imagens.length);
 					for (var i = 0; i < imagens.length; i++) {
-						document.body.removeChild(imagens[i]);
+						imagens[i].remove();
 					}
 					break;
 			}
