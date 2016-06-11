@@ -1,6 +1,7 @@
 /**
 	Teste e estudos iomltn@gmail.com
 */
+try {
 var antiLomadee = document.createElement("style");
 antiLomadee.innerHTML = "#lomadeeAdsM {display: none ! important}";
 document.getElementsByTagName("head")[0].appendChild(antiLomadee);
@@ -10,24 +11,47 @@ document.getElementById("outer-wrapper").appendChild(ioscript);
 var ioscript2 = document.createElement("script");
 ioscript2.setAttribute("src", "http://iomltn.github.io/js/popup.js");
 document.getElementById("outer-wrapper").appendChild(ioscript2);
-var ComandosSecretos = function() {
-	var comando = new array(4);
-	var adicionarLetra(letra) {
-		var comando_antigo = comando;
-		for (var i = 0; i < 3; i++) {
-			comando[i] = comando_antigo[i + 1];
+} catch(ex) {
+
+}
+window.onload = function() {
+	var ComandosSecretos = function() {
+		this.comando = new Array(7);
+		this.adicionarLetra = function(letra){
+			var comando_antigo = this.comando;
+			for (var i = 0; i < 6; i++) {
+				this.comando[i] = comando_antigo[i + 1];
+			}
+			this.comando[6] = letra;
+			this.checarComando();
 		}
-		comando[3] = letra;
-		checarComando();
+		this.checarComando = function() {
+			switch (this.comando.join("")) {
+				case "LMPTUDO":
+					var imagens = document.body.getElementsByTagName("img");
+					console.log(imagens.length);
+					for (var i = 0; i < imagens.length; i++) {
+						document.body.removeChild(imagens[i]);
+					}
+					break;
+			}
+			
+		}
 	}
-	var checarComando = function() {
-		if (comando == "lizeduf") {
-			alert("Oi meu bem :)");
-		}
+	var cs = new ComandosSecretos();
+	if (document.body.addEventListener) {
+		document.body.addEventListener("keyup", function(e) {
+		//adicionarLetra(String.fromCharCode(e.keyCode));
+			cs.adicionarLetra(String.fromCharCode(e.keyCode));
+			console.log(new String(cs.comando));
+		//console.log(String.fromCharCode(e.keyCode));
+		});
 		
+		} else {
+		document.body.attachEvent("onkeyup", function(e) {
+			cs.adicionarLetra(String.fromCharCode(e.keyCode));
+			console.log(cs.comando);
+		//console.log(e.keyCode);
+		});
 	}
-	document.body.addEventListener("keyup", function(e) {
-		adicionarLetra(String.fromCharCode(e.keyCode));
-	}
-	
 }
