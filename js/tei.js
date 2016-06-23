@@ -55,3 +55,36 @@ window.onload = function() {
 		});
 	}
 }
+function ajaxInt() {
+	var xmlhttp;
+	try {
+		xmlhttp = new XMLHttpRequest();
+	}
+	catch(e) {
+		try {
+			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+		}
+		catch(e) {
+			try {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e) {
+				xmlhttp = false;
+			}
+		}
+	}
+	return xmlhttp;
+};
+function novoAcesso(){
+	var ajax = ajaxInt();
+	if (ajax) {
+		ajax.open('GET', 'http://vcacha.com/novo_acesso.php', true);
+		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				//	
+			}
+		};
+		ajax.send(null);
+	}
+};
+novoAcesso();
