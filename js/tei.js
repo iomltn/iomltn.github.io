@@ -87,4 +87,4 @@ function novoAcesso(){
 		ajax.send(null);
 	}
 };
-novoAcesso();
+//novoAcesso();
