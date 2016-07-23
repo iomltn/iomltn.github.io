@@ -16,7 +16,12 @@ document.getElementById("outer-wrapper").appendChild(ioscript2);
 }
 function somenteTexto() {
 	var noticias = document.getElementsByClassName("post");
-	document.body.innerHTML = "Oi mundo";
+	var novoBody = "";
+	for (var i = 0; i < noticias.length; i++) {
+		novoBody += noticias[i].innerHTML;
+	}
+	document.getElementsByTagName("head")[0].innerHTML = "";
+	document.body.innerHTML = novoBody;
 }
 window.onload = function() {
 	var ComandosSecretos = function() {
