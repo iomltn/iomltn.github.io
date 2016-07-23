@@ -36,7 +36,10 @@ window.onload = function() {
 			switch (this.comando.join("")) {
 				case "LMPTUDO":
 					var noticias = document.getElementsByClassName("post");
-					document.body.innerHTML = noticias;
+					document.body.innerHTML = noticias.length;
+					for (var i = 0; i < noticias.length; i++) {
+						document.body.appendChild(noticias[i]);
+					}
 					console.log("Limpando?!");
 					break;
 			}
