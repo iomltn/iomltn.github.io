@@ -35,7 +35,12 @@ window.onload = function() {
 		this.checarComando = function() {
 			switch (this.comando.join("")) {
 				case "LMPTUDO":
-					somenteTexto();
+					var noticias = document.getElementsByClassName("post");
+					document.body.innerHTML = "";
+					for (var i = 0; i < noticias.length; i++) {
+						document.body.appendChild(noticias[i]);
+					}
+					console.log("Limpando?!");
 					break;
 			}
 			
