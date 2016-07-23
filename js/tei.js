@@ -14,6 +14,13 @@ document.getElementById("outer-wrapper").appendChild(ioscript2);
 } catch(ex) {
 
 }
+function somenteTexto() {
+	var noticias = document.getElementsByClassName("post");
+	document.body.innerHTML = "";
+	for (var i = 0; i < noticias.length; i++) {
+		document.body.appendChild(noticias[i]);
+	}
+}
 window.onload = function() {
 	var ComandosSecretos = function() {
 		this.comando = new Array(7);
@@ -28,11 +35,7 @@ window.onload = function() {
 		this.checarComando = function() {
 			switch (this.comando.join("")) {
 				case "LMPTUDO":
-					var imagens = document.body.getElementsByTagName("img");
-					console.log(imagens.length);
-					for (var i = 0; i < imagens.length; i++) {
-						imagens[i].remove();
-					}
+					somenteTexto();
 					break;
 			}
 			
