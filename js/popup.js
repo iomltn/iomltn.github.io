@@ -69,4 +69,4 @@ $(imagem_fechar).click(function(){
 
 popup.appendChild(imagem);
 popup.appendChild(imagem_fechar);
-document.body.appendChild(popup);
+//document.body.appendChild(popup);
