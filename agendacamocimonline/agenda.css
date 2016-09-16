@@ -2,7 +2,7 @@
 	border: solid 1px gray;
 	width: 198px;
 	height: 198px;
-	overflow: auto;
+	overflow: scroll;
 	padding: 5px;
 	font-size: 13px;
 	font-family: arial;
@@ -16,6 +16,7 @@
 #contatos {
 	background-color: white;
 	border-radius: 5px;
+	width: 184px;
 }
 .contato {
 	padding-top: 2px;
