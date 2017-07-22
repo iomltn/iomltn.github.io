@@ -1,7 +1,7 @@
 var estilo_popup = document.createElement("style");
 estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 418px; height: 496px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px; display: none; top: 50px; left: 50%; margin-left: -209px; overflow: hidden}";
 estilo_popup.innerHTML += "#popup .imagem_popup {border-radius: 8px;}";
-estilo_popup.innerHTML += "#popup #imagem_fechar {position: absolute; top: -9px; right: -9px; cursor: pointer;}";
+estilo_popup.innerHTML += "#popup #imagem_fechar {position: fixed; top: 41px; left: 50%; margin-left: 209px; cursor: pointer; z-index: 1001}";
 document.getElementsByTagName("head")[0].appendChild(estilo_popup);
 
 var top, left = 0;
