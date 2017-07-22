@@ -1,6 +1,6 @@
 var estilo_popup = document.createElement("style");
-estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 418px; height: 496px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px; display: none; top: 50px; left: 50%; margin-left: -209px}";
-estilo_popup.innerHTML += "#popup #imagem {border-radius: 8px; display: none;}";
+estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 418px; height: 496px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px; display: none; top: 50px; left: 50%; margin-left: -209px; overflow: hidden}";
+estilo_popup.innerHTML += "#popup .imagem_popup {border-radius: 8px;}";
 estilo_popup.innerHTML += "#popup #imagem_fechar {position: absolute; top: -9px; right: -9px; cursor: pointer;}";
 document.getElementsByTagName("head")[0].appendChild(estilo_popup);
 
@@ -11,12 +11,21 @@ var scrollTop = 0;
 var visibilidade_popup = true;
 var popup = document.createElement("div");
 popup.setAttribute("id", "popup");
-var imagem = document.createElement("img");
+
 var imagem_fechar = document.createElement("img");
+
+var imagem = document.createElement("img");
 imagem.setAttribute("src", "https://2.bp.blogspot.com/-3psXLNJoQKo/WXMz1RhUh8I/AAAAAAAAAdY/LcZHgwaQV9ENM_KJYMWl0tawbf7q4kt4ACEwYBhgL/s1600/banner.png");
-imagem.setAttribute("id", "imagem");
+imagem.setAttribute("class", "imagem_popup");
 imagem.setAttribute("width", "418");
 imagem.setAttribute("height", "496");
+
+var imagem2 = document.createElement("img");
+imagem2.setAttribute("src", "https://1.bp.blogspot.com/-7SKLcrWvTU8/WXNJjABFUQI/AAAAAAAAAdk/ulia-momFecpZTGgrryqt3P--JgKokePwCLcBGAs/s1600/banner2.png");
+imagem2.setAttribute("class", "imagem_popup");
+imagem2.setAttribute("width", "418");
+imagem2.setAttribute("height", "496");
+
 imagem_fechar.setAttribute("src", "https://1.bp.blogspot.com/-4WAs-gBR-S4/V0YH-GiyJ3I/AAAAAAAADMA/7Lis8F2tDnc84nIudpUq79rOSz60_GfHQCLcB/s1600/fechar.png");
 imagem_fechar.setAttribute("id", "imagem_fechar");
 /*
@@ -68,5 +77,6 @@ $(imagem_fechar).click(function(){
 });
 
 popup.appendChild(imagem);
+popup.appendchild(imagem2);
 popup.appendChild(imagem_fechar);
 document.body.appendChild(popup);
