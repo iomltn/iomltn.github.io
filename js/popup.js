@@ -1,7 +1,8 @@
 var estilo_popup = document.createElement("style");
-estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 418px; height: 496px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px; display: none; top: 50px; left: 50%; margin-left: -209px; overflow: hidden}";
-estilo_popup.innerHTML += "#popup .imagem_popup {border-radius: 8px;}";
-estilo_popup.innerHTML += "#popup #imagem_fechar {position: fixed; top: 41px; left: 50%; margin-left: 209px; cursor: pointer; z-index: 1001}";
+estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 418px; height: 496px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px; display: none; top: 50px; left: 50%; margin-left: -209px; overflow: hidden} ";
+estilo_popup.innerHTML += "#popup .imagem_popup {border-radius: 8px;} ";
+estilo_popup.innerHTML += "#popup #imagem_fechar {position: absolute; top: -9px; right: -9px; cursor: pointer;} ";
+estilo_popup.innerHTML += "#banner_popup {width: 418px; height: 496px; overflow: hidden}";
 document.getElementsByTagName("head")[0].appendChild(estilo_popup);
 
 var top, left = 0;
@@ -28,6 +29,12 @@ imagem2.setAttribute("height", "496");
 
 imagem_fechar.setAttribute("src", "https://1.bp.blogspot.com/-4WAs-gBR-S4/V0YH-GiyJ3I/AAAAAAAADMA/7Lis8F2tDnc84nIudpUq79rOSz60_GfHQCLcB/s1600/fechar.png");
 imagem_fechar.setAttribute("id", "imagem_fechar");
+
+var banner = document.createElement("div");
+banner.setAttribute("id", "banner_popup");
+banner.appendChild(imagem);
+banner.appendChild(imagem2);
+
 /*
 top = (clientHeight / 2);
 left = (clientWidth / 2);
@@ -76,12 +83,12 @@ $(imagem_fechar).click(function(){
 	$(popup).fadeOut("fast");
 });
 
-popup.appendChild(imagem);
-popup.appendChild(imagem2);
+popup.appendChild(banner);
+
 popup.appendChild(imagem_fechar);
 
 var script = document.createElement("script");
-script.innerHTML = "$('#popup').cycle({fx: 'scrollLeft'});";
+script.innerHTML = "$('#banner_popup').cycle({fx: 'scrollLeft'});";
 
 document.body.appendChild(popup);
 document.body.appendChild(script);
