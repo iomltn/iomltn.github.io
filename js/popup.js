@@ -1,5 +1,5 @@
 var estilo_popup = document.createElement("style");
-estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 418px; height: 496px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px; display: none; top: 50px; left: 50%; margin-left: -209px; overflow: hidden} ";
+estilo_popup.innerHTML = "#popup {z-index: 1000; position: fixed; width: 418px; height: 496px; background: rgb(0, 153, 51); border-radius: 10px; padding: 2px; display: none; top: 50px; left: 50%; margin-left: -209px;} ";
 estilo_popup.innerHTML += "#popup .imagem_popup {border-radius: 8px;} ";
 estilo_popup.innerHTML += "#popup #imagem_fechar {position: absolute; top: -9px; right: -9px; cursor: pointer; z-index: 1001;} ";
 estilo_popup.innerHTML += "#banner_popup {width: 418px; height: 496px; overflow: hidden}";
