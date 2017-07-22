@@ -81,7 +81,7 @@ popup.appendchild(imagem2);
 popup.appendChild(imagem_fechar);
 
 var script = document.createElement("script");
-script.innerHTML = "$('#popup').cycle({fx: 'scrollLeft'})";
+script.innerHTML = "$('#popup').cycle({fx: 'scrollLeft'});";
 
 document.body.appendChild(popup);
 document.body.appendChild(script);
