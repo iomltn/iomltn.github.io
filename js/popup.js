@@ -88,7 +88,7 @@ popup.appendChild(banner);
 popup.appendChild(imagem_fechar);
 
 var script = document.createElement("script");
-script.innerHTML = "$('#banner_popup').cycle({fx: 'scrollLeft'});";
+script.innerHTML = "$('#banner_popup').cycle({fx: 'fade'});";
 
 document.body.appendChild(popup);
 document.body.appendChild(script);
