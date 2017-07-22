@@ -77,7 +77,7 @@ $(imagem_fechar).click(function(){
 });
 
 popup.appendChild(imagem);
-popup.appendchild(imagem2);
+popup.appendChild(imagem2);
 popup.appendChild(imagem_fechar);
 
 var script = document.createElement("script");
