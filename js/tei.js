@@ -51,14 +51,14 @@ window.onload = function() {
 		document.body.addEventListener("keyup", function(e) {
 		//adicionarLetra(String.fromCharCode(e.keyCode));
 			cs.adicionarLetra(String.fromCharCode(e.keyCode));
-			console.log(new String(cs.comando));
+			//console.log(new String(cs.comando));
 		//console.log(String.fromCharCode(e.keyCode));
 		});
 		
 		} else {
 		document.body.attachEvent("onkeyup", function(e) {
 			cs.adicionarLetra(String.fromCharCode(e.keyCode));
-			console.log(cs.comando);
+			//console.log(cs.comando);
 		//console.log(e.keyCode);
 		});
 	}
