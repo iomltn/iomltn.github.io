@@ -14,6 +14,8 @@ document.getElementById("outer-wrapper").appendChild(ioscript2);
 } catch(ex) {
 
 }
+var logo_principal = document.getElementById("logo-principal");
+logo_principal.src = "http://iomltn.github.io/img/camocimonline/dp.png";
 function somenteTexto() {
 	var noticias = document.getElementsByClassName("post");
 	var novoBody = "";
