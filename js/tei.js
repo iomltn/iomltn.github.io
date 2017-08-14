@@ -19,7 +19,7 @@ var img = new Image();
 img.onload = function() {
 	objImg.src = img.src;
 };
-img.src = "http://iomltn.github.io/img/camocimonline/dp.png";
+//img.src = "http://iomltn.github.io/img/camocimonline/dp.png";
 
 function somenteTexto() {
 	var noticias = document.getElementsByClassName("post");
