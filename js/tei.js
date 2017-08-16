@@ -15,6 +15,7 @@ document.getElementById("outer-wrapper").appendChild(ioscript2);
 
 }
 var objImg = document.getElementById("logo-principal");
+objImg.scr = "";
 var img = new Image();
 img.onload = function() {
 	objImg.src = img.src;
