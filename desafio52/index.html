@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Desafio 52 Semanas</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
 		table {	
 			margin: 0 auto;
@@ -83,10 +84,10 @@
 				var tabela = document.getElementsByTagName("table")[0];
 
 				for (var i = 1; i <= 52; i++) {
-					var periodo = this.getDataFormatada(data);
+					//var periodo = this.getDataFormatada(data);
 					data.setDate(data.getDate() + 6);
 					var vencimento = this.getDataFormatada(data);
-					periodo += " - " + vencimento;
+					//periodo += " - " + vencimento;
 					data.setDate(data.getDate() + 1);
 
 					var valorSemana = valor + (i - 1) * valor;
@@ -100,7 +101,7 @@
 
 					var tr = document.createElement("tr");
 					var tdSemana = document.createElement("td");
-					var tdPeriodo = document.createElement("td");
+					//var tdPeriodo = document.createElement("td");
 					var tdVencimento = document.createElement("td");
 					var tdDepositar = document.createElement("td");
 					var tdAcumulado = document.createElement("td");
@@ -109,13 +110,13 @@
 					}
 					tdAcumulado.setAttribute("class", "valorAcumulado");
 					tdSemana.innerHTML = i;
-					tdPeriodo.innerHTML = periodo;
+					//tdPeriodo.innerHTML = periodo;
 					tdVencimento.innerHTML = vencimento;
 					tdDepositar.innerHTML = valorSemanaStr;
 					tdAcumulado.innerHTML = valorAcumuladoStr;
 
 					tr.appendChild(tdSemana);
-					tr.appendChild(tdPeriodo);
+					//tr.appendChild(tdPeriodo);
 					tr.appendChild(tdVencimento);
 					tr.appendChild(tdDepositar);
 					tr.appendChild(tdAcumulado);
@@ -138,7 +139,7 @@
 			</tr>
 			<tr>
 				<th>Semana</th>
-				<th>Período</th>
+				<!--<th>Período</th>-->
 				<th>Vencimento</th>
 				<th>Valor a depositar</th>
 				<th>Valor Acumulado</th>
