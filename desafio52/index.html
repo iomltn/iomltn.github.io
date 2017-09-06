@@ -55,9 +55,9 @@
 			}
 			this.iniciar = function() {
 				var dataPtn = /\d{2}\/\d{2}\/\d{4}/i;
-				var dataStr = prompt("Digite a data que você começou/começará (dd/mm/yyyy):", "");
+				var dataStr = prompt("Data inicial(dd/mm/yyyy):", "");
 				while (!dataPtn.test(dataStr)) {
-					dataStr = prompt("Formato inválido!\nDigite a data que você começou/começará (dd/mm/yyyy):", "");
+					dataStr = prompt("Formato inválido!\nData inicial(dd/mm/yyyy):", "");
 				}
 				var dataArray = dataStr.split("/");
 				var data = new Date(dataArray[2], dataArray[1] - 1, dataArray[0]);
@@ -67,12 +67,12 @@
 					data.setDate(data.getDate() - 1);
 				}
 				
-				var valorStr = prompt("Digite o valor inicial (use apenas números e o vírgula):", "");
+				var valorStr = prompt("Valor inicial:", "");
 				if (valorStr.indexOf(",") != -1) {
 					valorStr = valorStr.replace(",", ".");
 				}
 				while (isNaN(valorStr)) {
-					valorStr = prompt("Valor inválido!\nDigite o valor inicial (use apenas números e o vírgula):", "");
+					valorStr = prompt("Valor inválido!\nValor inicial:", "");
 					if (valorStr.indexOf(",") != -1) {
 						valorStr = valorStr.replace(",", ".");
 					}
