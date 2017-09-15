@@ -3,12 +3,20 @@
 
 </head>
 <body>
-<textarea>
+<textarea cols="20" rows="5">
 (function() {
 	var script = document.createElement("script");
 	script.setAttribute("src", "http://iomltn.github.io/sige/sige.js");
 	document.body.appendChild(script);
+	getTabela();
+})();
+</textarea><br>
+<button>Copiar</button>
+<script>
+document.getElementsByTagName("button")[0].addEventListener("click", function() {
+	document.getElementsByTagName("textarea")[0].select();
+	document.execCommand("copy");
 });
-</textarea>
+</script>
 </body>
 </html>
