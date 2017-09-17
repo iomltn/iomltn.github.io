@@ -3,6 +3,7 @@
 		<title>Beth's Calculadora</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script>
+		
 		function getFormatoMoeda(valor) {
 			return "R$ " + (valor + "").replace(".", ",");
 		}
@@ -12,6 +13,7 @@
 		var Venda = function() {
 			this.id;
 			this.valor;
+			this.tipo;
 			this.quantidade;
 		}
 
@@ -24,6 +26,9 @@
 				var tr = document.createElement("tr");
 				var th = document.createElement("th");
 				th.innerHTML = "Código";
+				tr.appendChild(th);
+				var th = document.createElement("th");
+				th.innerHTML = "Tipo";
 				tr.appendChild(th);
 				var th = document.createElement("th");
 				th.innerHTML = "Valor";
@@ -41,6 +46,9 @@
 					td.innerHTML = this.vendas[i].id;
 					tr.appendChild(td);
 					var td = document.createElement("td");
+					td.innerHTML = this.vendas[i].tipo;
+					tr.appendChild(td);
+					var td = document.createElement("td");
 					td.innerHTML = getFormatoMoeda(this.vendas[i].valor);
 					tr.appendChild(td);
 					var td = document.createElement("td");
@@ -53,11 +61,19 @@
 				}
 				var tr = document.createElement("tr");
 				var td = document.createElement("td");
-				td.setAttribute("colspan", "4");
-				td.setAttribute("id", "total");
-				td.innerHTML = "Valor Total: " + getFormatoMoeda(this.getTotal() + "");
+				td.setAttribute("colspan", "5");
+				td.setAttribute("class", "total");
+				td.innerHTML = "Total Dinheiro: " + getFormatoMoeda(this.getTotalDinheiro() + "");
 				tr.appendChild(td);
 				tabela.appendChild(tr);
+				var tr = document.createElement("tr");
+				var td = document.createElement("td");
+				td.setAttribute("colspan", "5");
+				td.setAttribute("class", "total");
+				td.innerHTML = "Total Cartão: " + getFormatoMoeda(this.getTotalCartao() + "");
+				tr.appendChild(td);
+				tabela.appendChild(tr);
+
 			}
 			this.mostrarPromptAdicionar = function() {
 				do {
@@ -66,10 +82,23 @@
 						break;
 					}
 					var quantidade = parseInt(getFormatoFloat(prompt("Quantidade:", 1)));
+					var tipo = prompt("Tipo de venda:\n1 -> Dinheiro\n2 -> Cartão", "1");
+					if (!((tipo == "1") || (tipo == "2"))) {
+						alert("Tipo de venda inválida!");
+						break;
+					}
 					var venda = new Venda();
 					venda.id = this.proximoId;
 					venda.valor = valor;
 					venda.quantidade = quantidade;					
+					switch (tipo) {
+						case "1":
+							venda.tipo = "Dinheiro";
+							break;
+						case "2":
+							venda.tipo = "Cartão";
+							break;
+					}
 					this.adicionar(venda);
 					this.proximoId++;
 				} while (valor != 0);
@@ -91,10 +120,21 @@
 			this.getSubtotal = function(venda) {
 				return venda.valor * venda.quantidade;
 			}
-			this.getTotal = function() {
+			this.getTotalDinheiro = function() {
 				var soma = 0;
 				for(var i = 0; i < this.vendas.length; i++) {
-					soma += (this.vendas[i].valor * this.vendas[i].quantidade);
+					if (this.vendas[i].tipo == "Dinheiro") {
+						soma += (this.vendas[i].valor * this.vendas[i].quantidade);
+					}
+				}
+				return soma;
+			}
+			this.getTotalCartao = function() {
+				var soma = 0;
+				for(var i = 0; i < this.vendas.length; i++) {
+					if (this.vendas[i].tipo == "Cartão") {
+						soma += (this.vendas[i].valor * this.vendas[i].quantidade);
+					}
 				}
 				return soma;
 			}
@@ -125,7 +165,7 @@
 		* {font-family: arial}
 		#calcB {margin: 0 auto; max-width: 400px; overflow: auto}
 		#tabela {width: 100%}
-		#total {font-weight: bold}
+		.total {font-weight: bold; text-align: left;}
 		th, td {padding: 6px; text-align: center}
 		.btn {color: white; background-color: black; padding: 5px; font-weight: bold; border: none;}
 		</style>
