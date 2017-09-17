@@ -88,3 +88,4 @@ function msige() {
 	}
 	pp.document.write("</table><p>");
 }
+msige();
