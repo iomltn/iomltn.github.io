@@ -19,7 +19,7 @@ function getNome(tr) {
 
 for (var i = 3; i < dE.length; i++) {
 	var idDisciplina = dE[i].getElementsByTagName("input")[0].value.trim();
-	var nomeDisciplina = dE[i].childNodes[0].nodeValue.trim()
+	var nomeDisciplina = dE[i].childNodes[0].nodeValue.trim();
 	switch (idDisciplina) {
 		case "530":
 			nomeDisciplina = "EDUCAÇÃO FÍSICA";
