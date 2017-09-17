@@ -59,7 +59,7 @@ for (var i = 3; i < trs.length; i++) {
  }
 }
 
-
+function chamar() {
 var pp = window.open("", "Notas");
 pp.document.write("<style>td, th {padding: 5px; border: font-size: 10px; solid 1px gray; text-align: center; font-family: arial}</style>");
 pp.document.write("<table border=\"1\" style=\"border-collapse: collapse\">");
@@ -81,3 +81,4 @@ for (var i = 0; i < alunos.length; i++) {
 	pp.document.write("</tr>");
 }
 pp.document.write("</table><p>");
+}
