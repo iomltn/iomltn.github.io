@@ -53,7 +53,7 @@ for (var i = 3; i < trs.length; i++) {
 	}
 }
 
-function getNota(idAluno, idDisciplina, alunos, disciplinas) {
+function getNota(idAluno, idDisciplina, idAluno, idDisciplina) {
 	var str = "nr_Nota_" + alunos[i][0] + "_" + disciplinas[j][0];
 	var nota = document.getElementById(str);
 	return nota.value;
@@ -75,7 +75,7 @@ function chamar() {
 		pp.document.write("<td>" + alunos[i][0] + "</td>");
 		pp.document.write("<td style=\"text-align: left\">" + alunos[i][1] + "</td>");
 		for (var j = 0; j < disciplinas.length; j++) {
-			var nota = getNota(alunos[i][0], disciplinas[j][0], alunos, disciplinas);
+			var nota = getNota(alunos[i][0], disciplinas[j][0], alunos[i][0], disciplinas[j][0]);
 			pp.document.write("<td>" + nota + "</td>");
 		}
 		pp.document.write("</tr>");
