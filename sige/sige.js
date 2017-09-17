@@ -46,10 +46,11 @@ for (var i = 3; i < dE.length; i++) {
 }
 
 for (var i = 3; i < trs.length; i++) {
- if ((linha = getNome(trs[i])) != 0) {
-  var tmp = linha.split("-");
-  alunos.push([tmp[0].trim(), tmp[1].trim()]);
- }
+	var linha = getNome(trs[i]);
+	if (linha != 0) {
+		var tmp = linha.split("-");
+		alunos.push([tmp[0].trim(), tmp[1].trim()]);
+	}
 }
 
 function getNota(idAluno, idDisciplina, alunos, disciplinas) {
