@@ -69,7 +69,7 @@ function msige() {
 	pp.document.write("<title>Notas - MSige</title>");
 	pp.document.write("<style>td, th {padding: 5px; border: font-size: 10px; solid 1px gray; text-align: center; font-family: arial}</style>");
 	pp.document.write("<table border=\"1\" style=\"border-collapse: collapse\">");
-	pp.document.write("<tr><th colspan=\"2\">" + turma.toUpperCase() + "</th><th colspan=\"" + disciplinas.length + "\">" + periodo.toUpperCase() + "</th></tr>");
+	pp.document.write("<tr><th colspan=\"3\">" + turma.toUpperCase() + "</th><th colspan=\"" + disciplinas.length + "\">" + periodo.toUpperCase() + "</th></tr>");
 	pp.document.write("<tr>");
 	pp.document.write("<th>nº</th><th>MATRÍCULA SIGE</th><th>ALUNOS</th>");
 	for (var i = 0; i < disciplinas.length; i++) {
