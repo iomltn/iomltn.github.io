@@ -45,13 +45,6 @@ for (var i = 3; i < dE.length; i++) {
 	disciplinas.push([idDisciplina, nomeDisciplina]);
 }
 
-function getNota(idAluno, idDisciplina, alunos, disciplinas) {
-	var str = "nr_Nota_" + alunos[i][0] + "_" + disciplinas[j][0];
-	var nota = document.getElementById(str);
-	return nota.value;
-}
-
-
 for (var i = 3; i < trs.length; i++) {
  if ((linha = getNome(trs[i])) != 0) {
   var tmp = linha.split("-");
@@ -59,26 +52,32 @@ for (var i = 3; i < trs.length; i++) {
  }
 }
 
-function chamar() {
-var pp = window.open("", "Notas");
-pp.document.write("<style>td, th {padding: 5px; border: font-size: 10px; solid 1px gray; text-align: center; font-family: arial}</style>");
-pp.document.write("<table border=\"1\" style=\"border-collapse: collapse\">");
-pp.document.write("<tr><th colspan=\"2\">" + turma.toUpperCase() + "</th><th colspan=\"" + disciplinas.length + "\">" + periodo.toUpperCase() + "</th></tr>");
-pp.document.write("<tr>");
-pp.document.write("<th>MATRÍCULA SIGE</th><th>ALUNOS</th>");
-for (var i = 0; i < disciplinas.length; i++) {
-	pp.document.write("<th>" + disciplinas[i][1] + "</th>");
+function getNota(idAluno, idDisciplina, alunos, disciplinas) {
+	var str = "nr_Nota_" + alunos[i][0] + "_" + disciplinas[j][0];
+	var nota = document.getElementById(str);
+	return nota.value;
 }
-pp.document.write("</tr>");
-for (var i = 0; i < alunos.length; i++) {
+
+function chamar() {
+	var pp = window.open("", "Notas");
+	pp.document.write("<style>td, th {padding: 5px; border: font-size: 10px; solid 1px gray; text-align: center; font-family: arial}</style>");
+	pp.document.write("<table border=\"1\" style=\"border-collapse: collapse\">");
+	pp.document.write("<tr><th colspan=\"2\">" + turma.toUpperCase() + "</th><th colspan=\"" + disciplinas.length + "\">" + periodo.toUpperCase() + "</th></tr>");
 	pp.document.write("<tr>");
-	pp.document.write("<td>" + alunos[i][0] + "</td>");
-	pp.document.write("<td style=\"text-align: left\">" + alunos[i][1] + "</td>");
-	for (var j = 0; j < disciplinas.length; j++) {
-		var nota = getNota(alunos[i][0], disciplinas[j][0], alunos, disciplinas);
-		pp.document.write("<td>" + nota + "</td>");
+	pp.document.write("<th>MATRÍCULA SIGE</th><th>ALUNOS</th>");
+	for (var i = 0; i < disciplinas.length; i++) {
+		pp.document.write("<th>" + disciplinas[i][1] + "</th>");
 	}
 	pp.document.write("</tr>");
-}
-pp.document.write("</table><p>");
+	for (var i = 0; i < alunos.length; i++) {
+		pp.document.write("<tr>");
+		pp.document.write("<td>" + alunos[i][0] + "</td>");
+		pp.document.write("<td style=\"text-align: left\">" + alunos[i][1] + "</td>");
+		for (var j = 0; j < disciplinas.length; j++) {
+			var nota = getNota(alunos[i][0], disciplinas[j][0], alunos, disciplinas);
+			pp.document.write("<td>" + nota + "</td>");
+		}
+		pp.document.write("</tr>");
+	}
+	pp.document.write("</table><p>");
 }
