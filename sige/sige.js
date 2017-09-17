@@ -1,3 +1,8 @@
+/*
+* Script para extrair dados avaliativos do SIGE
+* by Milton Rodrigues - iomltn@gmail.com
+*/
+
 var periodo = document.getElementsByName("ds_Periodo")[0].value;
 var trs = document.getElementsByTagName("tr");
 var dE = document.getElementsByClassName("subTituloBold");
@@ -61,6 +66,7 @@ function getNota(idAluno, idDisciplina) {
 
 function msige() {
 	var pp = window.open("", "Notas");
+	pp.document.write("<title>Notas - MSige</title>");
 	pp.document.write("<style>td, th {padding: 5px; border: font-size: 10px; solid 1px gray; text-align: center; font-family: arial}</style>");
 	pp.document.write("<table border=\"1\" style=\"border-collapse: collapse\">");
 	pp.document.write("<tr><th colspan=\"2\">" + turma.toUpperCase() + "</th><th colspan=\"" + disciplinas.length + "\">" + periodo.toUpperCase() + "</th></tr>");
