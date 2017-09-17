@@ -113,11 +113,11 @@
 				calc.atualizarTabela(tabela);
 			});
 		}
-		window.onclose = function() {
-			if (confirm("Se você sair da página, perderá todas as vendas adicinadas!\nTem certeza que quer fazer isso?")) {
+		window.onbeforeunload = function() {
+			if (confirm()) {
 
 			} else {
-				return null;
+				return 1;
 			}
 		}
 		</script>
