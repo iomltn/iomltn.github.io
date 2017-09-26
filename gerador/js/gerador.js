@@ -15,158 +15,261 @@ window.onload = function() {
 		return string[0].toLowerCase() + string.substring(1, string.length);
 	}
 	var tA0 = document.getElementById("origem");
-	var tA = document.getElementById("destino");
-	var button = document.getElementById("gerar");
-	button.addEventListener("click", function() {
+	
+	function getImportsBean() {
 		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
-		tA.value = "";
+		var strJava = "";
 		// classe bean
 		for (var i = 1; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			tA.value += "import javafx.beans.property." + c[0] + ";\n";
-			tA.value += "import javafx.beans.property." + c[2] + ";\n";
-		}
-		tA.value += "\n";
-		tA.value += "public class " + classe + " {\n";
-		for (var i = 1; i < linhas.length; i++) {
-			var c = linhas[i].split(" ");
-			tA.value += "\tprivate " + c[0] + " " + c[1] + " = null;\n";
-		}
-		tA.value += "\tpublic " + classe + "() {\n";
-		for (var i = 1; i < linhas.length; i++) {
-			var c = linhas[i].split(" ");
-			tA.value += "\t\tthis." + c[1] + " = new " + c[2] + "();\n";
-		}
-		tA.value += "\t}\n";
-		for (var i = 1; i < linhas.length; i++) {
-			var c = linhas[i].split(" ");
-			tA.value += "\tpublic void set" + pMai(c[1]) + "(" + c[3] + " " + c[1] +") {\n";
-			tA.value += "\t\tthis." + c[1] + ".set(" + c[1] + ");\n";
-			tA.value += "\t}\n";
-			tA.value += "\tpublic " + c[3] + " get" + pMai(c[1]) + "() {\n";
-			tA.value += "\t\treturn this." + c[1] + ".get();\n";
-			tA.value += "\t}\n";
-		}
-		tA.value += "}\n\n";
-
-		// classe dao
-		tA.value += "import java.util.List;\nimport java.util.ArrayList;\nimport java.sql.Connection;\nimport java.sql.Statement;\nimport java.sql.PreparedStatement;\nimport java.sql.SQLException;\nimport java.sql.ResultSet;\n\n";
-		// construtor		
-		tA.value += "public class " + classe + "DAO {\n";
-		tA.value += "\tpublic " + classe + "DAO() {\n";
-		tA.value += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
-		tA.value += "\t\ttry {\n";
-		tA.value += "\t\t\tStatement stmt = conexao.createStatement();\n";
-		tA.value += "\t\t\tString sql = \"create table if not exists " + tabelaSql + "(";
-		// linha do id
-		var c1 = linhas[1].split(" ");
-		tA.value += c1[1] + " " + c1[4] + " primary key autoincrement not null, ";
-		for (var i = 2; i < linhas.length; i++) {
-			var c = linhas[i].split(" ");
-			tA.value += c[1] + 	" " + c[4] + " not null";
-			if (i < linhas.length - 1) {
-				tA.value += ", ";
+			if ((!(strJava.indexOf(c[0]) != -1 && strJava.indexOf(c[2]) != -1)) && c[0].indexOf("Property") != -1) {
+				strJava += "import javafx.beans.property." + c[0] + ";\n";
+				strJava += "import javafx.beans.property." + c[2] + ";\n";
 			}
 		}
-		tA.value += ")\";\n";
-		tA.value += "\t\t\tstmt.executeUpdate(sql);\n";
-		tA.value += "\t\t\tstmt.close();\n";
-		tA.value += "\t\t} catch (SQLException e) {\n";
-		tA.value += "\t\t\te.printStackTrace();\n";
-		tA.value += "\t\t}\n";
-		tA.value += "\t}\n";
+		return strJava;
+	}
+	
+	function getClasseBean() {
+		var linhas = tA0.value.split("\n");
+		var temp = linhas[0].split(" ");
+		var classe = temp[0];
+		var tabelaSql = temp[1];
+		var strJava = "";
+		// classe bean
+		strJava += getImportsBean();		
+		strJava += "\n";
+		strJava += "public class " + classe + " {\n";
+		for (var i = 1; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			strJava += "\tprivate " + c[0] + " " + c[1] + ";\n";
+		}
+		strJava += "\tpublic " + classe + "() {\n";
+		for (var i = 1; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			strJava += "\t\tthis." + c[1] + " = new " + c[2] + "();\n";
+		}
+		strJava += "\t}\n";
+		for (var i = 1; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			strJava += "\tpublic void set" + pMai(c[1]) + "(" + c[3] + " " + c[1] +") {\n";
+			strJava += "\t\tthis." + c[1] + ".set(" + c[1] + ");\n";
+			strJava += "\t}\n";
+			strJava += "\tpublic " + c[3] + " get" + pMai(c[1]) + "() {\n";
+			strJava += "\t\treturn this." + c[1] + ".get();\n";
+			strJava += "\t}\n";
+		}
+		strJava += "}\n\n";
+		return strJava;
+	}
+	function getClasseDAO() {
+		var linhas = tA0.value.split("\n");
+		var temp = linhas[0].split(" ");
+		var classe = temp[0];
+		var tabelaSql = temp[1];
+		var strJava = "";		
+		// classe dao
+		strJava += "import java.util.List;\nimport java.util.ArrayList;\nimport java.sql.Connection;\nimport java.sql.Statement;\nimport java.sql.PreparedStatement;\nimport java.sql.SQLException;\nimport java.sql.ResultSet;\n\n";
+		// construtor		
+		strJava += "public class " + classe + "DAO {\n";
+		strJava += "\tpublic " + classe + "DAO() {\n";
+		strJava += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
+		strJava += "\t\ttry {\n";
+		strJava += "\t\t\tStatement stmt = conexao.createStatement();\n";
+		strJava += "\t\t\tString sql = \"create table if not exists " + tabelaSql + "(\n";
+		// linha do id
+		var c1 = linhas[1].split(" ");
+		strJava += "\t\t\t\t" + c1[1] + " " + c1[4] + "primary key autoincrement not null, \n";
+		for (var i = 2; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			strJava += "\t\t\t\t" + c[1] + 	" " + c[4] + " not null";
+			if (i < linhas.length - 1) {
+				strJava += ", \n";
+			}
+		}
+		strJava += ")\";\n";
+		strJava += "\t\t\tstmt.executeUpdate(sql);\n";
+		strJava += "\t\t\tstmt.close();\n";
+		strJava += "\t\t} catch (SQLException e) {\n";
+		strJava += "\t\t\te.printStackTrace();\n";
+		strJava += "\t\t}\n";
+		strJava += "\t}\n";
 		// cadastrar
-		tA.value += "\tpublic void cadastrar(" + classe + " " + pMin(classe) + ") {\n";
-		tA.value += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
-		tA.value += "\t\ttry {\n";
-		tA.value += "\t\t\tString sql = \"insert into " + tabelaSql + " (";
+		strJava += "\tpublic void cadastrar(" + classe + " " + pMin(classe) + ") {\n";
+		strJava += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
+		strJava += "\t\ttry {\n";
+		strJava += "\t\t\tString sql = \"insert into " + tabelaSql + " (";
 		var temp = "";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			tA.value += c[1];
+			strJava += c[1];
 			temp += "?";
 			if (i < linhas.length - 1) {
-				tA.value += ", ";
+				strJava += ", ";
 				temp += ", ";
 			}	
 		}
-		tA.value += ") values (" + temp + ")\";\n";
-		tA.value += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
+		strJava += ") values (" + temp + ")\";\n";
+		strJava += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			tA.value += "\t\t\tstmt.set" + c[5] + "(" + (i-1) + ", " + pMin(classe) + ".get" + pMai(c[1]) + "());\n";
+			strJava += "\t\t\tstmt.set" + c[5] + "(" + (i-1) + ", " + pMin(classe) + ".get" + pMai(c[1]) + "());\n";
 		}
-		tA.value += "\t\t\tstmt.execute();\n";
-		tA.value += "\t\t\tstmt.close();\n";
-		tA.value += "\t\t} catch (SQLException e) {\n";
-		tA.value += "\t\t\te.printStackTrace();\n";
-		tA.value += "\t\t}\n";
-		tA.value += "\t}\n";
+		strJava += "\t\t\tstmt.execute();\n";
+		strJava += "\t\t\tstmt.close();\n";
+		strJava += "\t\t} catch (SQLException e) {\n";
+		strJava += "\t\t\te.printStackTrace();\n";
+		strJava += "\t\t}\n";
+		strJava += "\t}\n";
 		// remover
-		tA.value += "\tpublic void remover(" + c1[3] + " " + c1[1] + ") {\n";
-		tA.value += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
-		tA.value += "\t\ttry {\n";
-		tA.value += "\t\t\tString sql = \"delete from " + tabelaSql + " where " + c1[1] + " = ?\";\n";
-		tA.value += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
-		tA.value += "\t\t\tstmt.set" + c1[5] + "(1, " + c1[1] + ");\n";
-		tA.value += "\t\t\tstmt.execute();\n";
-		tA.value += "\t\t\tstmt.close();\n";
-		tA.value += "\t\t} catch (SQLException e) {\n";
-		tA.value += "\t\t\te.printStackTrace();\n";
-		tA.value += "\t\t}\n";
-		tA.value += "\t}\n";
+		strJava += "\tpublic void remover(" + c1[3] + " " + c1[1] + ") {\n";
+		strJava += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
+		strJava += "\t\ttry {\n";
+		strJava += "\t\t\tString sql = \"delete from " + tabelaSql + " where " + c1[1] + " = ?\";\n";
+		strJava += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
+		strJava += "\t\t\tstmt.set" + c1[5] + "(1, " + c1[1] + ");\n";
+		strJava += "\t\t\tstmt.execute();\n";
+		strJava += "\t\t\tstmt.close();\n";
+		strJava += "\t\t} catch (SQLException e) {\n";
+		strJava += "\t\t\te.printStackTrace();\n";
+		strJava += "\t\t}\n";
+		strJava += "\t}\n";
 		// alterar
-		tA.value += "\tpublic void alterar(" + classe + " " + pMin(classe) + ") {\n";
-		tA.value += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
-		tA.value += "\t\ttry {\n";
-		tA.value += "\t\t\tString sql = \"update " + tabelaSql + " ";
+		strJava += "\tpublic void alterar(" + classe + " " + pMin(classe) + ") {\n";
+		strJava += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
+		strJava += "\t\ttry {\n";
+		strJava += "\t\t\tString sql = \"update " + tabelaSql + " ";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			tA.value += "set " + c[1] + " = ?";
+			strJava += "set " + c[1] + " = ?";
 			if (i < linhas.length - 1) {
-				tA.value += ", ";
+				strJava += ", ";
 			}
 		}
-		tA.value += " where " + c1[1] + " = ?;\";\n";
-		tA.value += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
+		strJava += " where " + c1[1] + " = ?;\";\n";
+		strJava += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			tA.value += "\t\t\tstmt.set" + c[5] + "(" + (i-1) + ", " + pMin(classe) + ".get" + pMai(c[1]) + "());\n"; 
+			strJava += "\t\t\tstmt.set" + c[5] + "(" + (i-1) + ", " + pMin(classe) + ".get" + pMai(c[1]) + "());\n"; 
 		}
-		tA.value += "\t\t\tstmt.set" + c1[5] + "(" + (linhas.length-1) + ", " + pMin(classe) + ".get" + pMai(c1[1]) + "());\n";
-		tA.value += "\t\t\tstmt.execute();\n";
-		tA.value += "\t\t\tstmt.close();\n";
-		tA.value += "\t\t} catch (SQLException e) {\n";
-		tA.value += "\t\t\te.printStackTrace();\n";
-		tA.value += "\t\t}\n";
-		tA.value += "\t}\n";
+		strJava += "\t\t\tstmt.set" + c1[5] + "(" + (linhas.length-1) + ", " + pMin(classe) + ".get" + pMai(c1[1]) + "());\n";
+		strJava += "\t\t\tstmt.execute();\n";
+		strJava += "\t\t\tstmt.close();\n";
+		strJava += "\t\t} catch (SQLException e) {\n";
+		strJava += "\t\t\te.printStackTrace();\n";
+		strJava += "\t\t}\n";
+		strJava += "\t}\n";
 		// pesquisar
 		var c2 = linhas[2].split(" ");
-		tA.value += "\tpublic List<" + classe + "> pesquisar(" + c2[3] + " query) {\n";
- 		tA.value += "\t\tList<" + classe + "> " + tabelaSql + " = new ArrayList<" + classe + ">();\n";
-		tA.value += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
-		tA.value += "\t\ttry {\n";
-		tA.value += "\t\t\tString sql = \"select * from " + tabelaSql + " where " + c2[1] + " like ? order by " + c2[1] +"\";\n";
-		tA.value += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
-		tA.value += "\t\t\tstmt.set" + c2[5] + "(1, query + \"%\");\n";
-		tA.value += "\t\t\tResultSet rs = stmt.executeQuery();\n";
-		tA.value += "\t\t\twhile (rs.next()) {\n";
-		tA.value += "\t\t\t\t" + classe + " " + pMin(classe) + " = new " + classe + "();\n";
+		strJava += "\tpublic List<" + classe + "> pesquisar(" + c2[3] + " query) {\n";
+ 		strJava += "\t\tList<" + classe + "> " + tabelaSql + " = new ArrayList<" + classe + ">();\n";
+		strJava += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
+		strJava += "\t\ttry {\n";
+		strJava += "\t\t\tString sql = \"select * from " + tabelaSql + " where " + c2[1] + " like ? order by " + c2[1] +"\";\n";
+		strJava += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
+		strJava += "\t\t\tstmt.set" + c2[5] + "(1, query + \"%\");\n";
+		strJava += "\t\t\tResultSet rs = stmt.executeQuery();\n";
+		strJava += "\t\t\twhile (rs.next()) {\n";
+		strJava += "\t\t\t\t" + classe + " " + pMin(classe) + " = new " + classe + "();\n";
 		for (var i = 1; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			tA.value += "\t\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(rs.get" + c[5] + "(\"" + c[1] + "\"));\n";
+			strJava += "\t\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(rs.get" + c[5] + "(\"" + c[1] + "\"));\n";
 		}
-		tA.value += "\t\t\t\t" + tabelaSql + ".add(" + pMin(classe) + ");\n";
-		tA.value += "\t\t\t}\n";
-		tA.value += "\t\t\tstmt.close();\n";
-		tA.value += "\t\t} catch (SQLException e) {\n";
-		tA.value += "\t\t\te.printStackTrace();\n";
-		tA.value += "\t\t}\n";
-		tA.value += "\t\treturn " + tabelaSql + ";\n";
-		tA.value += "\t}\n";
-		tA.value += "}\n";
+		strJava += "\t\t\t\t" + tabelaSql + ".add(" + pMin(classe) + ");\n";
+		strJava += "\t\t\t}\n";
+		strJava += "\t\t\tstmt.close();\n";
+		strJava += "\t\t} catch (SQLException e) {\n";
+		strJava += "\t\t\te.printStackTrace();\n";
+		strJava += "\t\t}\n";
+		strJava += "\t\treturn " + tabelaSql + ";\n";
+		strJava += "\t}\n";
+		strJava += "}\n";
+		return strJava;
+	};
+	function getClasseApplication() {
+		var linhas = tA0.value.split("\n");
+		var temp = linhas[0].split(" ");
+		var classe = temp[0];
+		var tabelaSql = temp[1];
+		var strJava = "";
+		strJava += "import javafx.application.Application;\n";
+		strJava += "import javafx.stage.Stage;\n";
+		strJava += "import javafx.scene.Scene;\n";
+		strJava += "import javafx.scene.control.Label;\n";
+		strJava += "import javafx.scene.control.TextField;\n";
+		strJava += "import javafx.scene.control.Button;\n\n";
+		strJava += "public class J" + classe + " extends Application {\n";
+		for (var i = 2; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			strJava += "\tLabel l" + pMai(c[1]) + ";\n";
+			strJava += "\tTextField tf" + pMai(c[1]) + ";\n";
+		}
+		strJava += "\tButton btnCadastrarAlterar;\n";
+		strJava += "\tButton btnExcluir;\n";
+		strJava += "\tButton btnCancelar;\n";
+		strJava += "\n\t@Override\n\tpublic void start(Stage stage) {\n";
+		strJava += "\t\tstage.setTitle(\"" + classe + "\");\n";
+		for (var i = 2; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			strJava += "\t\tl" + pMai(c[1]) + " = new Label(\"" + pMai(c[1]) + "\");\n";
+			strJava += "\t\ttf" + pMai(c[1]) + " = new TextField();\n";
+		}
+		strJava += "\t\tbtnCadastrarAlterar = new Button(\"Cadastrar\");\n";
+		strJava += "\t\tbtnExcluir = new Button(\"Excluir\");\n";
+		strJava += "\t\tbtnCancelar = new Button(\"Cancelar\");\n";
+		strJava += "\t\tbtnCadastrarAlterar.setOnAction(e -> {\n";
+		strJava += "\t\t\t" + classe + " " + pMin(classe) + " = new " + classe + "();\n";
+		strJava += "\t\t\t" + classe + "DAO " + pMin(classe) + "DAO = new " + classe + "DAO();\n";
+		for (var i = 2; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			strJava += "\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(tf" + pMai(c[1]) + ".getText());\n";
+		}
+		strJava += "\t\t\t" + pMin(classe) + "DAO.cadastrar(" + pMin(classe) + ");\n";
+		strJava += "\t\t});\n";
+		strJava += "\t\tGridPane grid = new GridPane();\n";
+		strJava += "\t\tGridPane grid = new GridPane();\n";
+		strJava += "\t\tgrid.setPadding(new Insets(10));\n";
+		strJava += "\t\tgrid.setVgap(10);\n";
+		strJava += "\t\tgrid.setHgap(10);\n";
+		for (var i = 2; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			strJava += "\t\t\grid.add(l" + pMai(c[1]) + ", 0, " + (i - 1) + ");\n";
+			strJava += "\t\t\grid.add(tf" + pMai(c[1]) + ", 1, " + (i - 1) + ");\n";
+		}
+		strJava += "\t\tScene scene = new Scene(grid);\n";
+		strJava += "\t\tstage.setScene(scene);\n";
+		strJava += "\t\tstage.show;\n";
+		strJava += "\t}\n";
+		strJava += "\tpublic static void main(String[] args) {\n";
+		strJava += "\t\tlaunch(args);\n";
+		strJava += "\t}\n";
+		strJava += "}";
+		return strJava;
+	}
+	var btnBean = document.getElementById("gerarBean");
+	var btnDAO = document.getElementById("gerarDAO");
+	var btnApplication = document.getElementById("gerarApplication");
+	
+	
+	btnBean.addEventListener("click", function() {
+		var wbean = window.open("", "");
+		wbean.document.write("<textarea style=\"width: 100%; height: 100%\">");
+		wbean.document.write(getClasseBean());
+		wbean.document.write("</textarea>");
+	});
+	btnDAO.addEventListener("click", function() {
+		var wdao = window.open("", "");
+		wdao.document.write("<textarea style=\"width: 100%; height: 100%\">");
+		wdao.document.write(getClasseDAO());
+		wdao.document.write("</textarea>");
+	});
+	btnApplication.addEventListener("click", function() {
+		var wdao = window.open("", "");
+		wdao.document.write("<textarea style=\"width: 100%; height: 100%\">");
+		wdao.document.write(getClasseApplication());
+		wdao.document.write("</textarea>");
 	});
 }
