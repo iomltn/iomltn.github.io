@@ -45,7 +45,7 @@
 				return this.formatar(Math.round((this.altura / 4) * 10000) / 100);
 			}
 			this.getPe = function() {
-				return this.formatar(Math.round((this.altura / 6) * 10000) / 100);
+				return this.formatar(Math.round((this.altura / 7) * 10000) / 100);
 			}
 			this.getPeito = function() {
 				return this.formatar(Math.round((this.altura / 4) * 10000) / 100);
@@ -66,6 +66,9 @@
 			this.getTesta = function() {
 				return this.formatar(Math.round((parseFloat(this.getFace().replace(",", ".")) / 3) * 100) / 100);
 			}
+			this.getCotoveloMao = function() {
+				return this.formatar(Math.round((this.altura / 4) * 10000) / 100);
+			}
 		}
 		window.onload = function() {
 			var hVM = new HomemVitruvianoModel();
@@ -85,6 +88,7 @@
 				nariz.innerHTML = hVM.getNariz() + " cm";
 				orelha.innerHTML = hVM.getOrelha() + " cm";
 				testa.innerHTML = hVM.getTesta() + " cm";
+				cotoveloMao.innerHTML = hVM.getCotoveloMao() + " cm";
 			});
 		}
 		</script>
@@ -156,7 +160,7 @@
 					</td>
 					<td>
 						<span class="tdresposta" id="pe"></span><br>
-						<small>(1/6 da altura) </small>
+						<small>(1/7 da altura) </small>
 					</td>
 				</tr>
 				<tr>
@@ -175,6 +179,15 @@
 					<td>
 						<span class="tdresposta" id="bracosAbertos"></span><br>
 						<small>(altura do corpo) </small>
+					</td>
+				</tr>
+				<tr>
+					<td class="tdcampo w3-right">
+						Cotovelo - mão:<br>		
+					</td>
+					<td>
+						<span class="tdresposta" id="cotoveloMao"></span><br>
+						<small>Do cotovelo à ponta da mão (1/4 da altura) </small>
 					</td>
 				</tr>
 				<tr>
