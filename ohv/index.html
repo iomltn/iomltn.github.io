@@ -51,7 +51,7 @@
 				return this.formatar(Math.round((this.altura / 4) * 10000) / 100);
 			}
 			this.getBracosAbertos = function() {
-				return this.formatar(this.altura);
+				return this.formatar(Math.round(this.altura * 100) / 100);
 			}
 			this.getQueixoNarinas = function() {
 				console.log(this.getFace());
