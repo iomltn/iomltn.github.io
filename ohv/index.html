@@ -30,10 +30,10 @@
 				return (valor + "").replace(".", ",");
 			}
 			this.getFace = function() {
-				return this.formatar(this.altura * 10);
+				return this.formatar(Math.round(this.altura * 1000) / 100);
 			}
 			this.getPalma = function() {
-				return this.formatar(this.altura * 10);
+				return this.formatar(Math.round(this.altura * 1000) / 100);
 			}
 			this.getCabeca = function() {
 				return this.formatar(Math.round((this.altura / 8) * 10000) / 100);
