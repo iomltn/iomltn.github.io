@@ -30,65 +30,175 @@
 				return (valor + "").replace(".", ",");
 			}
 			this.getFace = function() {
-				return this.formatar(Math.round(this.altura * 1000) / 100);
+				return Math.round(this.altura * 1000) / 100;
 			}
 			this.getPalma = function() {
-				return this.formatar(Math.round(this.altura * 1000) / 100);
+				return Math.round(this.altura * 1000) / 100;
 			}
 			this.getCabeca = function() {
-				return this.formatar(Math.round((this.altura / 8) * 10000) / 100);
+				return Math.round((this.altura / 8) * 10000) / 100;
 			}
 			this.getPescocoCabelo = function() {
-				return this.formatar(Math.round((this.altura / 6) * 10000) / 100);
+				return Math.round((this.altura / 6) * 10000) / 100;
 			}
 			this.getPeitoCabeca = function() {
-				return this.formatar(Math.round((this.altura / 4) * 10000) / 100);
+				return Math.round((this.altura / 4) * 10000) / 100;
 			}
 			this.getPe = function() {
-				return this.formatar(Math.round((this.altura / 7) * 10000) / 100);
+				return Math.round((this.altura / 6) * 10000) / 100;
 			}
 			this.getPeito = function() {
-				return this.formatar(Math.round((this.altura / 4) * 10000) / 100);
+				return Math.round((this.altura / 4) * 10000) / 100;
 			}
 			this.getBracosAbertos = function() {
-				return this.formatar(Math.round(this.altura * 100) / 100);
+				return Math.round(this.altura * 100) / 100;
 			}
 			this.getQueixoNarinas = function() {
-				console.log(this.getFace());
-				return this.formatar(Math.round((parseFloat(this.getFace().replace(",", ".")) / 3) * 100) / 100);
+				return Math.round((this.getFace() / 3) * 100) / 100;
 			}
 			this.getNariz = function() {
-				return this.formatar(Math.round((parseFloat(this.getFace().replace(",", ".")) / 3) * 100) / 100);
+				return Math.round((this.getFace() / 3) * 100) / 100;
 			}
 			this.getOrelha = function() {
-				return this.formatar(Math.round((parseFloat(this.getFace().replace(",", ".")) / 3) * 100) / 100);
+				return Math.round((this.getFace() / 3) * 100) / 100;
 			}
 			this.getTesta = function() {
-				return this.formatar(Math.round((parseFloat(this.getFace().replace(",", ".")) / 3) * 100) / 100);
+				return Math.round((this.getFace() / 3) * 100) / 100;
 			}
 			this.getCotoveloMao = function() {
-				return this.formatar(Math.round((this.altura / 4) * 10000) / 100);
+				return Math.round((this.altura / 4) * 10000) / 100;
 			}
+			this.porcentagem = function(valorReal, valorEstimado) {
+				return (valorEstimado * (1 - (Math.abs(valorReal - valorEstimado) / valorEstimado))) * 100;
+			}
+			this.diferenca = function(valorReal, valorEsperado) {
+				valorReal = parseFloat(valorReal.replace(",", "."));
+				return Math.round(Math.abs(valorReal - valorEsperado) * 100) / 100;
+			}
+		}
+		function somarArray(valores) {
+			var soma = 0;
+			for (i in valores) {
+				soma += valores[i];
+			}
+			return Math.round(soma * 100) / 100;
 		}
 		window.onload = function() {
 			var hVM = new HomemVitruvianoModel();
 			var face = document.getElementById("face");
 			var altura = document.getElementById("altura");
+			var palma = document.getElementById("palma");
+			var cabeca = document.getElementById("cabeca");
+			var pescocoCabelo = document.getElementById("pescocoCabelo");
+			var peitoCabeca = document.getElementById("peitoCabeca");
+			var pe = document.getElementById("pe");
+			var peito = document.getElementById("peito");
+			var bracosAbertos = document.getElementById("bracosAbertos");
+			var queixoNarinas = document.getElementById("queixoNarinas");
+			var orelha = document.getElementById("orelha");
+			var nariz = document.getElementById("nariz");
+			var testa = document.getElementById("testa");
+			var cotoveloMao = document.getElementById("cotoveloMao");
+			
+			var faceReal = document.getElementById("faceReal");
+			var palmaReal = document.getElementById("palmaReal");
+			var cabecaReal = document.getElementById("cabecaReal");
+			var pescocoCabeloReal = document.getElementById("pescocoCabeloReal");
+			var peitoCabecaReal = document.getElementById("peitoCabecaReal");
+			var peReal = document.getElementById("peReal");
+			var peitoReal = document.getElementById("peitoReal");
+			var bracosAbertosReal = document.getElementById("bracosAbertosReal");
+			var queixoNarinasReal = document.getElementById("queixoNarinasReal");
+			var orelhaReal = document.getElementById("orelhaReal");
+			var narizReal = document.getElementById("narizReal");
+			var testaReal = document.getElementById("testaReal");
+			var cotoveloMaoReal = document.getElementById("cotoveloMaoReal");
+			
+			var faceDiferenca = document.getElementById("faceDiferenca");
+			var palmaDiferenca = document.getElementById("palmaDiferenca");
+			var cabecaDiferenca = document.getElementById("cabecaDiferenca");
+			var pescocoCabeloDiferenca = document.getElementById("pescocoCabeloDiferenca");
+			var peitoCabecaDiferenca = document.getElementById("peitoCabecaDiferenca");
+			var peDiferenca = document.getElementById("peDiferenca");
+			var peitoDiferenca = document.getElementById("peitoDiferenca");
+			var bracosAbertosDiferenca = document.getElementById("bracosAbertosDiferenca");
+			var queixoNarinasDiferenca = document.getElementById("queixoNarinasDiferenca");
+			var orelhaDiferenca = document.getElementById("orelhaDiferenca");
+			var narizDiferenca = document.getElementById("narizDiferenca");
+			var testaDiferenca = document.getElementById("testaDiferenca");
+			var cotoveloMaoDiferenca = document.getElementById("cotoveloMaoDiferenca");
+			
+			var totalEsperado = document.getElementById("totalEsperado");
+			var totalDiferenca = document.getElementById("totalDiferenca");
+			var porcentagemPerfeicao = document.getElementById("porcentagemPerfeicao");
+			
+			
 			calcular.addEventListener("click", function() {
+				var valoresEsperados = [];
+				var valoresDiferentes = [];
+				
 				hVM.atualizarAltura(altura.value);
-				face.innerHTML = hVM.getFace() + " cm";
-				palma.innerHTML = hVM.getPalma() + " cm";
-				cabeca.innerHTML = hVM.getCabeca() + " cm";
-				pescocoCabelo.innerHTML = hVM.getPescocoCabelo() + " cm";
-				peitoCabeca.innerHTML = hVM.getPeitoCabeca() + " cm";
-				pe.innerHTML = hVM.getPe() + " cm";
-				peito.innerHTML = hVM.getPeito() + " cm";
-				bracosAbertos.innerHTML = hVM.getBracosAbertos() + " m";
-				queixoNarinas.innerHTML = hVM.getQueixoNarinas() + " m";
-				nariz.innerHTML = hVM.getNariz() + " cm";
-				orelha.innerHTML = hVM.getOrelha() + " cm";
-				testa.innerHTML = hVM.getTesta() + " cm";
-				cotoveloMao.innerHTML = hVM.getCotoveloMao() + " cm";
+				face.innerHTML = hVM.formatar(hVM.getFace()) + " cm";
+				valoresEsperados.push(hVM.getFace());
+				palma.innerHTML = hVM.formatar(hVM.getPalma()) + " cm";
+				valoresEsperados.push(hVM.getPalma());
+				cabeca.innerHTML = hVM.formatar(hVM.getCabeca()) + " cm";
+				valoresEsperados.push(hVM.getCabeca());
+				pescocoCabelo.innerHTML = hVM.formatar(hVM.getPescocoCabelo()) + " cm";
+				valoresEsperados.push(hVM.getPescocoCabelo());
+				peitoCabeca.innerHTML = hVM.formatar(hVM.getPeitoCabeca()) + " cm";
+				valoresEsperados.push(hVM.getPeitoCabeca());
+				pe.innerHTML = hVM.formatar(hVM.getPe()) + " cm";
+				valoresEsperados.push(hVM.getPe());
+				peito.innerHTML = hVM.formatar(hVM.getPeito()) + " cm";
+				valoresEsperados.push(hVM.getPeito());
+				bracosAbertos.innerHTML = hVM.formatar(hVM.getBracosAbertos()) + " m";
+				valoresEsperados.push(hVM.getBracosAbertos());
+				queixoNarinas.innerHTML = hVM.formatar(hVM.getQueixoNarinas()) + " m";
+				valoresEsperados.push(hVM.getQueixoNarinas());
+				nariz.innerHTML = hVM.formatar(hVM.getNariz()) + " cm";
+				valoresEsperados.push(hVM.getNariz());
+				orelha.innerHTML = hVM.formatar(hVM.getOrelha()) + " cm";
+				valoresEsperados.push(hVM.getOrelha());
+				testa.innerHTML = hVM.formatar(hVM.getTesta()) + " cm";
+				valoresEsperados.push(hVM.getTesta());
+				cotoveloMao.innerHTML = hVM.formatar(hVM.getCotoveloMao()) + " cm";
+				valoresEsperados.push(hVM.getCotoveloMao());
+				
+				faceDiferenca.innerHTML = hVM.formatar(hVM.diferenca(faceReal.value, hVM.getFace()));
+				valoresDiferentes.push(hVM.diferenca(faceReal.value, hVM.getFace()));
+				palmaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(palmaReal.value, hVM.getPalma()));
+				valoresDiferentes.push(hVM.diferenca(palmaReal.value, hVM.getPalma()))
+				cabecaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(cabecaReal.value, hVM.getCabeca()));
+				valoresDiferentes.push(hVM.diferenca(cabecaReal.value, hVM.getCabeca()));
+				pescocoCabeloDiferenca.innerHTML = hVM.formatar(hVM.diferenca(pescocoCabeloReal.value, hVM.getPescocoCabelo()));
+				valoresDiferentes.push(hVM.diferenca(pescocoCabeloReal.value, hVM.getPescocoCabelo()));
+				peitoCabecaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peitoCabecaReal.value, hVM.getPeitoCabeca()));
+				valoresDiferentes.push(hVM.diferenca(peitoCabecaReal.value, hVM.getPeitoCabeca()));
+				peDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peReal.value, hVM.getPe()));
+				valoresDiferentes.push(hVM.diferenca(peReal.value, hVM.getPe()));
+				peitoDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peitoReal.value, hVM.getPeito()));
+				valoresDiferentes.push(hVM.diferenca(peitoReal.value, hVM.getPeito()));
+				bracosAbertosDiferenca.innerHTML = hVM.formatar(hVM.diferenca(bracosAbertosReal.value, hVM.getBracosAbertos()));
+				valoresDiferentes.push(hVM.diferenca(bracosAbertosReal.value, hVM.getBracosAbertos()));
+				queixoNarinasDiferenca.innerHTML = hVM.formatar(hVM.diferenca(queixoNarinasReal.value, hVM.getQueixoNarinas()));
+				valoresDiferentes.push(hVM.diferenca(queixoNarinasReal.value, hVM.getQueixoNarinas()));
+				orelhaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(orelhaReal.value, hVM.getOrelha()));
+				valoresDiferentes.push(hVM.diferenca(orelhaReal.value, hVM.getOrelha()));
+				narizDiferenca.innerHTML = hVM.formatar(hVM.diferenca(narizReal.value, hVM.getNariz()));
+				valoresDiferentes.push(hVM.diferenca(narizReal.value, hVM.getNariz()));
+				testaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(testaReal.value, hVM.getTesta()));
+				valoresDiferentes.push(hVM.diferenca(testaReal.value, hVM.getTesta()));
+				cotoveloMaoDiferenca.innerHTML = hVM.formatar(hVM.diferenca(cotoveloMaoReal.value, hVM.getCotoveloMao()));
+				valoresDiferentes.push(hVM.diferenca(cotoveloMaoReal.value, hVM.getCotoveloMao()));
+					
+				var tEsperado = somarArray(valoresEsperados);
+				var tDiferenca = somarArray(valoresDiferentes);
+				var pPerfeicao = Math.round((((tEsperado - tDiferenca) * 100) / tEsperado) * 100) / 100;
+				
+				totalEsperado.innerHTML = hVM.formatar(tEsperado);
+				totalDiferenca.innerHTML = hVM.formatar(tDiferenca);
+				porcentagemPerfeicao.innerHTML = hVM.formatar(pPerfeicao) + " %"				
 			});
 		}
 		</script>
@@ -104,11 +214,14 @@
 			<div class="w3-container">
 				<span class="">Altura corporal (metros):</span>
 				<input class="w3-input w3-border" type="text" id="altura"/>
-				<div class="w3-padding-16">
-					<button id="calcular" class="w3-button w3-khaki w3-round-xlarge w3-small ">Calcular</button>
-				</div>
 			</div>
-			<table class="w3-table w3-striped">
+			<table class="w3-table w3-striped w3-borded">
+				<tr>
+					<th>Parte do corpo</th>
+					<th>Valor Estimado</th>
+					<th>Valor Real</th>
+					<th>Diferença</th>
+				</td>
 				<tr>
 					<td class="tdcampo w3-right">
 						Face:<br>		
@@ -116,6 +229,12 @@
 					<td>
 						<span class="tdresposta" id="face"></span><br>
 						<small>(Do queixo ao topo da testa - 1/10 da altura) </small>
+					</td>
+					<td>
+						<input type="text" id="faceReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="faceDiferenca"></span><br>
 					</td>
 				</tr>
 				<tr>
@@ -126,6 +245,12 @@
 						<span class="tdresposta" id="palma"></span><br>
 						<small>(Do pulso ao topo do dedo médio - 1/10 da altura) </small>
 					</td>
+					<td>
+						<input type="text" id="palmaReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="palmaDiferenca"></span><br>
+					</td>
 				</tr>
 				<tr>
 					<td class="tdcampo w3-right">
@@ -134,6 +259,12 @@
 					<td>
 						<span class="tdresposta" id="cabeca"></span><br>
 						<small>(Do queixo ao topo - 1/8 da altura) </small>
+					</td>
+					<td>
+						<input type="text" id="cabecaReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="cabecaDiferenca"></span><br>
 					</td>
 				</tr>
 				<tr>
@@ -144,6 +275,12 @@
 						<span class="tdresposta" id="pescocoCabelo"></span><br>
 						<small>(Base do pescoço às raízes do cabelo - 1/6 da altura) </small>
 					</td>
+					<td>
+						<input type="text" id="pescocoCabeloReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="pescocoCabeloDiferenca"></span><br>
+					</td>
 				</tr>
 				<tr>
 					<td class="tdcampo w3-right">
@@ -152,6 +289,12 @@
 					<td>
 						<span class="tdresposta" id="peitoCabeca"></span><br>
 						<small>(Meio do peito ao topo da cabeça - 1/4 da altura) </small>
+					</td>
+					<td>
+						<input type="text" id="peitoCabecaReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="peitoCabecaDiferenca"></span><br>
 					</td>
 				</tr>
 				<tr>
@@ -162,6 +305,12 @@
 						<span class="tdresposta" id="pe"></span><br>
 						<small>(1/7 da altura) </small>
 					</td>
+					<td>
+						<input type="text" id="peReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="peDiferenca"></span><br>
+					</td>
 				</tr>
 				<tr>
 					<td class="tdcampo w3-right">
@@ -170,6 +319,12 @@
 					<td>
 						<span class="tdresposta" id="peito"></span><br>
 						<small>(Largura do peito - 1/4 da altura) </small>
+					</td>
+					<td>
+						<input type="text" id="peitoReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="peitoDiferenca"></span><br>
 					</td>
 				</tr>
 				<tr>
@@ -180,6 +335,12 @@
 						<span class="tdresposta" id="bracosAbertos"></span><br>
 						<small>(altura do corpo) </small>
 					</td>
+					<td>
+						<input type="text" id="bracosAbertosReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="bracosAbertosDiferenca"></span><br>
+					</td>
 				</tr>
 				<tr>
 					<td class="tdcampo w3-right">
@@ -188,6 +349,12 @@
 					<td>
 						<span class="tdresposta" id="cotoveloMao"></span><br>
 						<small>Do cotovelo à ponta da mão (1/4 da altura) </small>
+					</td>
+					<td>
+						<input type="text" id="cotoveloMaoReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="cotoveloMaoDiferenca"></span><br>
 					</td>
 				</tr>
 				<tr>
@@ -198,6 +365,12 @@
 						<span class="tdresposta" id="queixoNarinas"></span><br>
 						<small>(Base do queixo à base das narinas - 1/3 da face) </small>
 					</td>
+					<td>
+						<input type="text" id="queixoNarinasReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="queixoNarinasDiferenca"></span><br>
+					</td>
 				</tr>
 				<tr>
 					<td class="tdcampo w3-right">
@@ -206,6 +379,12 @@
 					<td>
 						<span class="tdresposta" id="nariz"></span><br>
 						<small>(Da base às sobrancelhas - 1/3 da face) </small>
+					</td>
+					<td>
+						<input type="text" id="narizReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="narizDiferenca"></span><br>
 					</td>
 				</tr>
 				<tr>
@@ -216,6 +395,12 @@
 						<span class="tdresposta" id="orelha"></span><br>
 						<small>(1/3 da face) </small>
 					</td>
+					<td>
+						<input type="text" id="orelhaReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="orelhaDiferenca"></span><br>
+					</td>
 				</tr>
 				<tr>
 					<td class="tdcampo w3-right">
@@ -224,6 +409,33 @@
 					<td>
 						<span class="tdresposta" id="testa"></span><br>
 						<small>(1/3 da face) </small>
+					</td>
+					<td>
+						<input type="text" id="testaReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="testaDiferenca"></span><br>
+					</td>
+				</tr>
+			</table>
+			<div class="w3-padding-16">
+				<button id="calcular" class="w3-button w3-khaki w3-round-xlarge w3-small ">Calcular</button>
+			</div>
+			<table class="w3-table w3-padding-8">
+				<tr>
+					<th>Total Esperado</th>
+					<th>Total Diferença</th>
+					<th>Porcentagem de Perfeição</th>
+				</tr>
+				<tr>
+					<td>
+						<span id="totalEsperado"></span>
+					</td>
+					<td>
+						<span id="totalDiferenca"></span>
+					</td>
+					<td>
+						<span id="porcentagemPerfeicao"></span>
 					</td>
 				</tr>
 			</table>
