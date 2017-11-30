@@ -166,31 +166,31 @@
 				cotoveloMao.innerHTML = hVM.formatar(hVM.getCotoveloMao()) + " cm";
 				valoresEsperados.push(hVM.getCotoveloMao());
 				
-				faceDiferenca.innerHTML = hVM.formatar(hVM.diferenca(faceReal.value, hVM.getFace()));
+				faceDiferenca.innerHTML = hVM.formatar(hVM.diferenca(faceReal.value, hVM.getFace())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(faceReal.value, hVM.getFace()));
-				palmaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(palmaReal.value, hVM.getPalma()));
+				palmaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(palmaReal.value, hVM.getPalma())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(palmaReal.value, hVM.getPalma()))
-				cabecaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(cabecaReal.value, hVM.getCabeca()));
+				cabecaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(cabecaReal.value, hVM.getCabeca())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(cabecaReal.value, hVM.getCabeca()));
-				pescocoCabeloDiferenca.innerHTML = hVM.formatar(hVM.diferenca(pescocoCabeloReal.value, hVM.getPescocoCabelo()));
+				pescocoCabeloDiferenca.innerHTML = hVM.formatar(hVM.diferenca(pescocoCabeloReal.value, hVM.getPescocoCabelo())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(pescocoCabeloReal.value, hVM.getPescocoCabelo()));
-				peitoCabecaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peitoCabecaReal.value, hVM.getPeitoCabeca()));
+				peitoCabecaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peitoCabecaReal.value, hVM.getPeitoCabeca())) + "cm";
 				valoresDiferentes.push(hVM.diferenca(peitoCabecaReal.value, hVM.getPeitoCabeca()));
-				peDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peReal.value, hVM.getPe()));
+				peDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peReal.value, hVM.getPe())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(peReal.value, hVM.getPe()));
-				peitoDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peitoReal.value, hVM.getPeito()));
+				peitoDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peitoReal.value, hVM.getPeito())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(peitoReal.value, hVM.getPeito()));
-				bracosAbertosDiferenca.innerHTML = hVM.formatar(hVM.diferenca(bracosAbertosReal.value, hVM.getBracosAbertos()));
+				bracosAbertosDiferenca.innerHTML = hVM.formatar(hVM.diferenca(bracosAbertosReal.value, hVM.getBracosAbertos())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(bracosAbertosReal.value, hVM.getBracosAbertos()));
-				queixoNarinasDiferenca.innerHTML = hVM.formatar(hVM.diferenca(queixoNarinasReal.value, hVM.getQueixoNarinas()));
+				queixoNarinasDiferenca.innerHTML = hVM.formatar(hVM.diferenca(queixoNarinasReal.value, hVM.getQueixoNarinas())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(queixoNarinasReal.value, hVM.getQueixoNarinas()));
-				orelhaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(orelhaReal.value, hVM.getOrelha()));
+				orelhaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(orelhaReal.value, hVM.getOrelha())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(orelhaReal.value, hVM.getOrelha()));
-				narizDiferenca.innerHTML = hVM.formatar(hVM.diferenca(narizReal.value, hVM.getNariz()));
+				narizDiferenca.innerHTML = hVM.formatar(hVM.diferenca(narizReal.value, hVM.getNariz())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(narizReal.value, hVM.getNariz()));
-				testaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(testaReal.value, hVM.getTesta()));
+				testaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(testaReal.value, hVM.getTesta())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(testaReal.value, hVM.getTesta()));
-				cotoveloMaoDiferenca.innerHTML = hVM.formatar(hVM.diferenca(cotoveloMaoReal.value, hVM.getCotoveloMao()));
+				cotoveloMaoDiferenca.innerHTML = hVM.formatar(hVM.diferenca(cotoveloMaoReal.value, hVM.getCotoveloMao())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(cotoveloMaoReal.value, hVM.getCotoveloMao()));
 					
 				var tEsperado = somarArray(valoresEsperados);
@@ -421,7 +421,7 @@
 				</tr>
 			</table>
 			<div class="w3-padding-16">
-				<button id="calcular" class="w3-button w3-khaki w3-round-xlarge w3-small ">Calcular</button>
+				<button id="calcular" class="w3-button w3-indigo w3-small ">Calcular</button>
 			</div>
 			<table class="w3-table w3-padding-8">
 				<tr>
@@ -437,7 +437,7 @@
 						<span id="totalDiferenca"></span>
 					</td>
 					<td>
-						<span id="porcentagemPerfeicao" class="w3-text-indigo"></span>
+						<b><span id="porcentagemPerfeicao" class="w3-text-indigo"></span></b>
 					</td>
 				</tr>
 			</table>
