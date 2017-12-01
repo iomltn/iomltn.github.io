@@ -267,18 +267,20 @@
 		</script>
 	</head>
 	<body>
-		<div class="w3-container" id="container">
-			<h1>O HOMEM VITRUVIANO</h1>
+		<div class="w3-container w3-indigo w3-center">
+			<h1><b>O HOMEM VITRUVIANO</b></h1>
 			<h3>Calculadora de medidas proporcionais</h3>
 			<p>
 				<small>Equipe: Antonia Lidiane, Ekesia Mikiss, Milton Rodrigues, Antonio Franciano, Rochele Morais</small><br>
-				<small>1º semetre (2017.2) do curso de licenciatura em química do IFCE campus Camocim - CE</small><br>
+				<small>1º Semestre (2017.2) do curso de licenciatura em química - IFCE campus Camocim - CE</small><br>
 			</p>
 			<div class="w3-container">
-				<span class=""><b>Altura corporal (metros):</b></span>
-				<input class="w3-input w3-border" type="text" id="altura" autofocus/>
+				<span class=""><b>Altura corporal (metros)</b></span>
+				<input class="w3-input w3-border" type="text" id="altura" style="margin: 10px"autofocus/>
 			</div>
-			<table class="w3-table w3-striped w3-borded">
+		</div>
+		<div class="w3-container">
+			<table class="w3-table w3-striped w3-borde">
 				<tr>
 					<th class="w3-center">Parte do corpo</th>
 					<th>Valor Ideal <small>(cm)</small></th>
@@ -497,31 +499,33 @@
 					</td>
 				</tr>
 			</table>
-			<div class="w3-padding-16">
+			<div class="w3-center w3-padding-16" style="alignment: center">
 				<button id="calcular" class="w3-button w3-indigo w3-small ">Calcular</button> 
-				<button id="limpar" class="w3-button w3-teal w3-small" style="margin-left: 200px">Limpar Valores</button>
+				<button id="limpar" class="w3-button w3-teal w3-small">Limpar Valores</button>
 			</div>
-			<table class="w3-table w3-padding-8">
-				<tr>
-					<th>Total Ideal</th>
-					<th>Total Diferença</th>
-					<th colspan="2">Porcentagem de Perfeição</th>
-				</tr>
-				<tr>
-					<td>
-						<span id="totalEsperado"></span>
-					</td>
-					<td>
-						<span id="totalDiferenca"></span>
-					</td>
-					<td colspan="2">
-						<b><span id="porcentagemPerfeicao" class="w3-text-indigo"></span></b>
-					</td>
-				</tr>
-			</table>
-			<div class="w3-padding-32">
-				<span><small>by iomltn@gmail.com - 29 de Novembro de 2017</small></span>
+			<div class="w3-center">
+				<table class="w3-table w3-padding-8" style="margin-bottom: 20px">
+					<tr>
+						<th>Total Ideal</th>
+						<th>Total Diferença</th>
+						<th colspan="2">Porcentagem de Perfeição</th>
+					</tr>
+					<tr>
+						<td>
+							<span id="totalEsperado"></span>
+						</td>
+						<td>
+							<span id="totalDiferenca"></span>
+						</td>
+						<td colspan="2">
+							<b><span id="porcentagemPerfeicao" class="w3-indigo w3-cicle w3-round-xxlarge" style="padding: 8px 10px 8px 10px"></span></b>
+						</td>
+					</tr>
+				</table>
 			</div>
+		</div>
+		<div class="w3-container w3-black w3-center w3-padding-32">
+			<span><small>by iomltn@gmail.com - 29 de Novembro de 2017</small></span>
 		</div>
 	</body>
 </html>
