@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>O homem vitruviano</title>
+		<title>O Homem Vitruviano</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="w3.css"/>
 		<style>
@@ -39,6 +39,9 @@
 			}
 			this.getPescocoCabelo = function() {
 				return Math.round((this.altura / 6) * 10000) / 100;
+			}
+			this.getCabeloPeito = function() {
+				return Math.round((this.altura / 7) * 10000) / 100;
 			}
 			this.getPeitoCabeca = function() {
 				return Math.round((this.altura / 4) * 10000) / 100;
@@ -89,6 +92,7 @@
 			var altura = document.getElementById("altura");
 			var palma = document.getElementById("palma");
 			var cabeca = document.getElementById("cabeca");
+			var cabeloPeito = document.getElementById("cabeloPeito");
 			var pescocoCabelo = document.getElementById("pescocoCabelo");
 			var peitoCabeca = document.getElementById("peitoCabeca");
 			var pe = document.getElementById("pe");
@@ -103,6 +107,7 @@
 			var faceReal = document.getElementById("faceReal");
 			var palmaReal = document.getElementById("palmaReal");
 			var cabecaReal = document.getElementById("cabecaReal");
+			var cabeloPeitoReal = document.getElementById("cabeloPeitoReal");
 			var pescocoCabeloReal = document.getElementById("pescocoCabeloReal");
 			var peitoCabecaReal = document.getElementById("peitoCabecaReal");
 			var peReal = document.getElementById("peReal");
@@ -117,6 +122,7 @@
 			var faceDiferenca = document.getElementById("faceDiferenca");
 			var palmaDiferenca = document.getElementById("palmaDiferenca");
 			var cabecaDiferenca = document.getElementById("cabecaDiferenca");
+			var cabeloPeitoDiferenca = document.getElementById("cabeloPeitoDiferenca");
 			var pescocoCabeloDiferenca = document.getElementById("pescocoCabeloDiferenca");
 			var peitoCabecaDiferenca = document.getElementById("peitoCabecaDiferenca");
 			var peDiferenca = document.getElementById("peDiferenca");
@@ -132,18 +138,23 @@
 			var totalDiferenca = document.getElementById("totalDiferenca");
 			var porcentagemPerfeicao = document.getElementById("porcentagemPerfeicao");
 			
+			var calcular = document.getElementById("calcular");
+			var limpar = document.getElementById("limpar");
 			
 			calcular.addEventListener("click", function() {
 				var valoresEsperados = [];
 				var valoresDiferentes = [];
 				
 				hVM.atualizarAltura(altura.value);
+				
 				face.innerHTML = hVM.formatar(hVM.getFace()) + " cm";
 				valoresEsperados.push(hVM.getFace());
 				palma.innerHTML = hVM.formatar(hVM.getPalma()) + " cm";
 				valoresEsperados.push(hVM.getPalma());
 				cabeca.innerHTML = hVM.formatar(hVM.getCabeca()) + " cm";
 				valoresEsperados.push(hVM.getCabeca());
+				cabeloPeito.innerHTML = hVM.formatar(hVM.getCabeloPeito()) + " cm";
+				valoresEsperados.push(hVM.getCabeloPeito());
 				pescocoCabelo.innerHTML = hVM.formatar(hVM.getPescocoCabelo()) + " cm";
 				valoresEsperados.push(hVM.getPescocoCabelo());
 				peitoCabeca.innerHTML = hVM.formatar(hVM.getPeitoCabeca()) + " cm";
@@ -171,6 +182,8 @@
 				valoresDiferentes.push(hVM.diferenca(palmaReal.value, hVM.getPalma()))
 				cabecaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(cabecaReal.value, hVM.getCabeca())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(cabecaReal.value, hVM.getCabeca()));
+				cabeloPeitoDiferenca.innerHTML = hVM.formatar(hVM.diferenca(cabeloPeitoReal.value, hVM.getCabeloPeito())) + " cm";
+				valoresDiferentes.push(hVM.diferenca(cabeloPeitoReal.value, hVM.getCabeloPeito()));
 				pescocoCabeloDiferenca.innerHTML = hVM.formatar(hVM.diferenca(pescocoCabeloReal.value, hVM.getPescocoCabelo())) + " cm";
 				valoresDiferentes.push(hVM.diferenca(pescocoCabeloReal.value, hVM.getPescocoCabelo()));
 				peitoCabecaDiferenca.innerHTML = hVM.formatar(hVM.diferenca(peitoCabecaReal.value, hVM.getPeitoCabeca())) + " cm";
@@ -200,6 +213,56 @@
 				totalDiferenca.innerHTML = hVM.formatar(tDiferenca) + " cm";
 				porcentagemPerfeicao.innerHTML = hVM.formatar(pPerfeicao) + " %"				
 			});
+			limpar.addEventListener("click", function() {
+				face.innerHTML = "";
+				faceReal.value = "";
+				faceDiferenca.innerHTML = "";
+				palma.innerHTML = "";
+				palmaReal.value = "";
+				palmaDiferenca.innerHTML = "";
+				cabeca.innerHTML = "";
+				cabecaReal.value = "";
+				cabecaDiferenca.innerHTML = "";
+				cabeloPeito.innerHTML = "";
+				cabeloPeitoReal.value = "";
+				cabeloPeitoDiferenca.innerHTML = "";
+				pescocoCabelo.innerHTML = "";
+				pescocoCabeloReal.value = "";
+				pescocoCabeloDiferenca.innerHTML = "";
+				peitoCabeca.innerHTML = "";
+				peitoCabecaReal.value = "";
+				peitoCabecaDiferenca.innerHTML = "";
+				pe.innerHTML = "";
+				peReal.value = "";
+				peDiferenca.innerHTML = "";
+				peito.innerHTML = "";
+				peitoReal.value = "";
+				peitoDiferenca.innerHTML = "";
+				bracosAbertos.innerHTML = "";
+				bracosAbertosReal.value = "";
+				bracosAbertosDiferenca.innerHTML = "";
+				queixoNarinas.innerHTML = "";
+				queixoNarinasReal.value = "";
+				queixoNarinasDiferenca.innerHTML = "";
+				orelha.innerHTML = "";
+				orelhaReal.value = "";
+				orelhaDiferenca.innerHTML = "";
+				nariz.innerHTML = "";
+				narizReal.value = "";
+				narizDiferenca.innerHTML = "";
+				testa.innerHTML = "";
+				testaReal.value = "";
+				testaDiferenca.innerHTML = "";
+				cotoveloMao.innerHTML = "";
+				cotoveloMaoReal.value = "";
+				cotoveloMaoDiferenca.innerHTML = "";
+				
+				altura.value = "";
+				totalEsperado.innerHTML = "";
+				totalDiferenca.innerHTML = "";
+				porcentagemPerfeicao.innerHTML = "";
+				altura.focus();
+			});
 		}
 		</script>
 	</head>
@@ -213,11 +276,11 @@
 			</p>
 			<div class="w3-container">
 				<span class=""><b>Altura corporal (metros):</b></span>
-				<input class="w3-input w3-border" type="text" id="altura"/>
+				<input class="w3-input w3-border" type="text" id="altura" autofocus/>
 			</div>
 			<table class="w3-table w3-striped w3-borded">
 				<tr>
-					<th>Parte do corpo</th>
+					<th class="w3-center">Parte do corpo</th>
 					<th>Valor Ideal <small>(cm)</small></th>
 					<th>Valor Real <small>(cm)</small></th>
 					<th>Diferença <small>(cm)</small></th>
@@ -225,7 +288,7 @@
 				<tr>
 					<td class="tdcampo w3-right">
 						Face:<br>
-						<small>(Do queixo ao topo da testa - 1/10 da altura) </small>						
+						<small>(Do queixo à raiz do cabelo - 1/10 da altura) </small>						
 					</td>
 					<td>
 						<span class="tdresposta" id="face"></span>
@@ -265,6 +328,21 @@
 					</td>
 					<td>
 						<span class="tdresposta" id="cabecaDiferenca"></span><br>
+					</td>
+				</tr>
+				<tr>
+					<td class="tdcampo w3-right">
+						Cabelo - Topo do Peito:<br>
+						<small>(Nascimento do cabelo ao topo do peito - 1/7 da altura)</small>
+					</td>
+					<td>
+						<span class="tdresposta" id="cabeloPeito"></span>
+					</td>
+					<td>
+						<input type="text" id="cabeloPeitoReal" size="5"/>
+					</td>
+					<td>
+						<span class="tdresposta" id="cabeloPeitoDiferenca"></span><br>
 					</td>
 				</tr>
 				<tr>
@@ -420,7 +498,8 @@
 				</tr>
 			</table>
 			<div class="w3-padding-16">
-				<button id="calcular" class="w3-button w3-indigo w3-small ">Calcular</button>
+				<button id="calcular" class="w3-button w3-indigo w3-small ">Calcular</button> 
+				<button id="limpar" class="w3-button w3-teal w3-small" style="margin-left: 200px">Limpar Valores</button>
 			</div>
 			<table class="w3-table w3-padding-8">
 				<tr>
