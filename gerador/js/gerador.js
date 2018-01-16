@@ -241,7 +241,7 @@ window.onload = function() {
 		}
 		strJava += "\t\tScene scene = new Scene(grid);\n";
 		strJava += "\t\tstage.setScene(scene);\n";
-		strJava += "\t\tstage.show;\n";
+		strJava += "\t\tstage.show();\n";
 		strJava += "\t}\n";
 		strJava += "\tpublic static void main(String[] args) {\n";
 		strJava += "\t\tlaunch(args);\n";
