@@ -8,16 +8,16 @@ tipo statement 5
 */
 
 window.onload = function() {
-	var pMai = function(string) {
-		return string[0].toUpperCase() + string.substring(1, string.length);
-	}
-	var pMin = function(string) {
-		return string[0].toLowerCase() + string.substring(1, string.length);
-	}
 	var tA0 = document.getElementById("origem");
+	var linhas = tA0.value.split("\n");
 	
+	var pMai = function(str) {
+		return str[0].toUpperCase() + str.substring(1, str.length);
+	}
+	var pMin = function(str) {
+		return str[0].toLowerCase() + str.substring(1, str.length);
+	}	
 	function getImportsBean() {
-		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
@@ -34,7 +34,6 @@ window.onload = function() {
 	}
 	
 	function getClasseBean() {
-		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
@@ -66,7 +65,6 @@ window.onload = function() {
 		return strJava;
 	}
 	function getClasseDAO() {
-		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
@@ -116,7 +114,7 @@ window.onload = function() {
 		strJava += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			strJava += "\t\t\tstmt.set" + c[5] + "(" + (i-1) + ", " + pMin(classe) + ".get" + pMai(c[1]) + "());\n";
+			strJava += "\t\t\tstmt.set" + pMai(c[3]) + "(" + (i-1) + ", " + pMin(classe) + ".get" + pMai(c[1]) + "());\n";
 		}
 		strJava += "\t\t\tstmt.execute();\n";
 		strJava += "\t\t\tstmt.close();\n";
@@ -153,7 +151,7 @@ window.onload = function() {
 		strJava += "\t\t\tPreparedStatement stmt = conexao.prepareStatement(sql);\n";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			strJava += "\t\t\tstmt.set" + c[5] + "(" + (i-1) + ", " + pMin(classe) + ".get" + pMai(c[1]) + "());\n"; 
+			strJava += "\t\t\tstmt.set" + pMai(c[3]) + "(" + (i-1) + ", " + pMin(classe) + ".get" + pMai(c[1]) + "());\n"; 
 		}
 		strJava += "\t\t\tstmt.set" + c1[5] + "(" + (linhas.length-1) + ", " + pMin(classe) + ".get" + pMai(c1[1]) + "());\n";
 		strJava += "\t\t\tstmt.execute();\n";
@@ -176,7 +174,7 @@ window.onload = function() {
 		strJava += "\t\t\t\t" + classe + " " + pMin(classe) + " = new " + classe + "();\n";
 		for (var i = 1; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			strJava += "\t\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(rs.get" + c[5] + "(\"" + c[1] + "\"));\n";
+			strJava += "\t\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(rs.get" + pMai(c[3]) + "(\"" + c[1] + "\"));\n";
 		}
 		strJava += "\t\t\t\t" + tabelaSql + ".add(" + pMin(classe) + ");\n";
 		strJava += "\t\t\t}\n";
@@ -190,7 +188,6 @@ window.onload = function() {
 		return strJava;
 	};
 	function getClasseApplication() {
-		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
