@@ -79,15 +79,15 @@ window.onload = function() {
 		strJava += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
 		strJava += "\t\ttry {\n";
 		strJava += "\t\t\tStatement stmt = conexao.createStatement();\n";
-		strJava += "\t\t\tString sql = \"create table if not exists " + tabelaSql + "(\n";
+		strJava += "\t\t\tString sql = \"create table if not exists " + tabelaSql + "(\"\n";
 		// linha do id
 		var c1 = linhas[1].split(" ");
-		strJava += "\t\t\t\t" + c1[1] + " " + c1[4] + "primary key autoincrement not null, \n";
+		strJava += "\t\t\t\t\"" + c1[1] + " " + c1[4] + "primary key autoincrement not null, \"\n";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
-			strJava += "\t\t\t\t" + c[1] + 	" " + c[4] + " not null";
+			strJava += "\t\t\t\t\"" + c[1] + 	" " + c[4] + " not null";
 			if (i < linhas.length - 1) {
-				strJava += ", \n";
+				strJava += ", \"\n";
 			}
 		}
 		strJava += ")\";\n";
@@ -201,6 +201,8 @@ window.onload = function() {
 		strJava += "import javafx.scene.control.Label;\n";
 		strJava += "import javafx.scene.control.TextField;\n";
 		strJava += "import javafx.scene.control.Button;\n\n";
+		strJava += "import javafx.scene.layout.GridPane;\n";
+		strJava += "import javafx.geometry.Insets;\n";
 		strJava += "public class J" + classe + " extends Application {\n";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
@@ -229,7 +231,6 @@ window.onload = function() {
 		}
 		strJava += "\t\t\t" + pMin(classe) + "DAO.cadastrar(" + pMin(classe) + ");\n";
 		strJava += "\t\t});\n";
-		strJava += "\t\tGridPane grid = new GridPane();\n";
 		strJava += "\t\tGridPane grid = new GridPane();\n";
 		strJava += "\t\tgrid.setPadding(new Insets(10));\n";
 		strJava += "\t\tgrid.setVgap(10);\n";
