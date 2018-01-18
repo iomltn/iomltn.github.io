@@ -9,7 +9,6 @@ tipo statement 5
 
 window.onload = function() {
 	var tA0 = document.getElementById("origem");
-	var linhas = tA0.value.split("\n");
 	
 	var pMai = function(str) {
 		return str[0].toUpperCase() + str.substring(1, str.length);
@@ -34,6 +33,7 @@ window.onload = function() {
 	}
 	
 	function getClasseBean() {
+		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
@@ -65,6 +65,7 @@ window.onload = function() {
 		return strJava;
 	}
 	function getClasseDAO() {
+		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
@@ -188,6 +189,7 @@ window.onload = function() {
 		return strJava;
 	};
 	function getClasseApplication() {
+		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
