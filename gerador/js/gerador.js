@@ -17,6 +17,7 @@ window.onload = function() {
 		return str[0].toLowerCase() + str.substring(1, str.length);
 	}	
 	function getImportsBean() {
+		var linhas = tA0.value.split("\n");
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
