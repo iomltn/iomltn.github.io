@@ -79,15 +79,15 @@ window.onload = function() {
 		strJava += "\t\tConnection conexao = ConexaoFactory.getConexao();\n";
 		strJava += "\t\ttry {\n";
 		strJava += "\t\t\tStatement stmt = conexao.createStatement();\n";
-		strJava += "\t\t\tString sql = \"create table if not exists " + tabelaSql + "(\"\n";
+		strJava += "\t\t\tString sql = \"create table if not exists " + tabelaSql + "(\" +\n";
 		// linha do id
 		var c1 = linhas[1].split(" ");
-		strJava += "\t\t\t\t\"" + c1[1] + " " + c1[4] + "primary key autoincrement not null, \"\n";
+		strJava += "\t\t\t\t\"" + c1[1] + " " + c1[4] + "primary key autoincrement not null, \" +\n";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
 			strJava += "\t\t\t\t\"" + c[1] + 	" " + c[4] + " not null";
 			if (i < linhas.length - 1) {
-				strJava += ", \"\n";
+				strJava += ", \" +\n";
 			}
 		}
 		strJava += ")\";\n";
