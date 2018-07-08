@@ -256,19 +256,19 @@ window.onload = function() {
 	
 	
 	btnBean.addEventListener("click", function() {
-		var wbean = window.open("", "");
-		wbean.document.write("<textarea style=\"width: 100%; height: 100%\">");
+		var wbean = window.open("", "_blank", "width=800,height=600");
+		//wbean.document.write("<textarea style=\"width: 100%; height: 100%\">");
 		wbean.document.write(getClasseBean());
-		wbean.document.write("</textarea>");
+		//wbean.document.write("</textarea>");
 	});
 	btnDAO.addEventListener("click", function() {
-		var wdao = window.open("", "");
+		var wdao = window.open("", "_blank", "width=800,height=600");
 		wdao.document.write("<textarea style=\"width: 100%; height: 100%\">");
 		wdao.document.write(getClasseDAO());
 		wdao.document.write("</textarea>");
 	});
 	btnApplication.addEventListener("click", function() {
-		var wdao = window.open("", "");
+		var wdao = window.open("", "_blank", "width=800,height=600");
 		wdao.document.write("<textarea style=\"width: 100%; height: 100%\">");
 		wdao.document.write(getClasseApplication());
 		wdao.document.write("</textarea>");
