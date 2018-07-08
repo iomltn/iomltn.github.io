@@ -253,24 +253,30 @@ window.onload = function() {
 	var btnBean = document.getElementById("gerarBean");
 	var btnDAO = document.getElementById("gerarDAO");
 	var btnApplication = document.getElementById("gerarApplication");
-	
+
+	var linhas = tA0.value.split("\n");
+	var temp = linhas[0].split(" ");
+	var classe = temp[0];
 	
 	btnBean.addEventListener("click", function() {
 		var wbean = window.open("", "_blank", "width=800,height=600");
-		//wbean.document.write("<textarea style=\"width: 100%; height: 100%\">");
+		wbean.document.rite("<title>Bean " + classe + "</title>");
+		wbean.document.write("<textarea style=\"width: 100%; height: 100%\">");
 		wbean.document.write(getClasseBean());
-		//wbean.document.write("</textarea>");
+		wbean.document.write("</textarea>");
 	});
 	btnDAO.addEventListener("click", function() {
 		var wdao = window.open("", "_blank", "width=800,height=600");
+		wdao.document.rite("<title>DAO " + classe + "</title>");
 		wdao.document.write("<textarea style=\"width: 100%; height: 100%\">");
 		wdao.document.write(getClasseDAO());
 		wdao.document.write("</textarea>");
 	});
 	btnApplication.addEventListener("click", function() {
-		var wdao = window.open("", "_blank", "width=800,height=600");
-		wdao.document.write("<textarea style=\"width: 100%; height: 100%\">");
-		wdao.document.write(getClasseApplication());
-		wdao.document.write("</textarea>");
+		var wapp = window.open("", "_blank", "width=800,height=600");
+		wapp.document.rite("<title>Application " + classe + "</title>");
+		wapp.document.write("<textarea style=\"width: 100%; height: 100%\">");
+		wapp.document.write(getClasseApplication());
+		wapp.document.write("</textarea>");
 	});
 }
