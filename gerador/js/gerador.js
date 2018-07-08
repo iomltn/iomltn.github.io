@@ -260,21 +260,21 @@ window.onload = function() {
 	
 	btnBean.addEventListener("click", function() {
 		var wbean = window.open("", "_blank", "width=800,height=600");
-		wbean.document.rite("<title>Bean " + classe + "</title>");
+		wbean.document.write("<title>Bean " + classe + "</title>");
 		wbean.document.write("<textarea style=\"width: 100%; height: 100%\">");
 		wbean.document.write(getClasseBean());
 		wbean.document.write("</textarea>");
 	});
 	btnDAO.addEventListener("click", function() {
 		var wdao = window.open("", "_blank", "width=800,height=600");
-		wdao.document.rite("<title>DAO " + classe + "</title>");
+		wdao.document.write("<title>DAO " + classe + "</title>");
 		wdao.document.write("<textarea style=\"width: 100%; height: 100%\">");
 		wdao.document.write(getClasseDAO());
 		wdao.document.write("</textarea>");
 	});
 	btnApplication.addEventListener("click", function() {
 		var wapp = window.open("", "_blank", "width=800,height=600");
-		wapp.document.rite("<title>Application " + classe + "</title>");
+		wapp.document.write("<title>Application " + classe + "</title>");
 		wapp.document.write("<textarea style=\"width: 100%; height: 100%\">");
 		wapp.document.write(getClasseApplication());
 		wapp.document.write("</textarea>");
