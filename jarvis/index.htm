@@ -1,10 +1,20 @@
 <html>
 	<head>
-		<title></title>
+		<title>Jarvis</title>
+		<style>
+		* {
+			font-family: 'Courier New';
+			font-size: 18px;
+		}
+		</style>
 		<script src="js/gerador.js"></script>
 	</head>
 	<body>
+		<center>
 		<table>
+			<tr>
+				<td><input type="text" id="pacote" value="br.iomltn"/></td>
+			</tr>
 			<tr>
 				<td>
 					<textarea cols="100" rows="8" id="origem">
@@ -16,8 +26,12 @@ FloatProperty compra SimpleFloatProperty float real Float</textarea>
 			</tr>
 			<tr>
 				<td>
-					<button id="gerarBean">Gerar Bean</button> <button id="gerarDAO">Gerar DAO</button> <button id="gerarApplication">Gerar Parcialmente Application</button>
+					<button id="gerarBean">Gerar Bean</button> 
+					<button id="gerarDAO">Gerar DAO</button> 
+					<button id="gerarApplication">Gerar Parcialmente Application</button>
 				</td>
 			</tr>
+		</table>
+		</center>
 	</body>
 </html>

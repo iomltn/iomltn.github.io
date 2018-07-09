@@ -9,6 +9,7 @@ tipo statement 5
 
 window.onload = function() {
 	var tA0 = document.getElementById("origem");
+	var pkg = document.getElementById("pacote");
 	
 	var pMai = function(str) {
 		return str[0].toUpperCase() + str.substring(1, str.length);
@@ -33,13 +34,17 @@ window.onload = function() {
 		return strJava;
 	}
 	
+	function getLinhas() {
+		return tA0.value.split("\n");
+	}
 	function getClasseBean() {
-		var linhas = tA0.value.split("\n");
+		var linhas = getLinhas();
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
 		var strJava = "";
 		// classe bean
+		strJava += "package " + pkg.value + ".modelo;\n";
 		strJava += getImportsBean();		
 		strJava += "\n";
 		strJava += "public class " + classe + " {\n";
@@ -66,12 +71,13 @@ window.onload = function() {
 		return strJava;
 	}
 	function getClasseDAO() {
-		var linhas = tA0.value.split("\n");
+		var linhas = getLinhas();
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
-		var strJava = "";		
+		var strJava = "";	
 		// classe dao
+		strJava += "package " + pkg.value + ".modelo;\n";
 		strJava += "import java.util.List;\nimport java.util.ArrayList;\nimport java.sql.Connection;\nimport java.sql.Statement;\nimport java.sql.PreparedStatement;\nimport java.sql.SQLException;\nimport java.sql.ResultSet;\n\n";
 		// construtor		
 		strJava += "public class " + classe + "DAO {\n";
@@ -82,7 +88,7 @@ window.onload = function() {
 		strJava += "\t\t\tString sql = \"create table if not exists " + tabelaSql + "(\" +\n";
 		// linha do id
 		var c1 = linhas[1].split(" ");
-		strJava += "\t\t\t\t\"" + c1[1] + " " + c1[4] + "primary key autoincrement not null, \" +\n";
+		strJava += "\t\t\t\t\"" + c1[1] + " " + c1[4] + " primary key autoincrement not null, \" +\n";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
 			strJava += "\t\t\t\t\"" + c[1] + 	" " + c[4] + " not null";
@@ -189,76 +195,103 @@ window.onload = function() {
 		strJava += "}\n";
 		return strJava;
 	};
-	function getClasseApplication() {
-		var linhas = tA0.value.split("\n");
+	function getClasseApplicationBean() {
+		var linhas = getLinhas();
 		var temp = linhas[0].split(" ");
 		var classe = temp[0];
 		var tabelaSql = temp[1];
 		var strJava = "";
+		var declaracoes = "";
+		var instanciacoes = "";
+		var actionsJanelaCadastrar = "";
+		var gridJanelaCadastrar = "";
+		for (var i = 2; i < linhas.length; i++) {
+			var c = linhas[i].split(" ");
+			declaracoes += "\tLabel l" + pMai(c[1]) + ";\n";
+			declaracoes += "\tTextField tf" + pMai(c[1]) + ";\n";
+			
+			instanciacoes += "\t\tl" + pMai(c[1]) + " = new Label(\"" + pMai(c[1]) + "\");\n";
+			instanciacoes += "\t\ttf" + pMai(c[1]) + " = new TextField();\n";
+			
+			actionsJanelaCadastrar += "\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(tf" + pMai(c[1]) + ".getText());\n";
+			
+			gridJanelaCadastrar += "\t\t\grid.add(l" + pMai(c[1]) + ", 0, " + (i - 2) + ");\n";
+			gridJanelaCadastrar += "\t\t\grid.add(tf" + pMai(c[1]) + ", 1, " + (i - 2) + ");\n";
+		}
+		strJava += "package " + pkg.value + ".visao;\n";
 		strJava += "import javafx.application.Application;\n";
 		strJava += "import javafx.stage.Stage;\n";
+		strJava += "import javafx.stage.Modality;\n";
 		strJava += "import javafx.scene.Scene;\n";
 		strJava += "import javafx.scene.control.Label;\n";
 		strJava += "import javafx.scene.control.TextField;\n";
 		strJava += "import javafx.scene.control.Button;\n";
 		strJava += "import javafx.scene.layout.GridPane;\n";
-		strJava += "import javafx.geometry.Insets;\n\n";
+		strJava += "import javafx.geometry.Insets;\n";
+		strJava += "import javafx.geometry.HPos;\n";
+		strJava += "import " + pkg.value + ".modelo." + classe + ";\n";
+		strJava += "import " + pkg.value + ".modelo." + classe + "DAO;\n\n";
 		strJava += "public class J" + classe + " extends Application {\n";
-		for (var i = 2; i < linhas.length; i++) {
-			var c = linhas[i].split(" ");
-			strJava += "\tLabel l" + pMai(c[1]) + ";\n";
-			strJava += "\tTextField tf" + pMai(c[1]) + ";\n";
-		}
+		strJava += declaracoes;
 		strJava += "\tButton btnCadastrarAlterar;\n";
 		strJava += "\tButton btnExcluir;\n";
 		strJava += "\tButton btnCancelar;\n";
 		strJava += "\n\t@Override\n\tpublic void start(Stage stage) {\n";
 		strJava += "\t\tstage.setTitle(\"" + classe + "\");\n";
-		for (var i = 2; i < linhas.length; i++) {
-			var c = linhas[i].split(" ");
-			strJava += "\t\tl" + pMai(c[1]) + " = new Label(\"" + pMai(c[1]) + "\");\n";
-			strJava += "\t\ttf" + pMai(c[1]) + " = new TextField();\n";
-		}
+		strJava += instanciacoes;
 		strJava += "\t\tbtnCadastrarAlterar = new Button(\"Cadastrar\");\n";
 		strJava += "\t\tbtnExcluir = new Button(\"Excluir\");\n";
 		strJava += "\t\tbtnCancelar = new Button(\"Cancelar\");\n";
 		strJava += "\t\tbtnCadastrarAlterar.setOnAction(e -> {\n";
 		strJava += "\t\t\t" + classe + " " + pMin(classe) + " = new " + classe + "();\n";
+		strJava += actionsJanelaCadastrar;
 		strJava += "\t\t\t" + classe + "DAO " + pMin(classe) + "DAO = new " + classe + "DAO();\n";
-		for (var i = 2; i < linhas.length; i++) {
-			var c = linhas[i].split(" ");
-			strJava += "\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(tf" + pMai(c[1]) + ".getText());\n";
-		}
 		strJava += "\t\t\t" + pMin(classe) + "DAO.cadastrar(" + pMin(classe) + ");\n";
 		strJava += "\t\t});\n";
 		strJava += "\t\tGridPane grid = new GridPane();\n";
 		strJava += "\t\tgrid.setPadding(new Insets(10));\n";
 		strJava += "\t\tgrid.setVgap(10);\n";
 		strJava += "\t\tgrid.setHgap(10);\n";
-		for (var i = 2; i < linhas.length; i++) {
-			var c = linhas[i].split(" ");
-			strJava += "\t\t\grid.add(l" + pMai(c[1]) + ", 0, " + (i - 1) + ");\n";
-			strJava += "\t\t\grid.add(tf" + pMai(c[1]) + ", 1, " + (i - 1) + ");\n";
-		}
+		strJava += gridJanelaCadastrar;
+		strJava += "\t\tGridPane.setHalignment(btnCadastrarAlterar, HPos.RIGHT);\n";
+		strJava += "\t\t\grid.add(btnCadastrarAlterar, 1, " + (linhas.length - 2)+ ");\n";
 		strJava += "\t\tScene scene = new Scene(grid);\n";
 		strJava += "\t\tstage.setScene(scene);\n";
-		strJava += "\t\tstage.show();\n";
-		strJava += "\t}\n";
-		strJava += "\tpublic static void main(String[] args) {\n";
-		strJava += "\t\tlaunch(args);\n";
+		strJava += "\t\tstage.initModality(Modality.APPLICATION_MODAL);\n";
+		strJava += "\t\tstage.setResizable(false);\n";
+		strJava += "\t\tstage.showAndWait();\n";
 		strJava += "\t}\n";
 		strJava += "}";
 		return strJava;
 	}
+	
+	function getClasseApplicationMain() {
+		var linhas = getLinhas();
+		var temp = linhas[0].split(" ");
+		var classe = temp[0];
+		var tabelaSql = temp[1];
+		var strJava = "";	
+		strJava += "package " + pkg.value + ".visao;\n";
+		strJava += "import javafx.application.Application;\n";
+		strJava += "import javafx.stage.Stage;\n";
+		strJava += "import javafx.stage.Modality;\n";
+		strJava += "import javafx.scene.Scene;\n";
+		strJava += "import javafx.scene.control.Label;\n";
+		strJava += "import javafx.scene.control.TextField;\n";
+		strJava += "import javafx.scene.control.Button;\n";
+		strJava += "import javafx.scene.layout.GridPane;\n";
+		strJava += "import javafx.geometry.Insets;\n";
+		strJava += "import javafx.geometry.HPos;\n";
+		}
+	
 	var btnBean = document.getElementById("gerarBean");
 	var btnDAO = document.getElementById("gerarDAO");
 	var btnApplication = document.getElementById("gerarApplication");
 
-	var linhas = tA0.value.split("\n");
-	var temp = linhas[0].split(" ");
-	var classe = temp[0];
-	
 	btnBean.addEventListener("click", function() {
+		var linhas = tA0.value.split("\n");
+		var temp = linhas[0].split(" ");
+		var classe = temp[0];
 		var wbean = window.open("", "_blank", "width=800,height=600");
 		wbean.document.write("<title>Bean " + classe + "</title>");
 		wbean.document.write("<textarea style=\"width: 100%; height: 100%\">");
@@ -266,6 +299,9 @@ window.onload = function() {
 		wbean.document.write("</textarea>");
 	});
 	btnDAO.addEventListener("click", function() {
+		var linhas = tA0.value.split("\n");
+		var temp = linhas[0].split(" ");
+		var classe = temp[0];
 		var wdao = window.open("", "_blank", "width=800,height=600");
 		wdao.document.write("<title>DAO " + classe + "</title>");
 		wdao.document.write("<textarea style=\"width: 100%; height: 100%\">");
@@ -273,10 +309,13 @@ window.onload = function() {
 		wdao.document.write("</textarea>");
 	});
 	btnApplication.addEventListener("click", function() {
+		var linhas = tA0.value.split("\n");
+		var temp = linhas[0].split(" ");
+		var classe = temp[0];
 		var wapp = window.open("", "_blank", "width=800,height=600");
 		wapp.document.write("<title>Application " + classe + "</title>");
 		wapp.document.write("<textarea style=\"width: 100%; height: 100%\">");
-		wapp.document.write(getClasseApplication());
+		wapp.document.write(getClasseApplicationBean());
 		wapp.document.write("</textarea>");
 	});
 }
