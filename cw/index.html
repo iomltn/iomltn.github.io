@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<title>CalcWood - by iomltn@gmail.com</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script>
+		function ripa12_6(x, e) {
+			var result = (Math.pow((10000/72), e) * x); // se x = 1, comprimento = (10000/72) * volume;
+			return result;
+		}
+		function linha6_14(x, e) {
+			var result = (Math.pow((10000/84), e) * x); // se x = 1, comprimento = (10000/84) * volume;
+			return result;
+		}
+		function barrote6_6(x, e) {
+			var result = (Math.pow((10000/36), e) * x); // se x = 1, comprimento = (10000/36) * volume;
+			return result;
+		}
+		window.onload = function() {
+			var schooser = document.getElementById("chooser");
+			var suleft = document.getElementById("uleft");
+			var suright = document.getElementById("uright");
+			var ileft = document.getElementById("ileft");
+			var iright =document.getElementById("iright");
+
+			var chooser;
+			var result, l, r;
+			var limpar = function() {
+				suleft.innerHTML = "";
+				suright.innerHTML = "";
+				ileft.value = "";
+				iright.value = "";
+				ileft.focus();
+			}
+			var define = function(ul, ur, fct) {
+				suleft.innerHTML = ul;
+				suright.innerHTML = ur;
+				
+				ileft.onkeyup = function(e) {
+					l = parseFloat(ileft.value.replace(",", "."));
+					result = fct(l, 1);
+					if (!isNaN(result)) {
+						iright.value = result.toString().replace(".", ",");
+					} else {
+						iright.value = "";
+					}
+					if (e.keyCode == 13) {
+						iright.focus();
+					}
+				}
+				iright.onkeyup = function(e) {
+					r = parseFloat(iright.value.replace(",", "."));
+					result = fct(r, -1);
+					if (!isNaN(result)) {
+						ileft.value = result.toString().replace(".", ",");
+					} else {
+						ileft.value = "";
+					}
+					if (e.keyCode == 13) {
+						ileft.focus();
+					}
+				}
+			}
+			var atualiza = function() {
+				chooser = schooser.value;
+				switch (chooser) {
+					case "ripa12_6":
+						limpar();
+						define("m³", "m", ripa12_6);
+						break;
+						
+					case "linha6_14":
+						limpar();
+						define("m³", "m", linha6_14);
+						break;
+					case "barrote6_6":
+						limpar();
+						define("m³", "m", barrote6_6);
+						break;
+				}
+			}
+			schooser.onchange = function() {
+				atualiza();
+			};
+			atualiza();
+		}
+		</script>
+		<style>
+		* {
+			font-family: Tahoma;
+		}
+		body {
+			background: lightgray;
+		}
+		#container {
+			margin: 0 auto;
+			max-width: 650px;
+		}
+		#box_title {
+			background-image: url("img/background.jpg");
+			padding: 8px;
+			margin-bottom: 10px;
+			overflow: auto;
+			border-radius: 10px;
+		}
+		h1 {
+			text-align: center;
+			color: white;
+			float: left;
+			text-shadow: 0.1em 0.1em 0.05em black;
+		}
+		#uleft, #uright, select, input {
+			font-size: 17px;
+			text-align: right;
+			font-weight: bold;
+			padding: 5px;
+			margin: 5px;
+		}
+		select {
+			margin: 25px 5px 10px 0px;
+		}
+		#box_chooser {
+			float: right;
+		}
+		#box_values {
+			text-align: center;
+		}
+		#author {
+			display: block;
+			text-align: center;
+			margin-top: 20px;
+			font-size: 10px;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="box_title">
+				<h1>CalcWood</h1>
+				<div id="box_chooser">
+					<select id="chooser">
+						<option value="barrote6_6">Barrote 6/6</option>
+						<option value="linha6_14">Linha 6/14</option>
+						<option value="ripa12_6">Ripa 12/6</option>
+					</select>
+				</div>
+			</div>
+			<div id="box_values">
+				<input type="text" id="ileft"/><span id="uleft"></span> = <input type="text" id="iright"/><span id="uright"></span>
+			</div>
+			<span id="author">by Milton Rodrigues - iomltn@gmail.com</span>
+		</div>
+	</body>
+</html>
