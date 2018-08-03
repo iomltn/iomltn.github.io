@@ -31,7 +31,7 @@
 				iright.value = "";
 				ileft.focus();
 			}
-			var define = function(ul, ur, fct) {
+			var setFunctionConvert = function(ul, ur, fct) {
 				suleft.innerHTML = ul;
 				suright.innerHTML = ur;
 				
@@ -39,7 +39,7 @@
 					l = parseFloat(ileft.value.replace(",", "."));
 					result = fct(l, 1);
 					if (!isNaN(result)) {
-						iright.value = result.toString().replace(".", ",");
+						iright.value = result.toFixed(6).toString().replace(".", ",");
 					} else {
 						iright.value = "";
 					}
@@ -51,7 +51,7 @@
 					r = parseFloat(iright.value.replace(",", "."));
 					result = fct(r, -1);
 					if (!isNaN(result)) {
-						ileft.value = result.toString().replace(".", ",");
+						ileft.value = result.toFixed(6).toString().replace(".", ",");
 					} else {
 						ileft.value = "";
 					}
@@ -65,16 +65,16 @@
 				switch (chooser) {
 					case "ripa12_6":
 						limpar();
-						define("m³", "m", ripa12_6);
+						setFunctionConvert("m³", "m", ripa12_6);
 						break;
 						
 					case "linha6_14":
 						limpar();
-						define("m³", "m", linha6_14);
+						setFunctionConvert("m³", "m", linha6_14);
 						break;
 					case "barrote6_6":
 						limpar();
-						define("m³", "m", barrote6_6);
+						setFunctionConvert("m³", "m", barrote6_6);
 						break;
 				}
 			}
