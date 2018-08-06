@@ -80,7 +80,7 @@
 		</script>
 		<style>
 		* {
-			font-family: Tahoma;
+			font-family: Verdana;
 		}
 		body {
 			background: lightgray;
@@ -88,9 +88,10 @@
 		#container {
 			margin: 0 auto;
 			max-width: 650px;
+			background: linear-gradient(#f90, #261a0d);
+			border-radius: 10px;
 		}
 		#box_title {
-			background-image: url("img/background.jpg");
 			padding: 8px;
 			margin-bottom: 10px;
 			overflow: auto;
@@ -98,16 +99,22 @@
 		}
 		h1 {
 			text-align: center;
+			font-size: 50px;
+			padding: 0px;
 			color: white;
 			float: left;
+			margin: 5px 0px 0px 10px;
 			text-shadow: 0.1em 0.1em 0.05em black;
 		}
 		#uleft, #uright, select, input {
-			font-size: 17px;
+			font-size: 20px;
 			text-align: right;
 			font-weight: bold;
 			padding: 5px;
 			margin: 5px;
+		}
+		#uleft, #uright {
+			color: white;
 		}
 		select {
 			margin: 25px 5px 10px 0px;
@@ -124,6 +131,15 @@
 			text-align: center;
 			margin-top: 20px;
 			font-size: 10px;
+			padding: 10px;
+			color: white;
+		}
+		#eq {
+			color: white;
+		}
+		table {
+			margin: 0 auto;
+			text-align: center;
 		}
 		</style>
 	</head>
@@ -141,7 +157,20 @@
 				</div>
 			</div>
 			<div id="box_values">
-				<input type="text" id="ileft" autofocus/><span id="uleft"></span> = <input type="text" id="iright"/><span id="uright"></span>
+				<table>
+					<tr>
+						<td><input type="text" id="ileft" autofocus/></td>
+						<td><span id="uleft"></span></td>
+					</tr>
+					<tr>
+						<td id="eq">=</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><input type="text" id="iright"/></td>
+						<td><span id="uright"></span></td>
+					</tr>
+				</table>
 			</div>
 			<span id="author">by Milton Rodrigues - iomltn@gmail.com</span>
 		</div>
