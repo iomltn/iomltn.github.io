@@ -1,0 +1,170 @@
+<DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>Dividir em Grupos</title>
+		<meta name="viewport" content="width=device-width">
+		<script>
+		function removeById(indice,  array) {
+			var new_array = [];
+			for (var i = 0; i < array.length; i++) {
+				if (i == indice) continue;
+				new_array.push(array[i]);
+			}
+			return new_array;
+		}
+		function removeByValue(value,  array) {
+			var new_array = [];
+			for (var i = 0; i < array.length; i++) {
+				if (array[i] == value) continue;
+				new_array.push(array[i]);
+			}
+			return new_array;
+		}		
+		function getGroups(nGroups, array) {
+			var choice;
+			var qtdGroup = Math.floor(array.length / nGroups);
+			var groups = Array();
+			for (var i = 0; i < nGroups; i++) {
+				groups[i] = [];
+				for (var j = 0; j < qtdGroup; j++) {
+					choice = Math.floor(Math.random() * array.length);
+					groups[i][j] = array[choice];
+					array = removeById(choice, array);
+				}
+			}
+			if (array.length > 0) {
+				for (var i = 0; i < array.length; i++) {
+					choice = Math.floor(Math.random() * array.length);
+					groups[i].push(array[choice]);
+					array = removeById(choice, array);
+				}
+			}
+			return groups;
+		}
+		var list = [];
+		window.onload = function() {
+			var inputName = document.getElementById("name");
+			var boxParticipants = document.getElementById("boxParticipants");
+			var btnCreateGroups = document.getElementById("createGroups");
+			var inputQtdGroups = document.getElementById("qtdGroups");
+			var boxGroups = document.getElementById("boxGroups");
+			var btnAdd = document.getElementById("btnAdd");
+			var cleanInput = function() {
+				inputName.value = "";
+				inputName.focus();
+			}
+			var cleanGroups = function() {
+				boxGroups.innerHTML = "";
+			}
+			var addNome = function() {
+				var nome = inputName.value;
+				var li = document.createElement("li");
+				var btn = document.createElement("button");
+				var span = document.createElement("span");
+				btn.innerHTML = "x";
+				btn.addEventListener("click", function() {
+					var s = li.getElementsByTagName("span")[0];
+					list = removeByValue(nome, list);
+					boxParticipants.removeChild(li);
+				});
+				span.innerHTML = nome + " ";
+				li.appendChild(span);
+				li.appendChild(btn);
+				list.push(inputName.value);
+				boxParticipants.appendChild(li);
+				cleanInput();
+			}
+			btnAdd.addEventListener("click", addNome);
+			inputName.addEventListener("keyup", function(e) {
+				if (e.keyCode == 13) {
+					addNome();
+				}
+			});
+			btnCreateGroups.addEventListener("click", function() {
+				cleanGroups();
+				if (list.length < parseInt(inputQtdGroups.value)) {
+					alert("Quantidade insuficiente!");
+					inputName.focus();
+				} else {
+					var groups = getGroups(parseInt(inputQtdGroups.value), list);
+					for (var i = 0; i < groups.length; i++) {
+						var ul = document.createElement("ul");
+						ul.innerHTML = "<b>GRUPO " + (i + 1) + "</b>";
+						for (var j = 0; j < groups[i].length; j++) {
+							var li = document.createElement("li");
+							li.innerHTML = groups[i][j];
+							ul.appendChild(li);
+						}
+						boxGroups.appendChild(ul);
+					}
+				}
+			});
+		}
+		</script>
+		<style>
+		* {
+			font-family: arial;
+		}
+		button {
+			border-radius: 30px;
+			outline: none;
+			padding: 5px 10px 5px 10px;
+			color: white;
+			background: black;
+			border: none;
+			cursor: pointer;
+		}
+		#container {
+			margin: 0 auto;
+			max-width: 600px;
+			text-align: center;
+		}
+		#boxParticipants li {
+			list-style: none;
+			padding: 0;
+			margin: 5px;
+			float: left;
+		}
+		#boxParticipants {
+			overflow: auto;
+		}
+		#name, #qtdGroups {
+			padding: 5px;
+		}
+		#boxGroups {
+			overflow: auto;
+		}
+		#boxGroups ul {
+			float: left;
+			border: solid 1px gray;
+			margin: 10px;
+			padding: 10px;
+			
+		}
+		#boxGroups ul li {
+			padding: 0px;
+			margin: 5px;
+			list-style: none;
+		}
+		#author {
+			display: block;
+			margin: 20px;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<h1>Dividir em Grupos</h1>
+			<div id="boxAdd">
+				<input type="text" id="name" placeholder="Nome do participante" autofocus/> <button id="btnAdd">Adicionar</button>
+			</div>
+			<ul id="boxParticipants">
+			</ul>
+			<input type="number" min="1" value="2" id="qtdGroups"/>
+			<button id="createGroups">Dividir</button>
+			<div id="boxGroups">
+			</div>
+			<span id="author"><small>by Milton Rodrigues - iomltn@gmail.com</small></span>
+		</div>
+	</body>
+</html>
