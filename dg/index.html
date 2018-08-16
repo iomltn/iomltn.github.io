@@ -32,8 +32,9 @@
 					array = removeById(choice, array);
 				}
 			}
-			if (array.length > 0) {
-				for (var i = 0; i < array.length; i++) {
+			var al = array.length;
+			if (al > 0) {
+				for (var i = 0; i < al; i++) {
 					choice = Math.floor(Math.random() * array.length);
 					groups[i].push(array[choice]);
 					array = removeById(choice, array);
@@ -49,6 +50,7 @@
 			var inputQtdGroups = document.getElementById("qtdGroups");
 			var boxGroups = document.getElementById("boxGroups");
 			var btnAdd = document.getElementById("btnAdd");
+			var boxInfo = document.getElementById("info");
 			var cleanInput = function() {
 				inputName.value = "";
 				inputName.focus();
@@ -60,6 +62,7 @@
 				var nome = inputName.value;
 				var li = document.createElement("li");
 				var btn = document.createElement("button");
+				btn.setAttribute("class", "btn-close");
 				var span = document.createElement("span");
 				btn.innerHTML = "x";
 				btn.addEventListener("click", function() {
@@ -82,6 +85,7 @@
 			});
 			btnCreateGroups.addEventListener("click", function() {
 				cleanGroups();
+				boxInfo.innerHTML = "Total de participantes: " + list.length;
 				if (list.length < parseInt(inputQtdGroups.value)) {
 					alert("Quantidade insuficiente!");
 					inputName.focus();
@@ -106,6 +110,8 @@
 			font-family: arial;
 		}
 		button {
+			display: inline-block;
+			margin: 5px;
 			border-radius: 30px;
 			outline: none;
 			padding: 5px 10px 5px 10px;
@@ -113,6 +119,7 @@
 			background: black;
 			border: none;
 			cursor: pointer;
+			clear: both;
 		}
 		#container {
 			margin: 0 auto;
@@ -120,10 +127,10 @@
 			text-align: center;
 		}
 		#boxParticipants li {
+			display: inline-block;
 			list-style: none;
 			padding: 0;
 			margin: 5px;
-			float: left;
 		}
 		#boxParticipants {
 			overflow: auto;
@@ -133,9 +140,11 @@
 		}
 		#boxGroups {
 			overflow: auto;
+			text-align: center;
 		}
 		#boxGroups ul {
-			float: left;
+			display: inline-block;
+			top: 0px;
 			border: solid 1px gray;
 			margin: 10px;
 			padding: 10px;
@@ -146,9 +155,17 @@
 			margin: 5px;
 			list-style: none;
 		}
+		.btn-close {
+			font-size: 10px;
+			font-weight: bold;
+			background: gray;
+		}
 		#author {
 			display: block;
 			margin: 20px;
+		}
+		#info {
+			text-align: center;
 		}
 		</style>
 	</head>
@@ -163,6 +180,9 @@
 			<input type="number" min="1" value="2" id="qtdGroups"/>
 			<button id="createGroups">Dividir</button>
 			<div id="boxGroups">
+			</div>
+			<div id="info">
+			
 			</div>
 			<span id="author"><small>by Milton Rodrigues - iomltn@gmail.com</small></span>
 		</div>
