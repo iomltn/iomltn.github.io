@@ -9,7 +9,10 @@
 			font-family: arial;
 		}
 		canvas {
-			margin: 5px;
+			margin: 0 auto;
+			display: block;
+			clear: both;
+			margin-bottom: 10px;
 		}
 		button {
 			padding: 10px 20px 10px 20px;
@@ -21,6 +24,7 @@
 			font-weight: bold;
 			font-size: 16px;
 			cursor: pointer;
+			
 		}
 		</style>
 		<script>
@@ -71,7 +75,7 @@
 					x = Math.floor(i / 5) * 80 + 40;
 					y = (i % 5) * 80 + 100;
 					if ((i + 1) == numero) {
-						ctx.fillStyle = "blue";
+						ctx.fillStyle = "green";
 					} else {
 						ctx.fillStyle = "black";
 					}
@@ -101,12 +105,16 @@
 					atualizar(numeroSorteado);
 					ultimoNumero.innerHTML = numeroSorteado;
 				}
+				if (numerosSorteados.length == totalNumeros) {
+					btnSortead.innerHTML = "Novo Sorteio";
+					//btnSortead.addEventListener
+				}
 			});
 		}
 		</script>
 	</head>
 	<body>
-		<canvas width="400" height="460"></canvas><br>
+		<canvas width="400" height="460"></canvas>
 		<button id="sortear">Sortear Número</button>
 		<p>Último número: <b><span id="ultimoNumero"></span></b></p>
 		<span><small>by Milton Rodrigues - iomltn@gmail.com</small></span>
