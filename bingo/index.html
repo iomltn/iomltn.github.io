@@ -11,6 +11,17 @@
 		canvas {
 			margin: 5px;
 		}
+		button {
+			padding: 10px 20px 10px 20px;
+			border-radius: 20px;
+			color: white;
+			background: black;
+			outline: none;
+			border: 0;
+			font-weight: bold;
+			font-size: 16px;
+			cursor: pointer;
+		}
 		</style>
 		<script>
 		var numeros = [01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
@@ -41,25 +52,42 @@
 			var btnSortear = document.getElementById("sortear");
 			var ultimoNumero = document.getElementById("ultimoNumero");
 			var ctx = canvas.getContext("2d");
-			ctx.font = "30px Arial";
 			ctx.textAlign = "center";
 			var x, y;
+			var titulo = "BINGO";
+			ctx.font = "60px Times New Roman";
+			for (var i = 0; i < titulo.length; i++) {
+				ctx.beginPath();
+				x = (i % 5) * 80 + 40;
+				y = Math.floor(i / 5) * 80 + 50;
+				ctx.fillText(titulo[i], x, y);
+				ctx.closePath();
+			}
 			var atualizar = function(numero) {
-				ctx.clearRect(0, 0, 400, 400);
+				ctx.clearRect(0, 60, 400, 400);
+				ctx.font = "30px Arial";
 				for (var i = 0; i < totalNumeros; i++) {
 					ctx.beginPath();
-					x = (i % 5) * 80 + 40;
-					y = Math.floor(i / 5) * 80 + 40;
-					ctx.arc(x, y, 38, 0, 2 * Math.PI);
-					ctx.stroke();
-					if (i + 1 == numero) {
-						ctx.fillStyle = "red";
+					x = Math.floor(i / 5) * 80 + 40;
+					y = (i % 5) * 80 + 100;
+					if ((i + 1) == numero) {
+						ctx.fillStyle = "blue";
 					} else {
+						ctx.fillStyle = "black";
+					}
+					ctx.arc(x, y, 38, 0, 2 * Math.PI);
+					if ((i + 1) == numero) {
+						ctx.fill();
+						ctx.stroke();
+						ctx.fillStyle = "white";
+					} else {
+						ctx.stroke();
 						ctx.fillStyle = "black";
 					}
 					if (estaContido(i + 1, numerosSorteados)) {
 						ctx.fillText(i + 1, x, y + 10);
 					}
+					ctx.closePath();
 				}
 				
 			}
@@ -70,7 +98,7 @@
 				var numeroSorteado = getNumero();
 				if (numeroSorteado != null) {
 					numerosSorteados.push(numeroSorteado);
-					atualizar();
+					atualizar(numeroSorteado);
 					ultimoNumero.innerHTML = numeroSorteado;
 				}
 			});
@@ -78,8 +106,7 @@
 		</script>
 	</head>
 	<body>
-		<h1>Bingo</h1>
-		<canvas width="400" height="400"></canvas><br>
+		<canvas width="400" height="460"></canvas><br>
 		<button id="sortear">Sortear Número</button>
 		<p>Último número: <b><span id="ultimoNumero"></span></b></p>
 	</body>
