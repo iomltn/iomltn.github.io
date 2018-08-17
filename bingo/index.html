@@ -1,0 +1,85 @@
+<DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<style>
+		body {
+			margin: 0 auto;
+			text-align: center;
+			font-family: arial;
+		}
+		canvas {
+			margin: 5px;
+		}
+		</style>
+		<script>
+		var numeros = [01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+		var numerosSorteados = [];
+		var totalNumeros = numeros.length;
+		function remover(a, lista) {
+			var novaLista = [];
+			for (var i = 0; i < lista.length; i++) {
+				if (lista[i] == a) continue;
+				novaLista.push(lista[i]);
+			}
+			return novaLista;
+		}
+		function getNumero() {
+			var i = Math.floor(numeros.length * Math.random());
+			var numero = numeros[i];
+			numeros = remover(numero, numeros);
+			return numero;
+		}
+		function estaContido(numero, lista) {
+			for (var i = 0; i < lista.length; i++) {
+				if (lista[i] == numero) return true;
+			}
+			return false;
+		}
+		window.onload = function() {
+			var canvas = document.getElementsByTagName("canvas")[0];
+			var btnSortear = document.getElementById("sortear");
+			var ultimoNumero = document.getElementById("ultimoNumero");
+			var ctx = canvas.getContext("2d");
+			ctx.font = "30px Arial";
+			ctx.textAlign = "center";
+			var x, y;
+			var atualizar = function(numero) {
+				ctx.clearRect(0, 0, 400, 400);
+				for (var i = 0; i < totalNumeros; i++) {
+					ctx.beginPath();
+					x = (i % 5) * 80 + 40;
+					y = Math.floor(i / 5) * 80 + 40;
+					ctx.arc(x, y, 38, 0, 2 * Math.PI);
+					ctx.stroke();
+					if (i + 1 == numero) {
+						ctx.fillStyle = "red";
+					} else {
+						ctx.fillStyle = "black";
+					}
+					if (estaContido(i + 1, numerosSorteados)) {
+						ctx.fillText(i + 1, x, y + 10);
+					}
+				}
+				
+			}
+			atualizar();
+			var adicionarNumero = function(numero) {
+			}
+			btnSortear.addEventListener("click", function() {
+				var numeroSorteado = getNumero();
+				if (numeroSorteado != null) {
+					numerosSorteados.push(numeroSorteado);
+					atualizar();
+					ultimoNumero.innerHTML = numeroSorteado;
+				}
+			});
+		}
+		</script>
+	</head>
+	<body>
+		<h1>Bingo</h1>
+		<canvas width="400" height="400"></canvas><br>
+		<button id="sortear">Sortear Número</button>
+		<p>Último número: <b><span id="ultimoNumero"></span></b></p>
+	</body>
+</html>
