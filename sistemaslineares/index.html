@@ -1,0 +1,180 @@
+<DOCTYPE html>
+<html pt="pt-br">
+	<head>
+		<script>
+		function d2(m) {
+			var d = m[0] * m[3] - m[2] * m[1];
+			return d;
+		}
+		function menorComplementar(matriz, linha, coluna) {
+			var ordem = Math.sqrt(matriz.length);
+			var novaMatriz = [];
+			var i, j;
+			for (var p = 0; p < matriz.length; p++) {
+				i = Math.floor(p / ordem) + 1; //linha
+				j = (p % ordem) + 1; // coluna
+				if (linha != i && coluna != j) {
+					novaMatriz.push(matriz[p]);
+				}
+			}
+			return novaMatriz;
+		}
+		function d(m) {
+			var d0 = 0;
+			var ordem = Math.sqrt(m.length);
+			if (ordem == 2) return d2(m);
+			for (var c = 1; c <= ordem; c++) {
+				var mc = menorComplementar(m, 1, c);
+				var dmc = d(mc);
+				d0 += m[c - 1] * Math.pow(-1, c + 1) * dmc; 
+			}
+			return d0;
+		}
+		function dTroca(matriz, c, matriz_coluna) {
+			var ordem = Math.sqrt(matriz.length);
+			var novaMatriz = [];
+			var i, j;
+			var pc = 0;
+			for (var p = 0; p < matriz.length; p++) {
+				i = Math.floor(p / ordem) + 1; //linha
+				j = (p % ordem) + 1; // coluna
+				if (j == c) {
+					novaMatriz.push(matriz_coluna[pc]);
+					pc++;
+				} else {
+					novaMatriz.push(matriz[p]);				
+				}
+			}
+			return novaMatriz;			
+		}
+		function getCoeficientesSistema(matriz, matrix_1xn) {
+			var ordem = Math.sqrt(matriz.length);
+			var coeficientes = [];
+			var determinante_nxn = d(matriz);
+			var determinantes_nxc = [];
+			for (var i = 0; i < ordem; i++) {
+				var d_nxc = d(dTroca(matriz, i + 1, matrix_1xn));
+				coeficientes.push((d_nxc / determinante_nxn).toFixed(4).replace(".", ","));
+			}
+			return coeficientes;
+		}
+		window.onload = function() {
+			var tableMatriz_nxn = document.getElementById("tableMatriz_nxn");
+			var tableMatriz_nx1 = document.getElementById("tableMatriz_nx1");
+			var tableMatriz_1xn = document.getElementById("tableMatriz_1xn");
+			var calcular = document.getElementById("calcular");
+			var ordem = document.getElementById("ordem");
+			
+			var criarInputs = function() {
+				tableMatriz_nxn.innerHTML = "";
+				tableMatriz_nx1.innerHTML = "";
+				tableMatriz_1xn.innerHTML = "";
+				var trResultados = document.createElement("tr");
+				var o = parseInt(ordem.value);
+				for (var i = 0; i < o; i++) {
+					var tr = document.createElement("tr");
+					for (var j = 0; j < o; j++) {
+						var td = document.createElement("td");
+						var input = document.createElement("input");
+						input.setAttribute("size", 2);
+						input.setAttribute("class", "input");
+						td.appendChild(input);
+						tr.appendChild(td);
+					}
+					tableMatriz_nxn.appendChild(tr);
+					
+					// matriz nx1
+					tr = document.createElement("tr");
+					td = document.createElement("td");
+					input = document.createElement("input");
+					input.setAttribute("size", "2");
+					input.setAttribute("class", "input");
+					td.appendChild(input);
+					tr.appendChild(input);
+					tableMatriz_nx1.appendChild(tr);
+
+					// metriz resultados 1xn
+					td = document.createElement("td");
+					input = document.createElement("input");
+					input.setAttribute("size", "5");
+					input.setAttribute("class", "input");
+					td.appendChild(input);
+					trResultados.appendChild(td);
+				}
+				tableMatriz_1xn.appendChild(trResultados);
+			}
+			
+			var getMatriz_nxn = function() {
+				var inputs = tableMatriz_nxn.getElementsByTagName("input");
+				var matriz = [];
+				for (var i = 0; i < inputs.length; i++) {
+					matriz.push(parseFloat(inputs[i].value.replace(",", ".")));
+				}
+				return matriz;
+			}
+			var getMatriz_nx1 = function() {
+				var inputs = tableMatriz_nx1.getElementsByTagName("input");
+				var matriz = [];
+				for (var i = 0; i < inputs.length; i++) {
+					matriz.push(parseFloat(inputs[i].value.replace(",", ".")));
+				}
+				return matriz;
+			}
+			var setMatriz_1xn = function(matriz_1xn) {
+				var inputs = tableMatriz_1xn.getElementsByTagName("input");
+				for (var i = 0; i < inputs.length; i++) {
+					inputs[i].value = matriz_1xn[i];
+				}
+			}
+			ordem.addEventListener("change", criarInputs);
+			calcular.addEventListener("click", function() {
+				var matriz_nxn = getMatriz_nxn();
+				var matriz_nx1 = getMatriz_nx1();
+				var matrix_1xn = getCoeficientesSistema(matriz_nxn, matriz_nx1);
+				setMatriz_1xn(matrix_1xn);
+			});
+			criarInputs();
+		}
+		</script>
+		<style>
+		#container {
+			text-align: center;
+		}
+		#container * {
+			margin: 5px;
+		}
+		#tableMatriz_nxn, #tableMatriz_nx1, #tableMatriz_1xn {
+			display: inline-block;
+		}
+		#tableMatriz_nxn, #tableMatriz_nx1 {
+			vertical-align: middle;
+		}
+		#tableMatriz_nx1 {
+			background: gray;
+		}
+		.input {
+			text-align: center;
+		}
+		#tabelas {
+			clear: both;
+			overflow: auto;
+		}
+		</style>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width">
+	</head> 
+	<body>
+		<div id="container">
+			<h1>Sistemas Lineares</h1>
+			<label>Ordem da matriz</label><br>
+			<input type="number" min="2" value="2" id="ordem"/><br>
+			<div id="tabelas">
+				<table id="tableMatriz_nxn"></table>
+				<table id="tableMatriz_nx1"></table>
+			</div>
+			<button id="calcular">Calcular</button><br>
+			<table id="tableMatriz_1xn"></table><br>
+			<p><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
+		</div>
+	</body>
+</html>
