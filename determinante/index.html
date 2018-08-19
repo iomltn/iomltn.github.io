@@ -58,7 +58,7 @@
 				var inputs = tableMatriz.getElementsByTagName("input");
 				var matriz = [];
 				for (var i = 0; i < inputs.length; i++) {
-					matriz.push(parseInt(inputs[i].value));
+					matriz.push(parseFloat(inputs[i].value.replace(",", "."));
 				}
 				return matriz;
 			}
