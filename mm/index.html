@@ -179,11 +179,10 @@
 		<style>
 		* {
 			font-family: Times New Roman;
-			margin: 5px;
-			text-align: center;
 		}
 		body {
 			background: lightgray;
+			text-align: center;
 		}
 		h1 {
 			font-size: 40px;
@@ -196,13 +195,22 @@
 			padding: 5px;
 			outline: none;
 		}
+		#container {
+			margin: 0 auto;
+			overflow: auto;
+		}
+		#container * {
+			margin: 5px;
+		}
 		</style>
 	</head>
 	<body>
-		<h1>Calcular MM</h1>
-		<input type="text" id="expressao" placeholder="Fórmula Química"/><br>
-		<button id="obterMassa">MM</button><br>
-		<input type="text" id="mm"/><br>
-		<small>by Milton Rodrigues - iomltn@gmail.com</small>
+		<div id="container">
+			<h1>Calcular MM</h1>
+			<input type="text" id="expressao" placeholder="Fórmula Química"/><br>
+			<button id="obterMassa">MM</button><br>
+			<input type="text" id="mm"/><br>
+			<small>by Milton Rodrigues - iomltn@gmail.com</small>
+		</div>
 	</body>
 </html>
