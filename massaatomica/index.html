@@ -1,0 +1,91 @@
+<DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8"/>
+		<script>
+		var elementos = [
+			{"z": 1, "simbolo": "H", "nome": "Hidrogênio", "mm": 1.008},
+			{"z": 2, "simbolo": "He", "nome": "Hélio", "mm": 4.0026},
+			{"z": 3, "simbolo": "Li", "nome": "Lítio", "mm": 6.94},
+			{"z": 5, "simbolo": "B", "nome": "Boro", "mm": 10.81},
+			{"z": 4, "simbolo": "Be", "nome": "Berílio", "mm": 9.012},
+			{"z": 6, "simbolo": "C", "nome": "Carbono", "mm": 12.011},
+			{"z": 7, "simbolo": "N", "nome": "Nitrogênio", "mm": 14.007},
+			{"z": 8, "simbolo": "O", "nome": "Oxigênio", "mm": 15.999},
+			{"z": 9, "simbolo": "F", "nome": "Flúor", "mm": 18.998},
+			{"z": 10, "simbolo": "Ne", "nome": "Neônio", "mm": 20.180},
+			{"z": 11, "simbolo": "Na", "nome": "Sódio", "mm": 22.990},
+			{"z": 12, "simbolo": "Mg", "nome": "Magnésio", "mm": 24.305},
+			{"z": 13, "simbolo": "Al", "nome": "Alumínio", "mm": 26.982},
+			{"z": 16, "simbolo": "S", "nome": "Enxofre", "mm": 32.06},
+			{"z": 14, "simbolo": "Si", "nome": "Silício", "mm": 28.085},
+			{"z": 15, "simbolo": "P", "nome": "Fósforo", "mm": 30.974},
+			{"z": 17, "simbolo": "Cl", "nome": "Cloro", "mm": 35.45},
+			{"z": 18, "simbolo": "Ar", "nome": "Argônio", "mm": 35.45},
+			{"z": 19, "simbolo": "K", "nome": "Potássio", "mm": 39.098},
+			{"z": 20, "simbolo": "Ca", "nome": "Cálcio", "mm": 40.078},
+			{"z": 21, "simbolo": "Sc", "nome": "Escândio", "mm": 44.956},
+			{"z": 56, "simbolo": "Ba", "nome": "Bário", "mm": 137.33},
+		];
+		elementos.reverse();
+		function soma(expressao, quantificador) {
+			var s = 0;
+			for (var i = 0; i < elementos.length; i++) {
+				if (expressao.indexOf(elementos[i].simbolo) != -1) {
+					expressao = expressao.replace(elementos[i].simbolo, "");
+					s += elementos[i].mm;
+					console.log(expressao);
+				}
+			};
+			if (quantificador != null) s *= quantificador;
+			return s;
+		}
+		function getMassa(str) {
+			var mm = 0;
+			var quantificadorTotal = 1;
+			var re = /^(\d+)?\(?([a-zA-Z]+)\)?(\d+)?/;
+			while (str.match(re)) {
+				var temp = re.exec(str);
+				if (temp[1] != null) {
+					quantificadorTotal = parseInt(temp[0]);
+				}
+				var elems = temp[2];
+				var quantificador = temp[3];
+				mm += soma(elems, quantificador);
+				str = str.replace(re, "");
+			}
+			mm *= quantificadorTotal;
+			return mm.toFixed(3).replace(".", ",");
+		}
+		window.onload = function() {
+			var expressao = document.getElementById("expressao");
+			var mm = document.getElementById("mm");
+			var obterMassa = document.getElementById("obterMassa");
+			obterMassa.addEventListener("click", function() {
+				mm.value = getMassa(expressao.value);
+			});
+			expressao.addEventListener("keyup", function() {
+				mm.value = getMassa(expressao.value);
+			});
+		}
+		</script>
+		<style>
+		* {
+			font-family: Times New Roman;
+			margin: 5px;
+			text-align: center;
+		}
+		#expressao, #mm{
+			padding: 5px;
+			font-size: 25px;
+		}
+		</style>
+	</head>
+	<body>
+		<h1>Calculadora de Massa Atômica</h1>
+		<input type="text" id="expressao"/><br>
+		<button id="obterMassa">Obter Massa</button><br>
+		<input type="text" id="mm"/>
+		
+	</body>
+</html>
