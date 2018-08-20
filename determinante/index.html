@@ -65,7 +65,7 @@
 			ordem.addEventListener("change", criarInputs);
 			calcularDeterminante.addEventListener("click", function() {
 				var matriz = getMatriz();
-				determinante.value = d(matriz);
+				determinante.value = d(matriz).toFixed(4).replace(".", ",");
 			});
 			criarInputs();
 		}
