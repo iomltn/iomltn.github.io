@@ -188,8 +188,10 @@
 					var tdF = document.createElement("td");
 					var tdR = document.createElement("td");
 					var tdG = document.createElement("td");
-					var tdC = document.createElement("td");
 					var btn = document.createElement("button");
+					tdR.setAttribute("class", "direita");
+					tdF.setAttribute("class", "esquerda");
+					tdG.setAttribute("class", "esquerda");
 					btn.innerHTML = "x";
 					btn.addEventListener("click", function() {
 						table.removeChild(tr);
@@ -197,11 +199,10 @@
 					tdF.innerHTML = "<b>" + f + "</b>";
 					tdR.innerHTML = r;
 					tdG.innerHTML = g;
-					tdC.appendChild(btn);
+					tdF.appendChild(btn);
 					tr.appendChild(tdF);
 					tr.appendChild(tdR);
 					tr.appendChild(tdG);
-					tr.appendChild(tdC);
 
 					table.appendChild(tr);
 					expressao.value = "";
@@ -221,7 +222,7 @@
 		</script>
 		<style>
 		* {
-			font-family: Times New Roman;
+			font-family: Courier New;
 		}
 		body {
 			background: lightgray;
@@ -252,24 +253,41 @@
 			clear: both;
 			text-align: center;
 			clear: both;
-			font-size: 20px;
+			font-size: 18px;
+			border-collapse: collapse;
+		}
+		table th {
+			color: gray;
 		}
 		table td, th {
-			padding: 2px;
+			padding: 5px;
 		}
 		table td button {
+			margin: 5px;
+			border: none;
+			background: black;
+			color: white;
 			vertical-align: middle;
+			border-radius: 10px;
+			cursor: pointer;
+			font-weight: bold;
+		}
+		.esquerda {
+			text-align: left;
+		}
+		.direita {
+			text-align: right;
 		}
 		</style>
 	</head>
 	<body>
 		<div id="container">
 			<h1>Calcular MM</h1>
-			<input type="text" id="expressao" placeholder="Fórmula Química"/><br>
+			<input type="text" id="expressao"/><br>
 			<input type="text" id="mm"/><br>
 			<button id="salvar">Salvar</button><br>
 			<table border="1">
-				<tr><th>Fórmula</th><th>Massa</th><th>Grandeza</th><th>Cmd</th></tr>
+				<tr><th>Fórmula</th><th>Massa</th><th>Grandeza</th></tr>
 			</table><br>
 			<small>by Milton Rodrigues - iomltn@gmail.com</small>
 		</div>
