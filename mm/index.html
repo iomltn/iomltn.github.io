@@ -142,7 +142,7 @@
 			var si = 0;
 			elemento = getElemento(formula);
 			while (elemento) {
-					var re = new RegExp(elemento.simbolo + "+(\\d*)");
+					var re = new RegExp(elemento.simbolo + "(\\d*)");
 					var temp = formula.match(re);
 					formula = formula.replace(re, "");
 					si = elemento.mm;
