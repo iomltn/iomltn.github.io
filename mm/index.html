@@ -128,19 +128,27 @@
 			return (a.simbolo > b.simbolo) ? -1 : ((b.simbolo > a.simbolo) ? 1 : 0);
 		});
 		//elementos.reverse();
-		function soma(formula, quantificador) {
-			var s = 0;
-			var si = 0;
+		function getElemento(formula) {
 			for (var i = 0; i < elementos.length; i++) {
 				var re = new RegExp(elementos[i].simbolo + "+(\\d*)");
 				if (formula.search(re) != -1) {
+					return elementos[i];
+				}
+			}
+			return false;
+		}
+		function soma(formula, quantificador) {
+			var s = 0;
+			var si = 0;
+			elemento = getElemento(formula);
+			while (elemento) {
+					var re = new RegExp(elemento.simbolo + "+(\\d*)");
 					var temp = formula.match(re);
 					formula = formula.replace(re, "");
-					console.log(formula);
-					si = elementos[i].mm;
+					si = elemento.mm;
 					if (temp[1] != "") si *= parseInt(temp[1]);					
 					s += si;
-				}
+					elemento = getElemento(formula);
 			};
 			if (quantificador != null) s *= quantificador;
 			return s;
