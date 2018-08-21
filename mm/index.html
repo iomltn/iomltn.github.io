@@ -226,10 +226,12 @@
 		}
 		body {
 			background: lightgray;
+			background-image: url("fundo.png");
 			text-align: center;
 		}
 		h1 {
 			font-size: 40px;
+			color: white;
 		}
 		#expressao, #mm{
 			padding: 5px;
@@ -249,6 +251,7 @@
 			margin: 5px;
 		}
 		table {
+			background: white;
 			display: inline-block;
 			clear: both;
 			text-align: center;
@@ -278,12 +281,15 @@
 		.direita {
 			text-align: right;
 		}
+		small {
+			color: white;
+		}
 		</style>
 	</head>
 	<body>
 		<div id="container">
 			<h1>Calcular MM</h1>
-			<input type="text" id="expressao"/><br>
+			<input type="text" id="expressao" placeholder="Fórmula" autofocus><br>
 			<input type="text" id="mm"/><br>
 			<button id="salvar">Salvar</button><br>
 			<table border="1">
