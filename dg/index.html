@@ -134,7 +134,6 @@
 				var totalParticipants = participants.length;
 				if ((totalParticipants < totalGroups) || (totalGroups < 2) || (totalParticipants < 1)) {
 					alert("Quantidade insuficiente!");
-					inputName.focus();
 				} else {
 					boxInfo.innerHTML = "Total de participantes: " + totalParticipants;
 					var aSubjects = getGroups(totalGroups, subjects);
