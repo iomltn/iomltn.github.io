@@ -140,7 +140,7 @@
 					var aParticipants = getGroups(totalGroups, participants);
 					for (var i = 0; i < totalGroups; i++) {
 						var ul = document.createElement("ul");
-						ul.innerHTML = "<b>" + aSubjects[i] + "</b>";
+						ul.innerHTML = "<b>" + aSubjects[i] + " - " + (i + 1) + "</b>";
 						for (var j = 0; j < aParticipants[i].length; j++) {
 							var li = document.createElement("li");
 							li.innerHTML = aParticipants[i][j];
