@@ -42,18 +42,20 @@
 			}
 			return groups;
 		}
-		var list = [];
+		var participants = [];
+		var subjects = [];
 		window.onload = function() {
 			var inputName = document.getElementById("name");
 			var boxParticipants = document.getElementById("boxParticipants");
 			var btnCreateGroups = document.getElementById("createGroups");
-			var inputQtdGroups = document.getElementById("qtdGroups");
+			var inputSubject = document.getElementById("subject");
+			var boxSubjects = document.getElementById("boxSubjects");
 			var boxGroups = document.getElementById("boxGroups");
-			var btnAdd = document.getElementById("btnAdd");
+			var btnAddNome = document.getElementById("btnAddNome");
 			var boxInfo = document.getElementById("info");
 			var cleanInput = function() {
 				inputName.value = "";
-				inputName.focus();
+				inputSubject.value = "";
 			}
 			var cleanGroups = function() {
 				boxGroups.innerHTML = "";
@@ -67,38 +69,85 @@
 				btn.innerHTML = "x";
 				btn.addEventListener("click", function() {
 					var s = li.getElementsByTagName("span")[0];
-					list = removeByValue(nome, list);
+					participants = removeByValue(nome, participants);
 					boxParticipants.removeChild(li);
 				});
 				span.innerHTML = nome + " ";
 				li.appendChild(span);
 				li.appendChild(btn);
-				list.push(inputName.value);
+				participants.push(inputName.value);
 				boxParticipants.appendChild(li);
 				cleanInput();
 			}
-			btnAdd.addEventListener("click", addNome);
+			var addSubject = function() {
+				var subject = inputSubject.value;
+				var li = document.createElement("li");
+				var btn = document.createElement("button");
+				btn.setAttribute("class", "btn-close");
+				var span = document.createElement("span");
+				btn.innerHTML = "x";
+				btn.addEventListener("click", function() {
+					var s = li.getElementsByTagName("span")[0];
+					subjects = removeByValue(subject, subjects);
+					boxSubjects.removeChild(li);
+				});
+				span.innerHTML = subject + " ";
+				li.appendChild(span);
+				li.appendChild(btn);
+				subjects.push(inputSubject.value);
+				boxSubjects.appendChild(li);
+				cleanInput();
+				/*
+				var input = document.createElement("input");
+				input.setAttribute("class", "subject");
+				var btn = document.createElement("button");
+				btn.innerHTML = "x";
+				btn.setAttribute("class", "btn-close");
+				btn.addEventListener("click", function() {
+					boxSubjects.removeChild(input);
+					boxSubjects.removeChild(btn);
+				});
+
+				boxSubjects.appendChild(input);
+				boxSubjects.appendChild(btn);
+				*/
+			}
+			btnAddSubject.addEventListener("click", addSubject);
+			btnAddNome.addEventListener("click", addNome);
 			inputName.addEventListener("keyup", function(e) {
 				if (e.keyCode == 13) {
 					addNome();
 				}
 			});
+			inputSubject.addEventListener("keyup", function(e) {
+				if (e.keyCode == 13) {
+					addSubject();
+				}
+			});
 			btnCreateGroups.addEventListener("click", function() {
 				cleanGroups();
-				boxInfo.innerHTML = "Total de participantes: " + list.length;
-				if (list.length < parseInt(inputQtdGroups.value)) {
+				var totalGroups = subjects.length;
+				var totalParticipants = participants.length;
+				if ((totalParticipants < totalGroups) && (totalGroups > 1) && (totalParticipants > 0)) {
 					alert("Quantidade insuficiente!");
 					inputName.focus();
 				} else {
-					var groups = getGroups(parseInt(inputQtdGroups.value), list);
-					for (var i = 0; i < groups.length; i++) {
+					boxInfo.innerHTML = "Total de participantes: " + totalParticipants;
+					var aSubjects = getGroups(totalGroups, subjects);
+					var aParticipants = getGroups(totalGroups, participants);
+					for (var i = 0; i < totalGroups; i++) {
 						var ul = document.createElement("ul");
-						ul.innerHTML = "<b>GRUPO " + (i + 1) + "</b>";
-						for (var j = 0; j < groups[i].length; j++) {
+						ul.innerHTML = "<b>" + aSubjects[i] + "</b>";
+						for (var j = 0; j < aParticipants[i].length; j++) {
 							var li = document.createElement("li");
-							li.innerHTML = groups[i][j];
+							li.innerHTML = aParticipants[i][j];
 							ul.appendChild(li);
 						}
+						var tLi = document.createElement("li");
+						var sLi = document.createElement("span");
+						sLi.inneHTML = "Total: " + aParticipants[i].length;
+						tLi.appendChild(sLi);
+						ul.appendChild(tLi);
 						boxGroups.appendChild(ul);
 					}
 				}
@@ -109,6 +158,10 @@
 		* {
 			font-family: arial;
 		}
+		ul {
+			padding: 0px;
+			margin: 0px;
+		}
 		button {
 			display: inline-block;
 			margin: 5px;
@@ -116,39 +169,51 @@
 			outline: none;
 			padding: 5px 10px 5px 10px;
 			color: white;
-			background: black;
+			background:  #0066cc;
 			border: none;
 			cursor: pointer;
+			font-weight: bold;
 			clear: both;
 		}
+		#createGroups {
+			background-color: #3333cc;
+		}
+
 		#container {
-			margin: 0 auto;
-			max-width: 600px;
 			text-align: center;
 		}
-		#boxParticipants li {
+		#boxParticipants li, #boxSubjects li {
 			display: inline-block;
 			list-style: none;
 			padding: 0;
+			color: red;
 			margin: 5px;
 		}
 		#boxParticipants {
 			overflow: auto;
 		}
-		#name, #qtdGroups {
+		#name, #subject, .subject {
 			padding: 5px;
+			border-radius: 10px;
+			outline: none;
+			text-align: center;
+			border: solid 2px gray;
+		}
+		#qtdGroups {
+			width: 75px;
 		}
 		#boxGroups {
 			overflow: auto;
 			text-align: center;
 		}
 		#boxGroups ul {
+			border-radius: 10px;
+			overflow: hidden;
 			display: inline-block;
 			vertical-align: middle;
 			top: 0px;
-			border: solid 1px gray;
+			border: solid 2px #006666;
 			margin: 10px;
-			padding: 10px;
 			
 		}
 		#boxGroups ul li {
@@ -168,20 +233,45 @@
 		#info {
 			text-align: center;
 		}
+		#boxParticipants, #boxSubjects {
+			margin: 5px;
+			
+			border-radius: 10px;
+			padding: 5px;
+		}
+		.subject {
+			margin: 5px;
+			width: 200px;
+		}
+		h4 {
+			margin: 10px;
+		}
+		ul b {
+			display: block;
+			background: #006666;
+			color: white;
+			padding: 5px 10px 5px 10px;
+		}
 		</style>
 	</head>
 	<body>
 		<div id="container">
 			<h1>Dividir em Grupos</h1>
+			<h4>Participantes</h4>
 			<div id="boxAdd">
-				<input type="text" id="name" placeholder="Nome do participante" autofocus/> <button id="btnAdd">Adicionar</button>
+				<input type="text" id="name" placeholder="Nome do participante" autofocus/><br>
+				<button id="btnAddNome">Adicionar</button>
 			</div>
 			<ul id="boxParticipants">
 			</ul>
-			<input type="number" min="1" value="2" id="qtdGroups"/>
-			<button id="createGroups">Dividir</button>
+			<h4>Assuntos</h4>
+			<input type="text" id="subject" placeholder="Assunto"/><br>
+			<button id="btnAddSubject">Adicionar</button><br>
+			<div id="boxSubjects"></div><br>
+			<h4>Grupos</h4>
 			<div id="boxGroups">
 			</div>
+			<button id="createGroups">Dividir</button>
 			<div id="info">
 			
 			</div>
