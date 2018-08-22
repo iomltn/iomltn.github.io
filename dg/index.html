@@ -157,6 +157,11 @@
 				}
 			});
 		}
+		 window.onbeforeunload = function() {
+			if(participants.length > 0){
+			   return " ";
+			 }
+		 }
 		</script>
 		<style>
 		* {
