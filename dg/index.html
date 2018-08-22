@@ -62,41 +62,45 @@
 			}
 			var addNome = function() {
 				var nome = inputName.value;
-				var li = document.createElement("li");
-				var btn = document.createElement("button");
-				btn.setAttribute("class", "btn-close");
-				var span = document.createElement("span");
-				btn.innerHTML = "x";
-				btn.addEventListener("click", function() {
-					var s = li.getElementsByTagName("span")[0];
-					participants = removeByValue(nome, participants);
-					boxParticipants.removeChild(li);
-				});
-				span.innerHTML = nome + " ";
-				li.appendChild(span);
-				li.appendChild(btn);
-				participants.push(inputName.value);
-				boxParticipants.appendChild(li);
-				cleanInput();
+				if (nome != "") {
+					var li = document.createElement("li");
+					var btn = document.createElement("button");
+					btn.setAttribute("class", "btn-close");
+					var span = document.createElement("span");
+					btn.innerHTML = "x";
+					btn.addEventListener("click", function() {
+						var s = li.getElementsByTagName("span")[0];
+						participants = removeByValue(nome, participants);
+						boxParticipants.removeChild(li);
+					});
+					span.innerHTML = nome + " ";
+					li.appendChild(span);
+					li.appendChild(btn);
+					participants.push(inputName.value);
+					boxParticipants.appendChild(li);
+					cleanInput();
+				}
 			}
 			var addSubject = function() {
 				var subject = inputSubject.value;
-				var li = document.createElement("li");
-				var btn = document.createElement("button");
-				btn.setAttribute("class", "btn-close");
-				var span = document.createElement("span");
-				btn.innerHTML = "x";
-				btn.addEventListener("click", function() {
-					var s = li.getElementsByTagName("span")[0];
-					subjects = removeByValue(subject, subjects);
-					boxSubjects.removeChild(li);
-				});
-				span.innerHTML = subject + " ";
-				li.appendChild(span);
-				li.appendChild(btn);
-				subjects.push(inputSubject.value);
-				boxSubjects.appendChild(li);
-				cleanInput();
+				if (subject != "") {
+					var li = document.createElement("li");
+					var btn = document.createElement("button");
+					btn.setAttribute("class", "btn-close");
+					var span = document.createElement("span");
+					btn.innerHTML = "x";
+					btn.addEventListener("click", function() {
+						var s = li.getElementsByTagName("span")[0];
+						subjects = removeByValue(subject, subjects);
+						boxSubjects.removeChild(li);
+					});
+					span.innerHTML = subject + " ";
+					li.appendChild(span);
+					li.appendChild(btn);
+					subjects.push(inputSubject.value);
+					boxSubjects.appendChild(li);
+					cleanInput();
+				}
 				/*
 				var input = document.createElement("input");
 				input.setAttribute("class", "subject");
@@ -144,8 +148,8 @@
 							ul.appendChild(li);
 						}
 						var tLi = document.createElement("li");
-						var sLi = document.createElement("span");
-						sLi.inneHTML = "Total: " + aParticipants[i].length;
+						var sLi = document.createElement("small");
+						sLi.innerHTML = "Total: " + aParticipants[i].length;
 						tLi.appendChild(sLi);
 						ul.appendChild(tLi);
 						boxGroups.appendChild(ul);
@@ -222,7 +226,7 @@
 			vertical-align: middle;
 			top: 0px;
 			border: solid 2px #006666;
-			margin: 10px;
+			margin: 0px 10px 10px 10px;
 			
 		}
 		#boxGroups ul li {
