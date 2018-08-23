@@ -48,6 +48,7 @@
 			var inputName = document.getElementById("name");
 			var boxParticipants = document.getElementById("boxParticipants");
 			var btnCreateGroups = document.getElementById("createGroups");
+			var btnDownload = document.getElementById("download");
 			var btnShowInput = document.getElementById("showInput");
 			var inputSubject = document.getElementById("subject");
 			var boxSubjects = document.getElementById("boxSubjects");
@@ -98,30 +99,16 @@
 						var s = li.getElementsByTagName("span")[0];
 						subjects = removeByValue(subject, subjects);
 						boxSubjects.removeChild(li);
-						infoSubjects.innerHTML = "Total de assuntos: " + subjects.length;
+						infoSubjects.innerHTML = "Total de categorias: " + subjects.length;
 					});
 					span.innerHTML = subject + " ";
 					li.appendChild(span);
 					li.appendChild(btn);
 					subjects.push(inputSubject.value);
 					boxSubjects.appendChild(li);
-					infoSubjects.innerHTML = "Total de assuntos: " + subjects.length;
+					infoSubjects.innerHTML = "Total de categorias: " + subjects.length;
 					cleanInput();
 				}
-				/*
-				var input = document.createElement("input");
-				input.setAttribute("class", "subject");
-				var btn = document.createElement("button");
-				btn.innerHTML = "x";
-				btn.setAttribute("class", "btn-close");
-				btn.addEventListener("click", function() {
-					boxSubjects.removeChild(input);
-					boxSubjects.removeChild(btn);
-				});
-
-				boxSubjects.appendChild(input);
-				boxSubjects.appendChild(btn);
-				*/
 			}
 			btnAddSubject.addEventListener("click", addSubject);
 			btnAddNome.addEventListener("click", addNome);
@@ -178,6 +165,9 @@
 					boxInput.setAttribute("class", "");
 					boxResult.setAttribute("class", "ocultar");				
 				}
+			});
+			btnDownload.addEventListener("click", function() {
+
 			});
 		}
 		 window.onbeforeunload = function() {
@@ -344,7 +334,7 @@
 				<div id="boxGroups">
 				</div><br>
 				<small id="infoGroups"></small><br>
-				<button id="showInput">Voltar</button>
+				<button id="showInput">Voltar</button><!--<button id="download">Baixar</button>-->
 			</div>
 			<span id="author"><small>by Milton Rodrigues - iomltn@gmail.com</small></span>
 		</div>
