@@ -174,8 +174,10 @@
 				}
 			});
 			btnShowInput.addEventListener("click", function() {
-				boxInput.setAttribute("class", "");
-				boxResult.setAttribute("class", "ocultar");				
+				if (confirm("Tem certeza que deseja continuar?\nAo confirmar, você irá descartar a divisão atual.")) {
+					boxInput.setAttribute("class", "");
+					boxResult.setAttribute("class", "ocultar");				
+				}
 			});
 		}
 		 window.onbeforeunload = function() {
@@ -296,6 +298,8 @@
 		}
 		#showInput {
 			margin-top: 10px;
+			color: gray;
+			background: lightgray;
 		}
 		.subject {
 			margin: 5px;
@@ -340,7 +344,7 @@
 				<div id="boxGroups">
 				</div><br>
 				<small id="infoGroups"></small><br>
-				<button id="showInput">Alterar dados</button>
+				<button id="showInput">Voltar</button>
 			</div>
 			<span id="author"><small>by Milton Rodrigues - iomltn@gmail.com</small></span>
 		</div>
