@@ -212,13 +212,13 @@
 			var obterMMTotal = function() {
 				result = getMassa(expressao.value);
 				mm.value = result[0] + " " + result[1];
-				if (e.keyCode == 13) {
-					salvar();
-				}
 			}
 			s.addEventListener("click", salvar);
 			expressao.addEventListener("keyup", function(e) {
 				obterMMTotal();
+				if (e.keyCode == 13) {
+					salvar();
+				}
 			});
 		}
 		</script>
