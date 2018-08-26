@@ -153,7 +153,7 @@
 			if (quantificador != null) s *= quantificador;
 			return s;
 		}
-		function getMassa(str) {
+		function getMassa(str, precisao) {
 			var mm = 0;
 			var quantificadorTotal = 1;
 			var re = /^(\d+)?\(?(\w+)\)?(\d+)?/;
@@ -169,17 +169,17 @@
 			}
 			mm *= quantificadorTotal;			
 			var grandeza = (quantificadorTotal == 1) ? "g/mol" : ("g/(" + quantificadorTotal + " mols)");
-			return [mm.toFixed(3).replace(".", ","), grandeza];
+			return [mm.toFixed(precisao).replace(".", ","), grandeza];
 		}
 		window.onload = function() {
 			var expressao = document.getElementById("expressao");
 			var mm = document.getElementById("mm");
 			var s = document.getElementById("salvar");
 			var table = document.getElementsByTagName("table")[0];
-			var grandeza = document.getElementById("grandeza");
+			var precisao = document.getElementById("precisao");
 			var result;
 			var salvar = function() {
-				result = getMassa(expressao.value, grandeza);
+				result = getMassa(expressao.value, parseInt(precisao.value));
 				var r = result[0];
 				var g = result[1];
 				var f = expressao.value;
@@ -210,7 +210,7 @@
 				}
 			};
 			var obterMMTotal = function() {
-				result = getMassa(expressao.value);
+				result = getMassa(expressao.value, parseInt(precisao.value));
 				mm.value = result[0] + " " + result[1];
 			}
 			s.addEventListener("click", salvar);
@@ -220,6 +220,10 @@
 					salvar();
 				}
 			});
+			precisao.addEventListener("change", function(e) {
+				obterMMTotal();
+			});
+			
 		}
 		</script>
 		<style>
@@ -285,7 +289,7 @@
 		.direita {
 			text-align: right;
 		}
-		small {
+		span, small {
 			color: white;
 		}
 		a{
@@ -298,6 +302,18 @@
 			<h1>Calcular MM</h1>
 			<input type="text" id="expressao" placeholder="Fórmula Química" autofocus><br>
 			<input type="text" id="mm" value="0,000 g/mol"/><br>
+			<span>Precisão:<span> <select id="precisao">
+				<option value="0">0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3" selected>3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				
+			</select><br>
 			<button id="salvar">Salvar</button><br>
 			<table border="1">
 				<tr><th>Fórmula</th><th>Massa</th><th>Grandeza</th></tr>
