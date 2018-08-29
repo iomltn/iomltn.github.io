@@ -36,6 +36,13 @@
 			var ordem = document.getElementById("ordem");
 			var determinante = document.getElementById("determinante");
 			
+			var gerarNumerosAleatorios = function() {
+				var tds = document.getElementsByTagName("td");
+				for (var i = 0; i < tds.length; i++) {
+					var r = parseInt(Math.random() * 100);
+					tds[i].getElementsByTagName("input")[0].value = r;
+				}
+			}			
 			var criarInputs = function() {
 				tableMatriz.innerHTML = "";
 				var o = parseInt(ordem.value);
@@ -52,6 +59,12 @@
 					tableMatriz.appendChild(tr);
 				}
 				determinante.value = "";
+				var primeiroInput = document.getElementsByTagName("input")[1];
+				primeiroInput.addEventListener("keyup", function(e) {
+					if (e.keyCode == 13) {
+						gerarNumerosAleatorios();
+					}
+				});
 			}
 			
 			var getMatriz = function() {
@@ -67,6 +80,7 @@
 				var matriz = getMatriz();
 				determinante.value = d(matriz).toFixed(4).replace(".", ",");
 			});
+
 			criarInputs();
 		}
 		</script>
