@@ -1,0 +1,337 @@
+<html lang="pt-br">
+	<head>
+		<title>QUESTIONÁRIO HONEY-ALONSO DE ESTILOS DE APRENDIZAGEM</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width">
+		<script>
+			var perguntas = ["Tenho fama de dizer o que penso claramente e sem rodeios.",
+				"Estou seguro(a) do que é bom e do que é mau, do que está bem e do que está mal.",
+				"Muitas vezes faço, sem olhar as consequências.",
+				"Normalmente, resolvo os problemas metodicamente e passo a passo.",
+				"Creio que a formalidade corta e limita a atuação espontânea das pessoas.",
+				"Interessa-me saber quais são os sistemas de valores dos outros e com que critérios atuam.",
+				"Penso que agir intuitivamente pode ser sempre tão válido como atuar reflexivamente.",
+				"Creio que o mais importante é que as coisas funcionem",
+				"Procuro estar atento(a) ao que acontece aqui e agora.",
+				"Agrada-me quando tenho tempo para preparar meu trabalho e realizá-lo com consciência.",
+				"Estou seguindo, porque quero, uma ordem na alimentação, no estudo, fazendo exercícios regularmente.",
+				"Quando escuto uma nova ideia, em seguida, começo a pensar como colocá-la em prática.",
+				"Prefiro as ideias originais e novas mesmo que não sejam práticas.",
+				"Admito e me ajusto às normas somente se servem para atingir meus objetivos.",
+				"Normalmente me dou bem com pessoas reflexivas, e me custa sintonizar com pessoas demasiadamente espontâneas e imprevisíveis.",
+				"Escuto com mais frequência do que falo.",
+				"Prefiro as coisas estruturadas do que as desordenadas.",
+				"Quando possuo qualquer informação, trato de interpretá-la bem antes de manifestar alguma conclusão.",
+				"Antes de fazer algo, estudo com cuidado suas vantagens e inconvenientes.",
+				"Estimula-me o fato de fazer algo novo e diferente.",
+				"Quase sempre procuro ser coerente com meus critérios e escala de valores. Tenho princípios e os sigo.",
+				"Em uma discussão, não gosto de rodeios.",
+				"Não me agrada envolvimento afetivo no ambiente de trabalho. Prefiro manter relações distantes.",
+				"Gosto mais das pessoas realistas e concretas do que as teóricas.",
+				"É difícil ser criativo(a) e romper estruturas.",
+				"Gosto de estar perto de pessoas espontâneas e divertidas.",
+				"A maioria das vezes expresso abertamente como me sinto.",
+				"Gosto de analisar e esmiuçar as coisas.",
+				"Incomoda-me o fato das pessoas não tomarem as coisas a sério.",
+				"Atrai-me experimentar e praticar as últimas técnicas e novidades.",
+				"Sou cauteloso(a) na hora de tirar conclusões.",
+				"Prefiro contar com o maior número de fontes de informação. Quanto mais dados tiver reunido para refletir, melhor.",
+				"Tenho tendência a ser perfeccionista.",
+				"Prefiro ouvir a opinião dos outros antes de expor a minha.",
+				"Gosto de levar a vida espontaneamente e não ter que planejá-la.",
+				"Nas discussões gosto de observar como atuam os outros participantes.",
+				"Sinto-me incomodado(a) com as pessoas caladas e demasiadamente analíticas.",
+				"Julgo com frequência as ideias dos outros, por seu valor prático.",
+				"Angustio-me se me obrigam a acelerar muito o trabalho para cumprir um prazo.",
+				"Nas reuniões apoio as ideias práticas e realistas.",
+				"É melhor aproveitar o momento presente do que deleitar-se pensando no passado ou no futuro.",
+				"Incomodam-me as pessoas que sempre desejam apressar as coisas.",
+				"Apoio ideias novas e espontâneas nos grupos de discussão.",
+				"Penso que são mais consistentes as decisões fundamentadas em uma minuciosa análise do que as baseadas na intuição.",
+				"Detecto frequentemente a inconsistência e os pontos frágeis nas argumentações dos outros.",
+				"Creio que é preciso transpor as normas muito mais vezes do que cumpri-las.",
+				"Frequentemente, percebo outras formas melhores e mais práticas de fazer as coisas.",
+				"No geral, falo mais do que escuto.",
+				"Prefiro distanciar-me dos fatos e observá-los a partir de outras perspectivas.",
+				"Estou convencido(a) de que deve impor-se a lógica e a razão.",
+				"Gosto de buscar novas experiências.",
+				"Gosto de experimentar e aplicar as coisas.",
+				"Penso que devemos chegar logo ao âmago, ao centro das questões.",
+				"Procuro sempre chegar a conclusões e ideias claras.",
+				"Prefiro discutir questões concretas e não perder tempo com falas vazias.",
+				"Incomodo-me quando dão explicações irrelevantes e incoerentes.",
+				"Comprovo antes se as coisas funcionam realmente.",
+				"Faço vários borrões antes da redação final de um trabalho.",
+				"Sou consciente de que nas discussões ajudo a manter os outros centrados nos temas, evitando divagações.",
+				"Observo que, com frequência, sou um(a) dos(as) mais objetivos e ponderados nas discussões.",
+				"Quando algo vai mal, não dou importância e trato de fazê-lo melhor.",
+				"Desconsidero as ideias originais e espontâneas se não as percebo práticas.",
+				"Gosto de analisar diversas alternativas antes de tomar uma decisão.",
+				"Com frequência, olho adiante para prever o futuro.",
+				"Nos debates e discussões prefiro desempenhar um papel secundário do que ser o(a) líder ou o(a) que mais participa.",
+				"Me incomodam as pessoas que não atuam com lógica.",
+				"Me incomoda ter que planejar e prever as coisas.",
+				"Creio que o fim justifica os meios em muitos casos.",
+				"Costumo refletir sobre os assuntos e problemas.",
+				"O trabalho consciente me trás satisfação e orgulho.",
+				"Diante dos acontecimentos trato de descobrir os princípios e teorias em que se baseiam.",
+				"Com o intuito de conseguir o objetivo que pretendo, sou capaz de ferir sentimentos alheios",
+				"Não me importa fazer todo o necessário para que o meu trabalho seja efetivado.",
+				"Com frequência, sou uma das pessoas que mais anima as festas.",
+				"Me aborreço, frequentemente, com o trabalho metódico e minucioso.",
+				"As pessoas, com frequência, creem que sou pouco sensível a seus sentimentos.",
+				"Costumo deixar-me levar por minhas intuições.",
+				"Nos trabalhos de grupo, procuro que se siga um método e uma ordem.",
+				"Com frequência, me interessa saber o que as pessoas pensam.",
+				"Evito os temas subjetivos, ambíguos e pouco claros."];
+			
+		
+			window.onload = function() {			
+				var questionario = document.getElementById("questionario");
+				var resultado = document.getElementById("resultado");
+				var descricao = document.getElementById("descricao");
+				var btnTerminei = document.getElementById("btnTerminei");
+				var btnRefazer = document.getElementById("btnRefazer");
+				var tAtivo = document.getElementById("tAtivo");
+				var tReflexivo = document.getElementById("tReflexivo");
+				var tTeorico = document.getElementById("tTeorico");
+				var tPragmatico = document.getElementById("tPragmatico");
+				
+				for (var i = 0; i < perguntas.length; i++) {
+					var tr = document.createElement("tr");
+					var td = document.createElement("td");
+					var input = document.createElement("input");
+					input.setAttribute("type", "checkbox");
+					input.setAttribute("id", "p" + (i + 1));
+					td.appendChild(input);
+					tr.appendChild(td);
+					td = document.createElement("td");
+					var label = document.createElement("label");
+					label.innerHTML = perguntas[i];
+					label.setAttribute("for", "p" + (i + 1));
+					td.appendChild(label);
+					tr.appendChild(td);
+					questionario.appendChild(tr);
+				}
+				var inputs = document.getElementsByTagName("input");
+				var getMarcados = function() {
+					var lista = [];
+					for (var i = 0; i < inputs.length; i++) {
+						if (inputs[i].checked) {
+							lista.push(i + 1);
+						}
+					}
+					return lista;
+				}
+				var estaContido = function(elemento, lista) {
+					for (var i = 0; i < lista.length; i++) {
+						if (lista[i] == elemento) return true;
+					}
+					return false;
+				}
+				var contagem = function(lista) {
+					var ativo = [3, 5, 7, 9, 13, 20, 26, 27, 35, 37, 41, 43, 46, 48, 51, 61, 67, 74, 75, 77];
+					var reflexivo = [10, 16, 18, 19, 28, 31, 32, 34, 36, 39, 42, 44, 49, 55, 58, 63, 65, 69, 70, 79];
+					var teorico = [2, 4, 6, 11, 15, 17, 21, 23, 25, 29, 33, 45, 50, 54, 60, 64, 66, 71, 78, 80]
+					var pragmatico = [1, 8, 12, 14, 22, 24, 30, 38, 40, 47, 52, 53, 56, 57, 59, 62, 68, 72, 73, 76];
+					
+					var cAtivo = 0;
+					var cReflexivo = 0;
+					var cTeorico = 0;
+					var cPragmatico = 0;
+					
+					for (var i = 0; i < lista.length; i++) {
+						if (estaContido(lista[i], ativo)) {
+							cAtivo++;
+						} else if (estaContido(lista[i], reflexivo)) {
+							cReflexivo++;
+						} else if (estaContido(lista[i], teorico)) {
+							cTeorico++;
+						} else if (estaContido(lista[i], pragmatico)) {
+							cPragmatico++;
+						}
+					}
+					
+					tAtivo.innerHTML = cAtivo;
+					tReflexivo.innerHTML = cReflexivo;
+					tTeorico.innerHTML = cTeorico;
+					tPragmatico.innerHTML = cPragmatico;
+				}
+				btnTerminei.addEventListener("click", function() {
+					var lista = getMarcados();
+					contagem(lista);
+					questionario.setAttribute("class", "oculto");
+					btnTerminei.setAttribute("class", "oculto");
+					resultado.setAttribute("class", "");
+					btnRefazer.setAttribute("class", "");
+					descricao.setAttribute("class", "");
+					document.body.scrollTop = 0;
+					
+				});
+				btnRefazer.addEventListener("click", function() {
+					questionario.setAttribute("class", "");
+					btnTerminei.setAttribute("class", "");
+					resultado.setAttribute("class", "oculto");
+					btnRefazer.setAttribute("class", "oculto");
+					descricao.setAttribute("class", "oculto");
+				});
+			}
+		</script>
+		<style>
+			* {
+				font-family: arial;
+			}
+			body {
+				background: #d1d1e0;
+			}
+			table {
+				margin: 0 auto;
+			}
+			table tr td {
+				padding: 10px 0px 10px 0px;
+			}
+			.oculto {
+				display: none;
+			}
+			button {
+				background: #330033;
+				color: white;
+				border: none;
+				padding: 5px 10px 5px 10px;
+				text-align: center;
+				font-weight: bold;
+				margin: 10px;
+				border-radius: 10px;
+				cursor: pointer;
+			}
+			button, h1, h4, p {
+				text-align: center;
+			}
+			#container {
+				text-align: center;
+			}
+			h1 {
+				color: #000080;
+			}
+			h4 {
+				color: #8080ff;
+			}
+			#questionario label {
+				cursor: pointer;
+			}
+			#questionario label:hover {
+				font-weight: bolder;
+			}
+			#resultado {
+				text-align: right;
+			}
+			#descricao p, #descricao{
+				text-align: justify;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<h1>Questionário Honey-Aloson de Estilos de Aprendizagem</h1>
+			<h4>Autores: Catalina M. Alonso, Domingo J. Gallego e Peter Honey / Tradução e adaptação: Evelise Maria Labatut Portilho</h4>
+
+			<table id="questionario"></table>
+			<button id="btnTerminei">Calcular valores de estilo de aprendizagem</button><br>
+			<table id="resultado" class="oculto">
+				<tr>
+					<th>Ativo:</th>
+					<td id="tAtivo"></td>
+				</tr>
+				<tr>
+					<th>Reflexivo:</th>
+					<td id="tReflexivo"></td>
+				</tr>
+				<tr>
+					<th>Teórico:</th>
+					<td id="tTeorico"></td>
+				</tr>
+				<tr>
+					<th>Pragmático:</th>
+					<td id="tPragmatico"></td>
+				</tr>
+			</table>
+			<button id="btnRefazer" class="oculto">Refazer</button>
+			<div id="descricao" class="oculto">
+				<h3>Classificação de Honey-Alonso</h3>
+				<p>
+					Uma das classificações derivadas da teoria de estilos de David Kolb é de Honey-Alonso (amaral
+					e barros, 2007).
+				</p>
+				<p>
+					Segundo essa categorização, a aprendizagem e o comportamento humano resultam da
+					interação entre o ambiente, a experiência prévia vivida pelo aprendiz adulto e os conhecimentos
+					construídos individualmente.
+				</p>
+				<p>
+					Outra diferença importante entre as duas abordagens é o instrumento empregado para
+					identificação de estilos. Enquanto o Inventário de Kolb só pode ser utilizado mediante
+					pagamento de royalties, o questionário de Honey-Alonso é de livre utilização.
+					Mesmo assim, existe uma forte correlação entre os estilos de Kolb e de Honey-Alonso, como
+					mostra a figura a seguir.
+				<p>
+				<h3>Estilo Ativo</h3>
+				<p>
+					De acordo com Honey-Alonso, as pessoas de estilo ativo apreciam novas experiências, têm a
+					mente aberta e são entusiasmadas por tarefas novas. Vivem em grupo e se envolvem com os
+					assuntos dos outros. Seus dias são repletos de atividades. Assim que terminam uma atividade,
+					já pensam na próxima. Elas gostam de desafios que possibilitam novas experiências, mas não
+					apreciam prazos muito longos.
+				</p>
+				<p>
+					Adjetivos que se aplicam aos representantes deste estilo são: animadores, improvisadores,
+					descobridores, abertos ao risco, espontâneos.
+				</p>
+				<h3>Estilo Reflexivo</h3>
+				<p>
+					Segundo Honey-Alonso, as pessoas do estilo reflexivo gostam de considerar uma experiência
+					de diferentes perspectivas. Costumam reunir dados, analisando-os detalhadamente antes de
+					formular uma conclusão.
+				</p>
+				<p>
+					Tendem a ser prudentes: gostam de analisar todas as alternativas possíveis antes de tomar
+					uma decisão e agir. Também preferem observar a atuação das outras pessoas, em vez de
+					serem observadas.
+				</p>
+				<p>				
+					Adjetivos que se aplicam aos representantes deste estilo são: ponderados, conscientes,
+					receptivos e analíticos.
+				</p>
+				<h3>Estilo Pragmático</h3>
+				<p>
+					Conforme Honey-Alonso, as pessoas do estilo pragmático gostam de colocar as ideias em
+					prática. Descobrem o aspecto positivo das novas ideias e aproveitam a primeira oportunidade
+					para experimentá-las.
+				</p>
+				<p>
+					Tendem a distanciar-se de teorizações e a demonstrar impaciência com discussões e pessoas
+					extremamente abstratas. São realistas quando precisam tomar decisões. Sua filosofia é
+					"sempre é possível fazer algo melhor” e "se algo funciona, isso significa que é bom”.
+				</p>
+				<p>
+					Adjetivos que se aplicam aos representantes deste estilo são: experimentadores, práticos,
+					diretos, eficazes e realistas.
+				</p>
+				<h3>Estilo Teórico</h3>
+				<p>
+					Para Honey-Alonso, as pessoas do estilo teórico encaram os problemas de forma lógica.
+					Integram o que fazem em teorias complexas e coerentes. Gostam de analisar e sintetizar.
+				</p>
+				<p>
+					São profundas ao pensar sobre princípios, teorias e modelos. Para elas, se é lógico, é bom.
+					Buscam a racionalidade e a objetividade; distanciam-se do subjetivo e do ambíguo, tendendo
+					ao perfeccionismo.
+				</p>
+				<p>
+					Adjetivos que se aplicam aos representantes deste estilo são: metódicos, lógicos, objetivos,
+					críticos e estruturados.
+				</p>
+			</div>
+			<p><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
+		</div>
+	</body>
+</html>
