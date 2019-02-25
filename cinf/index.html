@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8"/>
+		<script>
+		window.onload = function() {
+			var btnCalc = document.getElementById("calc");
+			btnCalc.addEventListener("click", function() {
+				var ps1 = parseInt(document.getElementById("ps1").value);
+				var ps2 = parseInt(document.getElementById("ps2").value);
+				var ssvs = parseInt(document.getElementById("ssvs").value);
+				var scvs = parseInt(document.getElementById("scvs").value);
+				var sa = parseInt(document.getElementById("sa").value);
+				var a = parseInt(document.getElementById("a").value);
+				
+				var ta = ps1 + ps2 + ssvs + scvs + sa + a; // Total de alunos
+				
+				var media = 0;
+				if (ta > 0) {
+					media = (ps1 / ta) * 5 + (ps2 / ta) * 6 + (ssvs / ta) * 7 + (scvs / ta) * 8 + (sa / ta) * 9 + (a / ta) * 10;
+				}	
+				
+				
+				document.getElementById("media").innerHTML = media.toFixed(2).replace('.', ',');
+			});
+		}
+		</script>
+		<meta name="viewport" content="width=device-width">
+	</head>
+	<body>
+	<center>
+		<h1>Calculadora Infantil IV e V</h1>
+		<h3>Média da turma:</h3>
+		<h2 id="media">0,00</h2>
+		<p>Informe a quantidade de alunos em cada nível</p>
+	</center>
+		<p>
+			<b>Pré-silábico I</b><br>
+			<input type="number" id="ps1" value="0" min="0"/>
+		</p>
+		<p>
+			<b>Pré-silábico II</b><br>
+			<input type="number" id="ps2" value="0" min="0"/>
+		</p>
+		<p>
+			<b>Silábico Sem Valor Sonoro</b><br>
+			<input type="number" id="ssvs" value="0" min="0"/>
+		</p>
+		<p>
+			<b>Silábico Com Valor Sonoro</b><br>
+			<input type="number" id="scvs" value="0" min="0"/>
+		</p>
+		<p>
+			<b>Silábico Alfabético</b><br>
+			<input type="number" id="sa" value="0" min="0"/>
+		</p>
+		<p>
+			<b>Alfabético</b><br>
+			<input type="number" id="a" value="0" min="0"/>
+		</p>
+		<center>
+			<button id="calc">Calcular Média</button>
+		</center>
+	</body>
+</html>
