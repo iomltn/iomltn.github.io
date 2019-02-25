@@ -2,6 +2,24 @@
 <html lang="pt-br">
 	<head>
 		<meta charset="utf-8"/>
+		<style>
+		* {
+			font-family: Arial;
+		}
+		#media {
+			background: black;
+			color: white;
+			padding: 10px;
+		}
+		button {
+			padding: 10px;
+			background: black;
+			color: white;
+			border: 0;
+			cursor: pointer;
+			font-weight: bold;
+		}
+		</style>
 		<script>
 		window.onload = function() {
 			var btnCalc = document.getElementById("calc");
@@ -13,6 +31,13 @@
 				var sa = parseInt(document.getElementById("sa").value);
 				var a = parseInt(document.getElementById("a").value);
 				
+				if (isNaN(ps1)) ps1 = 0;
+				if (isNaN(ps2)) ps2 = 0;
+				if (isNaN(ssvs)) ssvs = 0;
+				if (isNaN(scvs)) scvs = 0;
+				if (isNaN(sa)) sa = 0;
+				if (isNaN(a)) a = 0;
+				
 				var ta = ps1 + ps2 + ssvs + scvs + sa + a; // Total de alunos
 				
 				var media = 0;
@@ -22,6 +47,8 @@
 				
 				
 				document.getElementById("media").innerHTML = media.toFixed(2).replace('.', ',');
+				document.getElementById("ta").innerHTML = "Total de alunos: " + ta;
+				window.scrollTo(0,0);
 			});
 		}
 		</script>
@@ -32,7 +59,7 @@
 		<h1>Calculadora Infantil IV e V</h1>
 		<h3>Média da turma:</h3>
 		<h2 id="media">0,00</h2>
-		<p>Informe a quantidade de alunos em cada nível</p>
+		<p id="ta">Informe a quantidade de alunos em cada nível</p>
 	</center>
 		<p>
 			<b>Pré-silábico I</b><br>
