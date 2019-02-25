@@ -51,10 +51,11 @@
 				if (isNaN(f)) f = 0;
 				
 				var ta = ps1 + ps2 + ssvs + scvs + sa + a + f; // Total de alunos
+				var fp = 10/6;// fraçao de peso.
 				
 				var media = 0;
 				if (ta > 0) {
-					media = (ps1 / ta) * 5 + (ps2 / ta) * 6 + (ssvs / ta) * 7 + (scvs / ta) * 8 + (sa / ta) * 9 + (a / ta) * 10;
+					media = (ps1 / ta) * (10 - (5 * fp)) + (ps2 / ta) * (10 - (4 * fp)) + (ssvs / ta) * (10 - (3 * fp)) + (scvs / ta) * (10 - (2 * fp)) + (sa / ta) * (10 - fp) + (a / ta) * 10;
 				}	
 				
 				
