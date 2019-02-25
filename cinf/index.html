@@ -26,6 +26,9 @@
 		#media {
 			font-size: 30px;
 		}
+		#f {
+			background: #ff6666;
+		}
 		</style>
 		<script>
 		window.onload = function() {
@@ -37,6 +40,7 @@
 				var scvs = parseInt(document.getElementById("scvs").value);
 				var sa = parseInt(document.getElementById("sa").value);
 				var a = parseInt(document.getElementById("a").value);
+				var f = parseInt(document.getElementById("f").value);
 				
 				if (isNaN(ps1)) ps1 = 0;
 				if (isNaN(ps2)) ps2 = 0;
@@ -44,8 +48,9 @@
 				if (isNaN(scvs)) scvs = 0;
 				if (isNaN(sa)) sa = 0;
 				if (isNaN(a)) a = 0;
+				if (isNaN(f)) f = 0;
 				
-				var ta = ps1 + ps2 + ssvs + scvs + sa + a; // Total de alunos
+				var ta = ps1 + ps2 + ssvs + scvs + sa + a + f; // Total de alunos
 				
 				var media = 0;
 				if (ta > 0) {
@@ -91,6 +96,10 @@
 		<p>
 			<b>Alfabético</b><br>
 			<input type="number" id="a" value="0" min="0"/>
+		</p>
+		<p>
+			<b>Alunos que faltaram</b><br>
+			<input type="number" id="f" value="0" min="0"/>
 		</p>
 		<center>
 			<button id="calc">Calcular Média</button>
