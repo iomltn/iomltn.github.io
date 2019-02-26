@@ -39,6 +39,11 @@
 		#resultado {
 			border-collapse: collapse;
 		}
+		#container {
+			margin: 0 auto;
+			max-width: 600px;
+			min-width: 500px;
+		}
 		</style>
 		<script>
 		window.onload = function() {
@@ -91,7 +96,7 @@
 				var tr = document.createElement("tr");
 				var trq = document.createElement("tr");
 				var trp = document.createElement("tr");
-				var colunas = ["Pré-silábico I", "Pré-silábico II", "Silábico Sem Valor Sonoro", "Silábico Com Valor Sonoro", "Silábico Alfabético", "Alfabético"];
+				var colunas = ["Pré-Silábico I", "Pré-Silábico II", "Silábico Sem Valor Sonoro", "Silábico Com Valor Sonoro", "Silábico Alfabético", "Alfabético"];
 				for (var i = 0; i < colunas.length; i++) {
 					var th = document.createElement("th");
 					th.innerHTML = colunas[i];
@@ -116,52 +121,54 @@
 			});
 		}
 		</script>
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"">
 	</head>
 	<body>
-	<center>
-		<h1>Calculadora Infantil</h1>
-		<h3>Média da turma<span id="etapa"></span>:</h3>
-		<h2 id="media">0,00</h2>
-		<table id="resultado" border="1">
-		</table><br>
-		<p id="ta">Informe a quantidade de alunos em cada nível</p>
-	</center>
-		<p>
-			<b>Etapa</b><br>
-			<input type="radio" name="infantil" id="inf4"/> <label for="inf4">Infantil IV</label> <input type="radio" name="infantil" id="inf5"/> <label for="inf5">Infantil V</label>
-		</p>
-		<p>
-			<b>Pré-silábico I</b><br>
-			<input type="number" id="ps1" value="0" min="0"/>
-		</p>
-		<p>
-			<b>Pré-silábico II</b><br>
-			<input type="number" id="ps2" value="0" min="0"/>
-		</p>
-		<p>
-			<b>Silábico Sem Valor Sonoro</b><br>
-			<input type="number" id="ssvs" value="0" min="0"/>
-		</p>
-		<p>
-			<b>Silábico Com Valor Sonoro</b><br>
-			<input type="number" id="scvs" value="0" min="0"/>
-		</p>
-		<p>
-			<b>Silábico Alfabético</b><br>
-			<input type="number" id="sa" value="0" min="0"/>
-		</p>
-		<p>
-			<b>Alfabético</b><br>
-			<input type="number" id="a" value="0" min="0"/>
-		</p>
-		<p>
-			<b>Alunos que faltaram</b><br>
-			<input type="number" id="f" value="0" min="0"/>
-		</p>
+		<div id="container">
 		<center>
-			<button id="calc">Calcular Média</button>
-			<p><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
+			<h1>Calculadora Infantil</h1>
+			<h3>Média da turma<span id="etapa"></span>:</h3>
+			<h2 id="media">0,00</h2>
+			<table id="resultado" border="1">
+			</table><br>
+			<p id="ta">Informe a quantidade de alunos em cada nível</p>
 		</center>
+			<p>
+				<b>Etapa</b><br>
+				<input type="radio" name="infantil" id="inf4"/> <label for="inf4">Infantil IV</label> <input type="radio" name="infantil" id="inf5"/> <label for="inf5">Infantil V</label>
+			</p>
+			<p>
+				<b>Pré-silábico I</b><br>
+				<input type="number" id="ps1" value="0" min="0"/>
+			</p>
+			<p>
+				<b>Pré-silábico II</b><br>
+				<input type="number" id="ps2" value="0" min="0"/>
+			</p>
+			<p>
+				<b>Silábico Sem Valor Sonoro</b><br>
+				<input type="number" id="ssvs" value="0" min="0"/>
+			</p>
+			<p>
+				<b>Silábico Com Valor Sonoro</b><br>
+				<input type="number" id="scvs" value="0" min="0"/>
+			</p>
+			<p>
+				<b>Silábico Alfabético</b><br>
+				<input type="number" id="sa" value="0" min="0"/>
+			</p>
+			<p>
+				<b>Alfabético</b><br>
+				<input type="number" id="a" value="0" min="0"/>
+			</p>
+			<p>
+				<b>Alunos que faltaram</b><br>
+				<input type="number" id="f" value="0" min="0"/>
+			</p>
+			<center>
+				<button id="calc">Calcular Média</button>
+				<p><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
+			</center>
+		</div>
 	</body>
 </html>
