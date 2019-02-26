@@ -20,14 +20,24 @@
 			font-weight: bold;
 			font-size: 15px;
 		}
-		input {
+		input, label {
 			font-size: 20px;
+		}
+		b {
+			font-size: 15px;
 		}
 		#media {
 			font-size: 30px;
 		}
 		#f {
 			background: #ff6666;
+		}
+		td, th {
+			text-align: center;
+			padding: 5px;
+		}
+		#resultado {
+			border-collapse: collapse;
 		}
 		</style>
 		<script>
@@ -58,6 +68,47 @@
 					media = (ps1 / ta) * (10 - (5 * fp)) + (ps2 / ta) * (10 - (4 * fp)) + (ssvs / ta) * (10 - (3 * fp)) + (scvs / ta) * (10 - (2 * fp)) + (sa / ta) * (10 - fp) + (a / ta) * 10;
 				}	
 				
+				var getInfantil = function() {
+					var inf4 = document.getElementById("inf4");
+					if (inf4.checked) {
+						return "Infantil IV";
+					}
+					return "Infantil V";
+				}
+				
+				var formatFloat = function(v) {
+					return v.toFixed(2).replace(".", ",");
+				}
+				
+				var etapa = document.getElementById("etapa");
+				etapa.innerHTML = " do " + getInfantil();
+				
+				var tabelaResultado = document.getElementById("resultado");
+				tabelaResultado.innerHTML = '';
+
+				var qtdAlunos = [ps1, ps2, ssvs, scvs, sa, a];
+
+				var tr = document.createElement("tr");
+				var trq = document.createElement("tr");
+				var trp = document.createElement("tr");
+				var colunas = ["Pré-silábico I", "Pré-silábico II", "Silábico Sem Valor Sonoro", "Silábico Com Valor Sonoro", "Silábico Alfabético", "Alfabético"];
+				for (var i = 0; i < colunas.length; i++) {
+					var th = document.createElement("th");
+					th.innerHTML = colunas[i];
+					tr.appendChild(th);
+					
+					var td = document.createElement("td");
+					td.innerHTML = qtdAlunos[i];
+					trq.appendChild(td);
+					
+					td = document.createElement("td");
+					td.innerHTML = formatFloat((qtdAlunos[i] / ta) * 100) + " %";
+					trp.appendChild(td);
+				}
+				tabelaResultado.appendChild(tr);
+				tabelaResultado.appendChild(trq);
+				tabelaResultado.appendChild(trp);
+				
 				
 				document.getElementById("media").innerHTML = media.toFixed(2).replace('.', ',');
 				document.getElementById("ta").innerHTML = "Total de alunos: " + ta;
@@ -69,11 +120,17 @@
 	</head>
 	<body>
 	<center>
-		<h1>Calculadora Infantil IV e V</h1>
-		<h3>Média da turma:</h3>
+		<h1>Calculadora Infantil</h1>
+		<h3>Média da turma<span id="etapa"></span>:</h3>
 		<h2 id="media">0,00</h2>
+		<table id="resultado" border="1">
+		</table><br>
 		<p id="ta">Informe a quantidade de alunos em cada nível</p>
 	</center>
+		<p>
+			<b>Etapa</b><br>
+			<input type="radio" name="infantil" id="inf4"/> <label for="inf4">Infantil IV</label> <input type="radio" name="infantil" id="inf5"/> <label for="inf5">Infantil V</label>
+		</p>
 		<p>
 			<b>Pré-silábico I</b><br>
 			<input type="number" id="ps1" value="0" min="0"/>
