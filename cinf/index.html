@@ -57,15 +57,16 @@
 				var a = parseInt(document.getElementById("a").value);
 				var f = parseInt(document.getElementById("f").value);
 				
-				if (isNaN(ps1)) ps1 = 0;
-				if (isNaN(ps2)) ps2 = 0;
-				if (isNaN(ssvs)) ssvs = 0;
-				if (isNaN(scvs)) scvs = 0;
-				if (isNaN(sa)) sa = 0;
-				if (isNaN(a)) a = 0;
-				if (isNaN(f)) f = 0;
+				ps1 = isNaN(ps1) ? 0 : ps1;
+				ps2 = isNaN(ps2) ? 0 : ps2;
+				ssvs = isNaN(ssvs) ? 0 : ssvs;
+				scvs = isNaN(scvs) ? 0 : scvs;
+				sa = isNaN(sa) ? 0 : sa;
+				a = isNaN(a) ? 0 : a;
+				f = isNaN(f) ? 0 : f;			
 				
 				var ta = ps1 + ps2 + ssvs + scvs + sa + a + f; // Total de alunos
+				ta = isNaN(ta) ? 0 : ta;
 				var fp = 10/6;// fraçao de peso.
 				
 				var media = 0;
@@ -107,7 +108,9 @@
 					trq.appendChild(td);
 					
 					td = document.createElement("td");
-					td.innerHTML = formatFloat((qtdAlunos[i] / ta) * 100) + " %";
+					if (qtdAlunos[i] > 0) {
+						td.innerHTML = (qtdAlunos[i] == 0 ? "0,00" : formatFloat((qtdAlunos[i] / ta) * 100)) + " %";
+					}
 					trp.appendChild(td);
 				}
 				tabelaResultado.appendChild(tr);
@@ -135,7 +138,7 @@
 		</center>
 			<p>
 				<b>Etapa</b><br>
-				<input type="radio" name="infantil" id="inf4"/> <label for="inf4">Infantil IV</label> <input type="radio" name="infantil" id="inf5"/> <label for="inf5">Infantil V</label>
+				<input type="radio" name="infantil" id="inf4" checked/> <label for="inf4">Infantil IV</label> <input type="radio" name="infantil" id="inf5"/> <label for="inf5">Infantil V</label>
 			</p>
 			<p>
 				<b>Pré-silábico I</b><br>
