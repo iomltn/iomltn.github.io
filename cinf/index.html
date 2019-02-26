@@ -104,7 +104,7 @@
 					tr.appendChild(th);
 					
 					var td = document.createElement("td");
-					td.innerHTML = qtdAlunos[i];
+					td.innerHTML = qtdAlunos[i] == 0 ? "" : qtdAlunos[i];
 					trq.appendChild(td);
 					
 					td = document.createElement("td");
