@@ -132,7 +132,7 @@
 				
 				
 				document.getElementById("media").innerHTML = media.toFixed(2).replace('.', ',');
-				document.getElementById("ta").innerHTML = "Total de alunos: " + ta;
+				document.getElementById("ta").innerHTML = "Total de alunos: <b>" + ta + "</b>" + (f > 0 ? " <small>(Incluindo " + f + (f > 1 ? " faltas" : " falta") + ")</small>" : "")
 				window.scrollTo(0,0);
 				btnLimpar.style.display = "Block";				
 			});
