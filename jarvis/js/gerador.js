@@ -326,7 +326,9 @@ window.onload = function() {
 			colunasDlr += "\t\tTableColumn tableColumn" + pMai(c[1]) + " = new TableColumn(\"" + pMai(c[1]) + "\");\n";
 			colunasAdd.push("tableColumn" + pMai(c[1]));
 			colunasVFct += "\t\ttableColumn" + pMai(c[1]) + ".setCellValueFactory(\n";
-			colunasVFct += "\t\t\tnew PropertyValueFactory<" + classe + ", " + pMai(c[3]) + ">(\"" + c[1] + "\"));\n";
+			tipo = pMai(c[3])
+			tipo = tipo == "Int" ? "Integer" : tipo
+			colunasVFct += "\t\t\tnew PropertyValueFactory<" + classe + ", " + tipo + ">(\"" + c[1] + "\"));\n";
 		}
 		
 		strJava += "package " + pkg.value + ".visao;\n\n";
