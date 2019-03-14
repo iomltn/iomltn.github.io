@@ -4,39 +4,71 @@
 		<style>
 		body {
 			background-color: black;
+			color: white;
 		}
 		* {
-			font-family: 'Courier New';
-			font-size: 18px;
+			font-family: 'Lucida Console';
+		}
+		#container {
+			margin: 0 auto;
+			width: 500px;
+			padding: 5px;
+		}
+		#pacote {
+			width: 490px;
+		}
+		#origem {
+			display: block;
+			width: 490px;
+			height: 100px;
+		}
+		button {
+			display: inline-block;
+			text-align: center;
+			cursor: pointer;
+			background: darkgreen;
+			color: white;
+			font-weight: bold;
+			border-radius: 10px;
+			border: 0;
+			margin: 5px;
+			padding: 2px 7px 2px 7px;
+		}
+		#sobre {
+			text-align: center;
 		}
 		</style>
 		<script src="js/gerador.js"></script>
 	</head>
 	<body>
-		<center>
-		<table>
-			<tr>
-				<td><input type="text" id="pacote" value="br.iomltn"/></td>
-			</tr>
-			<tr>
-				<td>
-					<textarea cols="100" rows="8" id="origem">
+		<div id="container">
+			<h1>Jarvis</h1>
+			<table>
+				<tr>
+					<td><input type="text" id="pacote" value="br.iomltn"/></td>
+				</tr>
+				<tr>
+					<td>
+						<textarea id="origem">
 Produto produtos
 IntegerProperty id SimpleIntegerProperty int integer Int
 StringProperty nome SimpleStringProperty String text String
 FloatProperty compra SimpleFloatProperty float real Float</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<button id="bean">Bean</button> 
-					<button id="dao">DAO</button> 
-					<button id="applicationManter">Application Manter</button>
-					<button id="applicationConsulta">Application Consulta</button>
-					<button id="applicationPrincipal">Application Principal</button>
-				</td>
-			</tr>
-		</table>
-		</center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<button id="bean">Bean</button> 
+						<button id="dao">DAO</button> 
+						<button id="applicationManter">Application Manter</button>
+						<button id="applicationConsulta">Application Consulta</button>
+						<button id="applicationPrincipal">Application Principal</button>
+					</td>
+				</tr>
+			</table>
+			<p><a href="ConexaoFactory.java" target="_black">ConexaoFactory.java</a></p>
+			<p><a href="https://bitbucket.org/xerial/sqlite-jdbc/downloads/" target="_black">Sqlite JDBC</a></p>
+			<p id="sobre"><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
+		</div>
 	</body>
 </html>
