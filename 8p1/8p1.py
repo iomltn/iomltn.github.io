@@ -86,6 +86,15 @@ def listaString(lista):
         novaLista.append(str(i))
     return novaLista
 
+class Sobre(Toplevel):
+	def __init__(self):
+		Toplevel.__init__(self)
+		#self.frame = Frame()
+		#self.frame.__init__(master=None)
+		#self.pack()
+		self.label = Label(self, text="Milton Rodrigues\niomltn@gmail.com")
+		self.label.pack()
+	
 class Application(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -93,7 +102,7 @@ class Application(Frame):
         self.createWidgets()
 
     def janelaSobre(self):
-        pass
+        Sobre()
     
     def createWidgets(self):
         top = self.winfo_toplevel()
