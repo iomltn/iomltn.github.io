@@ -219,18 +219,27 @@ window.onload = function() {
 		var instanciacoes = "";
 		var actionsJanelaCadastrar = "";
 		var componentesJanela = [];
+		var addEventosTextFields = "";
 		for (var i = 2; i < linhas.length; i++) {
 			var c = linhas[i].split(" ");
 			declaracoes += "\tLabel l" + pMai(c[1]) + ";\n";
 			declaracoes += "\tTextField tf" + pMai(c[1]) + ";\n";
 			
-			instanciacoes += "\t\tl" + pMai(c[1]) + " = new Label(\"" + pMai(c[1]) + "\");\n";
-			instanciacoes += "\t\ttf" + pMai(c[1]) + " = new TextField(" + pMin(classe) + " == null ? \"\" : " + pMin(classe) + ".get" + pMai(c[1]) + "());\n";
 			
-			actionsJanelaCadastrar += "\t\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(tf" + pMai(c[1]) + ".getText());\n";
+			instanciacoes += "\t\tl" + pMai(c[1]) + " = new Label(\"" + pMai(c[1]) + "\");\n";
+			if (c[3] == "float") {
+				instanciacoes += "\t\ttf" + pMai(c[1]) + " = new TextField(" + pMin(classe) + " == null ? \"\" : Float.toString(" + pMin(classe) + ".get" + pMai(c[1]) + "()).replace(\".\", \",\"));\n";				
+				actionsJanelaCadastrar += "\t\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(Float.parseFloat(tf" + pMai(c[1]) + ".getText().replace(\",\", \".\")));\n";				
+			} else {
+				instanciacoes += "\t\ttf" + pMai(c[1]) + " = new TextField(" + pMin(classe) + " == null ? \"\" : " + pMin(classe) + ".get" + pMai(c[1]) + "());\n";				
+				actionsJanelaCadastrar += "\t\t\t\t" + pMin(classe) + ".set" + pMai(c[1]) + "(tf" + pMai(c[1]) + ".getText());\n";
+			}
+			
 			
 			componentesJanela.push("l" + pMai(c[1]));
 			componentesJanela.push("tf" + pMai(c[1]));
+			
+			addEventosTextFields += "\t\ttfs.add(tf" + pMai(c[1]) + ");\n";
 		}
 		strJava += "package " + pkg.value + ".visao;\n\n";
 		strJava += "import javafx.application.Application;\n";
@@ -248,6 +257,9 @@ window.onload = function() {
 		strJava += "import javafx.geometry.Insets;\n";
 		strJava += "import javafx.geometry.Pos;\n";
 		strJava += "import java.util.Optional;\n";
+		strJava += "import java.util.List;\n";
+		strJava += "import java.util.ArrayList;\n";
+		strJava += "import javafx.scene.input.KeyCode;\n";
 		strJava += "import " + pkg.value + ".modelo." + classe + ";\n";
 		strJava += "import " + pkg.value + ".modelo." + classe + "DAO;\n\n";
 		strJava += "public class J" + classe + " extends Application {\n";
@@ -266,6 +278,17 @@ window.onload = function() {
 		strJava += "\t\tstage.setTitle(\"" + classe + "\");\n";
 		strJava += "\t\t" + pMin(classe) + "DAO = new " + classe + "DAO();\n\n";
 		strJava += instanciacoes;
+		strJava += "\t\tList<TextField> tfs = new ArrayList<TextField>();\n"
+		strJava += addEventosTextFields;
+		strJava += "\t\tfor(TextField tf: tfs) {\n";
+		strJava += "\t\t\ttf.setOnKeyPressed(e -> {\n"
+		strJava += "\t\t\t\tif (e.getCode() == KeyCode.ESCAPE) {\n";
+		strJava += "\t\t\t\t\tstage.close();\n";
+		strJava += "\t\t\t\t} else if (e.getCode() == KeyCode.ENTER) {\n";
+		strJava += "\t\t\t\t\tbtnCadastrarAlterar.fire();\n";
+		strJava += "\t\t\t\t}\n";
+		strJava += "\t\t\t});\n"
+		strJava += "\t\t};\n"
 		strJava += "\t\tbtnCadastrarAlterar = new Button("+ pMin(classe) + " == null ? \"Cadastrar\" : \"Alterar\");\n";
 		strJava += "\t\tbtnExcluir = new Button(\"Excluir\");\n";
 		strJava += "\t\tbtnCancelar = new Button(\"Cancelar\");\n";
@@ -360,25 +383,23 @@ window.onload = function() {
 		strJava += colunasDlr;
 		strJava += colunasVFct;
 		strJava += "\t\ttableView.getColumns().addAll(" + colunasAdd.join(",") + ");\n";
-		strJava += "\t\ttextFieldConsulta.textProperty().addListener((observable, oldValue, newValue) -> {\n";
 		strJava += "\t\t\tatualizarTabela();\n";
-		strJava += "\t\t});\n";
 		strJava += "\t\ttextFieldConsulta.setOnKeyPressed(e -> {\n";
 		strJava += "\t\t\tif (e.getCode() == KeyCode.ENTER) {\n";
 		strJava += "\t\t\t\tfechar(stage);\n";
 		strJava += "\t\t\t} else if (e.getCode() == KeyCode.DOWN) {\n";
 		strJava += "\t\t\t\ttableView.requestFocus();\n";
+		strJava += "\t\t\t} else if (e.getCode() == KeyCode.ESCAPE) {\n";
+		strJava += "\t\t\t\tstage.close();\n";
 		strJava += "\t\t\t}\n";
 		strJava += "\t\t});\n";
 		strJava += "\t\ttableView.setOnKeyPressed(e -> {;\n";
 		strJava += "\t\t\tint i = tableView.getSelectionModel().getSelectedIndex();\n";
-		strJava += "\t\t\tif (e.getCode() == KeyCode.UP && i <= 1) {\n";
+		strJava += "\t\t\tif (e.getCode() == KeyCode.UP && i == 0) {\n";
 		strJava += "\t\t\t\ttextFieldConsulta.requestFocus();\n";
 		strJava += "\t\t\t} else if (e.getCode() == KeyCode.DOWN) {\n";
 		strJava += "\t\t\t} else if (e.getCode() == KeyCode.ENTER) {\n";
 		strJava += "\t\t\t\tfechar(stage);\n";
-		strJava += "\t\t\t} else {\n";
-		strJava += "\t\t\t\ttextFieldConsulta.requestFocus();\n";
 		strJava += "\t\t\t}\n";
 		strJava += "\t\t});\n";
 		strJava += "\t\tatualizarTabela();\n";
@@ -433,7 +454,7 @@ window.onload = function() {
 		strJava += "public class JPrincipal extends Application {\n";
 		strJava += "\tpublic void start(Stage stage) {\n";
 		strJava += "\t\tMenuBar menuBar = new MenuBar();\n";
-		strJava += "\t\tMenu mManter = new Menu(\"Manter\");\n";
+		strJava += "\t\tMenu mArquivo = new Menu(\"Arquivo\");\n";
 		strJava += "\t\tMenu m" + classe + " = new Menu(\"" + classe + "\");\n";
 		strJava += "\t\tMenuItem miNovo" + classe + " = new MenuItem(\"Novo\");\n";
 		strJava += "\t\tMenuItem miPesquisar" + classe + " = new MenuItem(\"Pesquisar\");\n";
@@ -451,8 +472,8 @@ window.onload = function() {
 		strJava += "\t\t\t}\n";
 		strJava += "\t\t});\n";
 		strJava += "\t\tm" + classe + ".getItems().addAll(miNovo" + classe + ", miPesquisar" + classe + ");\n";
-		strJava += "\t\tmManter.getItems().add(m" + classe + ");\n";
-		strJava += "\t\tmenuBar.getMenus().addAll(mManter);\n";
+		strJava += "\t\tmArquivo.getItems().add(m" + classe + ");\n";
+		strJava += "\t\tmenuBar.getMenus().addAll(mArquivo);\n";
 		strJava += "\t\tScene scene = new Scene(new VBox(), 800, 600);\n";
 		strJava += "\t\t((VBox) scene.getRoot()).getChildren().addAll(menuBar);\n";
 		strJava += "\t\tstage.setScene(scene);\n";
