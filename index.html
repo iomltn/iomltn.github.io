@@ -3,8 +3,57 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>iomltn</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			. {
+				font-family: verdana;
+			}
+			.app {
+				display: inline-block;
+				vertical-align: top;
+				width: 150px;
+				padding: 5px;
+				margin: 5px;
+			}
+			.app .titulo {
+				padding: 5px;
+				clear: both;
+				font-weight: bold;
+				border-radius: 5px;
+			}
+			.app img {
+				margin: 5px;
+			}
+			.app .btn {
+				display: block;
+				padding: 2px 5px 2px 5px;
+				margin: 5px;
+				border-radius: 10px;
+				color: black;
+				clear: both;
+				width: 50px;
+				text-decoration: none;
+				font-size: 12px;
+				background: lightgray;
+			}
+		</style>
 	</head>
 	<body>
-		<center><h2>Página sendo desenvolvida.</h2></center>
+		<center>
+			<h1>Minhas Aplicações</h1>
+			<div class="app">
+				<img src="./img/beaker.svg" width="50"/>
+				<div class="titulo">Massa Molar</div>
+				<small>Calculadora</small>
+				<a href="./mm" class="btn">Acessar</a>
+			</div>
+			<div class="app">
+				<img src="./img/locator.svg" width="50"/>
+				<div class="titulo">Determinante</div>
+				<small>Calculadora</small>
+				<a href="./determinante" class="btn">Acessar</a>
+			</div>
+			<p><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
+		</center>
 	</body>
 </html>
