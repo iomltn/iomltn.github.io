@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 from tkinter import *
 from tkinter.scrolledtext import *
-# -*- encoding: utf-8 -*-
 
 def par(numero):
     if numero % 2 == 0:
