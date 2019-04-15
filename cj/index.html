@@ -65,6 +65,30 @@
 				atualizaValores(valor);
 			}
 		}
+        function configTeclado() {
+            var valor = document.getElementById("valor");
+            var contribuinte = document.getElementById("contribuinte");
+            var salario = document.getElementById("salario");
+            valor.addEventListener("keyup", function(e) {
+                if (e.keyCode == "13") {
+                    contribuinte.focus();
+                }
+            });
+            contribuinte.addEventListener("keyup", function(e) {
+                if(e.keyCode == "13") {
+                    salario.focus();
+                }
+            });
+            salario.addEventListener("keyup", function(e) {
+                if (e.keyCode == "13") {
+                    adicionar();
+                    contribuinte.focus();
+                }
+            });
+        }
+        window.onload = function() {
+            configTeclado();
+        }
 		</script>
 	</head>
 	<body>
@@ -94,8 +118,7 @@
 			<tr>
 				<th>Contribuinte</th>
 				<th>Salario</th>
-				<th>Valor à Contribuir</th>
-				<th></th>
+				<th colspan="2">Valor à Contribuir</th>
 			</tr>
 		</table>
 		<p><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
