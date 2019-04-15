@@ -3,11 +3,12 @@
 	<head>
 		<title>Contribuição Justa</title>
 		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width"/>
+		<meta name="viewport" content="width=device-width,scale"/>
 		<style>
 		table {
 			margin: 0 auto;
 			border-collapse: collapse;
+			width-min: 300px;
 		}
 		h1, p {
 			text-align: center;
@@ -70,10 +71,10 @@
 		<h1>Contribuição Justa</h1>
 		<table>
 			<tr>
-				<td colspan="3">Valor à Contribuir (Total)</td>
+				<td colspan="2">Valor à Contribuir (Total)</td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="text" id="valor"/></td>
+				<td colspan="2"><input type="text" id="valor"/></td>
 			</tr>
 			<tr>
 				<td>Contribuinte</td>
@@ -83,7 +84,9 @@
 			<tr>
 				<td><input type="text" id="contribuinte"/></td>
 				<td><input type="text" id="salario"/></td>
-				<td><button onclick="adicionar()">Adicionar</button></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button onclick="adicionar()">Adicionar</button></td>
 			</tr>
 		</table>
 		<table id="tabela-contribuintes" border="1">
