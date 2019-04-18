@@ -25,7 +25,7 @@
 			float: right;
 		}
 		.btn2 {
-			background: gray;
+			background: lightgray;
 			padding: 5px;
 			border-radius: 10px;
 			border: none;
@@ -39,7 +39,7 @@
 			width-min: 300px;
 		}
 		#tabela-contribuintes, #tabela-contribuintes tr, #tabela-contribuintes td, #tabela-contribuintes th {
-			border: solid 2px darkblue;
+			border: solid 2px lightgray;
 		}
 		.oculto {
 			display: none;
@@ -63,7 +63,7 @@
 			var tabelacontribuintes = document.getElementById("tabela-contribuintes");
 			var trs = tabelacontribuintes.getElementsByTagName("tr");
 			var soma = 0;
-			var j = 1;
+			var j = trs.length > 0 ? trs.length - 1: 1;
 			for (var i = 0; i < trs.length; i++) {
 				if (i == 0) continue;
 				soma += parseFloat(trs[i].getElementsByTagName("td")[2].innerHTML.replace("R$ ", "").replace(",", "."));
@@ -71,7 +71,7 @@
 			for (var i = 0; i < trs.length; i++) {
 				if (i == 0) continue;
 				trs[i].getElementsByTagName("td")[0].innerHTML = j;
-				j++;
+				j--;
 				salario = parseFloat(trs[i].getElementsByTagName("td")[2].innerHTML.replace("R$ ", "").replace(",", "."));
 				contribuicao = ((salario * valor) / soma);
 				trs[i].getElementsByTagName("td")[3].innerHTML = "R$ " + contribuicao.toFixed(2).replace(".", ",");
@@ -114,7 +114,11 @@
 				td.appendChild(btn);
 				tr.appendChild(td);
 
-				tabelacontribuintes.appendChild(tr);
+				if (tabelacontribuintes.getElementsByTagName("td").length > 0) {
+					tabelacontribuintes.insertBefore(tr, tabelacontribuintes.getElementsByTagName("tr")[1]);
+				} else {
+					tabelacontribuintes.appendChild(tr);
+				}
 
 				document.getElementById("contribuinte").value = "";
 				document.getElementById("salario").value = "";
