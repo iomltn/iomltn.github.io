@@ -18,7 +18,7 @@ function Bean(nome, atributos) {
 	this.atributos = atributos;
 }
 
-window.onload = function() {
+function load() {
 	var tA0 = document.getElementById("origem");
 	var pkg = document.getElementById("pacote");
 	
