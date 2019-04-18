@@ -60,7 +60,14 @@
 			}
 			this.iniciar = function() {
 				var dataPtn = /\d{2}\/\d{2}\/\d{4}/i;
-				var dataStr = prompt("Data inicial(dd/mm/yyyy):", "");
+				var data = new Date();
+				var dia = data.getDate();
+				var mes = data.getMonth() + 1;
+				var ano = data.getFullYear();
+				dia = dia < 10 ? "0" + dia : dia;
+				mes = mes < 10 ? "0" + mes : mes;
+				data = dia + "/" + mes + "/" + ano;
+				var dataStr = prompt("Data inicial(dd/mm/yyyy):", data);
 				while (!dataPtn.test(dataStr)) {
 					dataStr = prompt("Formato inválido!\nData inicial(dd/mm/yyyy):", "");
 				}
@@ -72,11 +79,11 @@
 					data.setDate(data.getDate() - 1);
 				}
 				
-				var valorStr = prompt("Valor inicial:", "");
+				var valorStr = prompt("Valor inicial:", "5");
 				if (valorStr.indexOf(",") != -1) {
 					valorStr = valorStr.replace(",", ".");
 				}
-				while (isNaN(valorStr)) {
+				while (isNaN(valorStr) || valorStr == "") {
 					valorStr = prompt("Valor inválido!\nValor inicial:", "");
 					if (valorStr.indexOf(",") != -1) {
 						valorStr = valorStr.replace(",", ".");
@@ -141,7 +148,7 @@
 		<table border="1">
 			<tr>
 				<th colspan="5">
-					<h1>Desafio 52 Semanas <small>by iomltn@gmail.com</small></h1>
+					<h1>Desafio 52 Semanas</h1>
 				</th>
 			</tr>
 			<tr>
