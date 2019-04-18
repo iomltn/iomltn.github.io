@@ -3,7 +3,7 @@
 	<head>
 		<title>Contribuição Justa</title>
 		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width,scale"/>
+		<meta name="viewport" content="width=device-width"/>
 		<style>
 		table {
 			margin: 0 auto;
@@ -17,7 +17,11 @@
 			padding: 5px;
 		}
 		</style>
-		<script>	
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript">
 		function atualizaValores(valor) {
 			var tabelacontribuintes = document.getElementById("tabela-contribuintes");
 			var trs = tabelacontribuintes.getElementsByTagName("tr");
@@ -88,12 +92,14 @@
         }
         window.onload = function() {
             configTeclado();
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
         }
 		</script>
 	</head>
 	<body>
 		<h1>Contribuição Justa</h1>
-		<p>Objetivo: Distribuir o valor da contribuição individual de forma proporcional ao salário de cada um.</p>
+		<p id="descricao">Objetivo: Distribuir o valor da contribuição individual de forma proporcional ao salário de cada um.</p>
 		<table>
 			<tr>
 				<td colspan="2">Valor à Contribuir (Total)</td>
@@ -121,6 +127,5 @@
 				<th colspan="2">Valor à Contribuir</th>
 			</tr>
 		</table>
-		<p><small>by <a href="http://api.whatsapp.com/send?1=pt_BR&phone=5588988418921" target="_blank">Milton Rodrigues</a> - <a href="mailto:iomltn@gmail.com">iomltn@gmail.com</a></small></p>
 	</body>
 </html>

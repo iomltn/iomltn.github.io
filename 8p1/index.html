@@ -4,12 +4,22 @@
 		<title>8p1</title>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript">
+		window.onload = function() {
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
+		}
+		</script>
 	</head>
 	<body>
 		<center>
-			<h1>8p1</h1>
+			<h1>8 páginas em 1 folha</h1>
+			<p id="descricao">Objetivo: Obter a sequência das páginas para imprimir frente e verso na configuração de impressão de 4 páginas.</p>
 			<a href="8p1.py">Baixar</a>
-		    <p><small>by <a href="http://api.whatsapp.com/send?1=pt_BR&phone=5588988418921" target="_blank">Milton Rodrigues</a> - <a href="mailto:iomltn@gmail.com">iomltn@gmail.com</a></small></p>
 		</center>
 	</body>
 </html>
