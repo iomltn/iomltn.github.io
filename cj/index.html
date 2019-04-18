@@ -5,16 +5,47 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width"/>
 		<style>
+		input {
+			border: solid 2px darkblue;
+			padding: 5px 10px;
+			border-radius: 10px;
+			outline: none;
+		}
+		.btn1 {
+			background: darkblue;
+			padding: 5px 15px;
+			border-radius: 10px;
+			border: none;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+			float: right;
+		}
+		.btn2 {
+			background: gray;
+			padding: 5px;
+			border-radius: 10px;
+			border: none;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+		}
 		table {
 			margin: 0 auto;
 			border-collapse: collapse;
 			width-min: 300px;
+		}
+		#tabela-contribuintes, #tabela-contribuintes tr, #tabela-contribuintes td, #tabela-contribuintes th {
+			border: solid 2px darkblue;
 		}
 		h1, p {
 			text-align: center;
 		}
 		td, th {
 			padding: 5px;
+		}
+		th, td, p, button, input {
+			font-size: 11pt;
 		}
 		</style>
 		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
@@ -26,14 +57,20 @@
 			var tabelacontribuintes = document.getElementById("tabela-contribuintes");
 			var trs = tabelacontribuintes.getElementsByTagName("tr");
 			var soma = 0;
+			var j = 1;
 			for (var i = 0; i < trs.length; i++) {
 				if (i == 0) continue;
-				soma += parseFloat(trs[i].getElementsByTagName("td")[1].innerHTML.replace("R$ ", "").replace(",", "."));
+				soma += parseFloat(trs[i].getElementsByTagName("td")[2].innerHTML.replace("R$ ", "").replace(",", "."));
 			}
 			for (var i = 0; i < trs.length; i++) {
 				if (i == 0) continue;
-				salario = parseFloat(trs[i].getElementsByTagName("td")[1].innerHTML.replace("R$ ", "").replace(",", "."));
-				trs[i].getElementsByTagName("td")[2].innerHTML = "R$ " + ((salario * valor) / soma).toFixed(2).replace(".", ",");
+				trs[i].getElementsByTagName("td")[0].innerHTML = j;
+				j++;
+				salario = parseFloat(trs[i].getElementsByTagName("td")[2].innerHTML.replace("R$ ", "").replace(",", "."));
+				contribuicao = ((salario * valor) / soma);
+				trs[i].getElementsByTagName("td")[3].innerHTML = "R$ " + contribuicao.toFixed(2).replace(".", ",");
+				porcentagem = (contribuicao / salario) * 100;
+				trs[i].getElementsByTagName("td")[4].innerHTML = porcentagem.toFixed(2).replace(".", ",") + " %";
 			}
 		}
 
@@ -45,6 +82,8 @@
 			if (contribuinte != "" && parseInt(salario) > 0) {
 				var tr = document.createElement("tr");
 				var td = document.createElement("td");
+				tr.appendChild(td);
+				td = document.createElement("td");
 				td.innerHTML = contribuinte;
 				tr.appendChild(td);
 				td = document.createElement("td");
@@ -53,9 +92,11 @@
 				td = document.createElement("td");
 				td.innerHTML = "...";
 				tr.appendChild(td);
-				tabelacontribuintes.appendChild(tr);
+				td = document.createElement("td");
+				tr.appendChild(td);
 				td = document.createElement("td");
 				var btn = document.createElement("button");
+				btn.setAttribute("class", "btn2");
 				btn.innerHTML = "X";
 				btn.addEventListener("click", function() {
 					tabelacontribuintes.removeChild(tr);
@@ -63,6 +104,9 @@
 				});
 				td.appendChild(btn);
 				tr.appendChild(td);
+
+				tabelacontribuintes.appendChild(tr);
+
 				document.getElementById("contribuinte").value = "";
 				document.getElementById("salario").value = "";
 
@@ -102,7 +146,7 @@
 		<p id="descricao">Objetivo: Distribuir o valor da contribuição individual de forma proporcional ao salário de cada um.</p>
 		<table>
 			<tr>
-				<td colspan="2">Valor à Contribuir (Total)</td>
+				<td colspan="2">Total à contribuir</td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="text" id="valor"/></td>
@@ -117,14 +161,17 @@
 				<td><input type="text" id="salario"/></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button onclick="adicionar()">Adicionar</button></td>
+				<td colspan="2"><button onclick="adicionar()" class="btn1">Adicionar</button></td>
 			</tr>
 		</table>
 		<table id="tabela-contribuintes" border="1">
 			<tr>
+				<th>nº</th>
 				<th>Contribuinte</th>
-				<th>Salario</th>
-				<th colspan="2">Valor à Contribuir</th>
+				<th>Salário</th>
+				<th>Contribuição</th>
+				<th>Porcentagem</th>
+				<th></th>
 			</tr>
 		</table>
 	</body>
