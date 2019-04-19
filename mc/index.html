@@ -11,12 +11,43 @@
 		td, th {
 			padding: 5px;
 		}
+		#compras, #compras td, #compras th {
+			border: solid 2px gray;
+		}
+		input {
+			border: solid 2px darkblue;
+			padding: 5px 10px;
+			border-radius: 10px;
+			outline: none;
+		}
 		table {
 			margin: 0 auto;
 			border-collapse: collapse;
 		}
 		#compras {
 			margin-top: 15px;
+		}
+		.btn1 {
+			background:  #004d99;
+			padding: 5px 15px;
+			border-radius: 10px;
+			border: none;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+			float: right;
+		}
+		.btn2 {
+			background: lightgray;
+			padding: 5px;
+			border-radius: 10px;
+			border: none;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+		}
+		.oculto {
+			display: none;
 		}
 		</style>
 		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
@@ -44,6 +75,11 @@
 				trs[i].getElementsByTagName("td")[2].innerHTML = "R$ " + d.toFixed(2).replace(".", ",");
 				trs[i].getElementsByTagName("td")[3].innerHTML = p;
 			}
+			if (trs.length > 2) {
+				compras.setAttribute("class", "");
+			} else {
+				compras.setAttribute("class", "oculto");
+			}
 		}
 		function adicionar() {
 			var compras = document.getElementById("compras");
@@ -64,6 +100,7 @@
 			td = document.createElement("td");
 			var button = document.createElement("button");
 			button.innerHTML = "X";
+			button.setAttribute("class", "btn2");
 			button.onclick = function() {
 				compras.removeChild(tr);
 				atualizarValores(compras, dinheiro);
@@ -75,9 +112,30 @@
 
 			produto.value = "";
 			preco.value = "";
-			produto.focus();
 		}
+        function configTeclado() {
+			var dinheiro = document.getElementById("dinheiro");
+			var produto = document.getElementById("produto");
+			var preco = document.getElementById("preco");
+            dinheiro.addEventListener("keyup", function(e) {
+                if (e.keyCode == "13") {
+                    produto.focus();
+                }
+            });
+            produto.addEventListener("keyup", function(e) {
+                if(e.keyCode == "13") {
+                    preco.focus();
+                }
+            });
+            preco.addEventListener("keyup", function(e) {
+                if (e.keyCode == "13") {
+                    adicionar();
+					produto.focus();
+                }
+            });
+        }
 		window.onload = function() {
+            configTeclado();
 			document.body.insertBefore(menubar, document.body.firstElementChild);
 			document.body.appendChild(footbar);			
 		}
@@ -104,10 +162,10 @@
 			<tr>
 				<td><input type="text" id="produto"/></td>
 				<td><input type="text" id="preco" size="4"/></td>
-				<td><button onclick="adicionar()">+</button>
+				<td><button onclick="adicionar()" class="btn1">+</button>
 			</tr>
 		</table>
-		<table border="1" id="compras">
+		<table border="1" id="compras" class="oculto">
 			<tr>
 				<th rowspan="2">Produto</th>
 				<th rowspan="2">Preço / kg</th>
