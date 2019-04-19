@@ -11,7 +11,7 @@ var autor = {
 	whatsapp: "5588988418921"
 }
 var aplicacoes = [
-	{rotulo: "Medida Exata", icone: "img/weight-balance.svg", categoria: categorias[0].nome, link: "me"},
+	{rotulo: "Medida Certa", icone: "img/weight-balance.svg", categoria: categorias[0].nome, link: "mc"},
 	{rotulo: "Contribuição Justa", icone: "img/weight-balance.svg", categoria: categorias[0].nome, link: "cj"},
 	{rotulo: "Massa Molar", icone: "img/beaker.svg", categoria: categorias[0].nome, link: "mm"},
 	{rotulo: "Determinante", icone: "img/locator.svg", categoria: categorias[0].nome, link: "d"},
