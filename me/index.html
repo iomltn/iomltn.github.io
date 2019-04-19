@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Medida Exata</title>
+		<meta name="viewport" content="width=device-width"/>
+		<style>
+		h1 {
+			text-align: center;
+		}
+		td, th {
+			padding: 5px;
+		}
+		table {
+			margin: 0 auto;
+			border-collapse: collapse;
+		}
+		#compras {
+			margin-top: 15px;
+		}
+		</style>
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript">
+		function atualizarValores(compras, dinheiro) {
+			var trs = compras.getElementsByTagName("tr");
+			var total = 0;
+			var peso = 0;
+			dinheiro = parseFloat(dinheiro.value.replace(",", "."));
+			for (var i = 2; i < trs.length; i++) {
+				total += parseFloat(trs[i].getElementsByTagName("td")[1].innerHTML.replace("R$ ", "").replace(".", ","));
+			}
+			peso = dinheiro / total;
+			for (var i = 2; i < trs.length; i++) {
+				var d = parseFloat(trs[i].getElementsByTagName("td")[1].innerHTML.replace("R$ ", "").replace(",", ".")) * peso;
+				var p = peso;
+				if (p < 1) {
+					p = (p * 1000).toFixed(1).replace(".", ",") + " g";
+				} else {
+					p = p.toFixed(3).replace(".", ",") + " kg";
+				}
+				trs[i].getElementsByTagName("td")[2].innerHTML = "R$ " + d.toFixed(2).replace(".", ",");
+				trs[i].getElementsByTagName("td")[3].innerHTML = p;
+			}
+		}
+		function adicionar() {
+			var compras = document.getElementById("compras");
+			var dinheiro = document.getElementById("dinheiro");
+			var produto = document.getElementById("produto");
+			var preco = document.getElementById("preco");
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			td.innerHTML = produto.value;
+			tr.appendChild(td);
+			td = document.createElement("td");
+			td.innerHTML = "R$ " + parseFloat(preco.value).toFixed(2).replace(".", ",");
+			tr.appendChild(td);
+			td = document.createElement("td");
+			tr.appendChild(td);
+			td = document.createElement("td");
+			tr.appendChild(td);
+			td = document.createElement("td");
+			var button = document.createElement("button");
+			button.innerHTML = "X";
+			button.onclick = function() {
+				compras.removeChild(tr);
+				atualizarValores(compras, dinheiro);
+			};
+			td.appendChild(button);
+			tr.appendChild(td);
+			compras.appendChild(tr);
+			atualizarValores(compras, dinheiro);
+
+			produto.value = "";
+			preco.value = "";
+			produto.focus();
+		}
+		window.onload = function() {
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);			
+		}
+		</script>
+	</head>
+	<body>
+		<h1>Medida Exata</h1>
+		<table>
+			<tr>
+				<td colspan="3">Quantos reais você pretende gastar?</td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="text" id="dinheiro" size="4"/></td>
+			</tr>
+			<tr><td colspan="3"></td></tr>
+			<tr>
+				<td colspan="3">O que você quer comprar?</td>
+			</tr>
+			<tr>
+				<td>Produto</td>
+				<td>Preço / kg</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="produto"/></td>
+				<td><input type="text" id="preco" size="4"/></td>
+				<td><button onclick="adicionar()">+</button>
+			</tr>
+		</table>
+		<table border="1" id="compras">
+			<tr>
+				<th rowspan="2">Produto</th>
+				<th rowspan="2">Preço / kg</th>
+				<th colspan="2">Quanto Comprar?</th>
+				<th rowspan="2"></th>
+			</tr>
+			<tr>
+				<th>Dinheiro</th>
+				<th>Massa</th>
+			</tr>
+		</table>
+	</body>
+</html>
