@@ -61,7 +61,7 @@
 			var peso = 0;
 			dinheiro = parseFloat(dinheiro.value.replace(",", "."));
 			for (var i = 2; i < trs.length; i++) {
-				total += parseFloat(trs[i].getElementsByTagName("td")[1].innerHTML.replace("R$ ", "").replace(".", ","));
+				total += parseFloat(trs[i].getElementsByTagName("td")[1].innerHTML.replace("R$ ", "").replace(",", "."));
 			}
 			peso = dinheiro / total;
 			for (var i = 2; i < trs.length; i++) {
