@@ -113,6 +113,11 @@
 			produto.value = "";
 			preco.value = "";
 		}
+		function atualizar() {
+			var compras = document.getElementById("compras");
+			var dinheiro = document.getElementById("dinheiro");
+			atualizarValores(compras, dinheiro);
+		}
         function configTeclado() {
 			var dinheiro = document.getElementById("dinheiro");
 			var produto = document.getElementById("produto");
@@ -148,7 +153,7 @@
 				<td colspan="3">Quantos reais você pretende gastar?</td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="text" id="dinheiro" size="4"/></td>
+				<td colspan="3"><input type="text" id="dinheiro" size="4"/> <button onclick="atualizar()" class="btn2">Atualizar</button></td>
 			</tr>
 			<tr><td colspan="3"></td></tr>
 			<tr>
