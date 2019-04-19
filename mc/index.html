@@ -56,6 +56,7 @@
 		<script type="text/javascript" src="../js/footbar.js"></script>
 		<script type="text/javascript">
 		function atualizarValores(compras, dinheiro) {
+			var atualizar = document.getElementById("atualizar");
 			var trs = compras.getElementsByTagName("tr");
 			var total = 0;
 			var peso = 0;
@@ -77,8 +78,10 @@
 			}
 			if (trs.length > 2) {
 				compras.setAttribute("class", "");
+				atualizar.setAttribute("class", "btn2");
 			} else {
 				compras.setAttribute("class", "oculto");
+				atualizar.setAttribute("class", "oculto");
 			}
 		}
 		function adicionar() {
@@ -153,7 +156,7 @@
 				<td colspan="3">Quantos reais você pretende gastar?</td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="text" id="dinheiro" size="4"/> <button onclick="atualizar()" class="btn2">Atualizar</button></td>
+				<td colspan="3"><input type="text" id="dinheiro" size="4"/> <button id="atualizar" onclick="atualizar()" class="btn2 oculto">Atualizar</button></td>
 			</tr>
 			<tr><td colspan="3"></td></tr>
 			<tr>
