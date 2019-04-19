@@ -91,7 +91,7 @@
 			td.innerHTML = produto.value;
 			tr.appendChild(td);
 			td = document.createElement("td");
-			td.innerHTML = "R$ " + parseFloat(preco.value).toFixed(2).replace(".", ",");
+			td.innerHTML = "R$ " + parseFloat(preco.value.replace(",", ".")).toFixed(2).replace(".", ",");
 			tr.appendChild(td);
 			td = document.createElement("td");
 			tr.appendChild(td);
