@@ -71,8 +71,9 @@
 				j.document.body.appendChild(table_medicamentos.cloneNode(true));
 				j.document.body.appendChild(small);
 				j.window.focus();
-				j.window.print();
-				//j.close();
+				setInterval(function() {
+					j.window.print();
+				}, 3000);
 			});
 
 			var limpar_inputs = function() {
