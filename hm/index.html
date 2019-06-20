@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>Horário de Medicamentos</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<style>
+		* {
+			font-family: arial;
+		}
+		#medicamentos {
+			border-collapse: collapse;
+		}
+		#medicamentos td, th {
+			padding: 5px;
+			text-align: center;
+		}
+		</style>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript">
+		var Medicamento = function(descricao, intervalo, horario) {
+			this.descricao = descricao;
+			this.intervalo = intervalo;
+			this.horario = horario;
+		}
+		var medicamentos = [];
+		var pattern_hora_minuto = /([0-9]+):([0-9]{2})/i;
+		var hora_minuto = function(hora) {
+			var a = pattern_hora_minuto.exec(hora);
+			if (a != null) {
+				return [a[1], a[2]];	
+			}
+			return [0, 0];
+		}
+
+		var divisivel_por = function(n1, n2) {
+			if (n2 % n1 == 0) {
+				return true;
+			}
+			return false;
+		}
+
+		var esta_contido = function(e, lista) {
+			for (var i = 0; i < lista.length; i++) {
+				if (e == lista[i]) {
+					return true;
+				}
+			}
+			return false;
+		}
+		var formatar_numero = function(n) {
+			if (parseInt(n) < 10) {
+				return "0" + n;
+			}
+			return n;
+		}
+		window.onload = function() {
+			var button_adicionar = document.getElementById("adicionar");
+			var input_descricao = document.getElementById("descricao_medicamento");
+			var input_intervalo = document.getElementById("intervalo");
+			var input_primeira_dose = document.getElementById("primeira_dose");
+			var table_medicamentos = document.getElementById("medicamentos");
+
+			var limpar_inputs = function() {
+				input_descricao.value = "";
+				input_intervalo.value = "";
+				input_primeira_dose.value = "";
+			}
+
+			var atualizar_tabela = function() {
+				table_medicamentos.innerHTML = "";
+				var horario_global = [];
+				for (var i = 0; i < medicamentos.length; i++) {
+					for (var j = 0; j < medicamentos[i].horario.length; j++) {
+						if (!esta_contido(medicamentos[i].horario[j], horario_global)) {
+							horario_global.push(medicamentos[i].horario[j]);
+						}
+					}
+				}
+				horario_global.sort();
+				var tr = document.createElement("tr");
+				var th = document.createElement("th");
+				var td, small;
+				tr.appendChild(th);
+				th = document.createElement("th");
+				for (var i = 0; i < medicamentos.length; i++) {
+					th = document.createElement("th");
+					th.innerHTML = medicamentos[i].descricao + "<br/>";
+					small = document.createElement("small");
+					small.innerHTML = "(" + medicamentos[i].intervalo + " em " + medicamentos[i].intervalo + " horas)";
+					th.appendChild(small);
+					tr.appendChild(th);
+				}
+				table_medicamentos.appendChild(tr);
+
+				for (var i = 0; i < horario_global.length; i++) {
+					var tr = document.createElement("tr");
+					var th = document.createElement("th");
+					th.innerHTML = horario_global[i];
+					tr.appendChild(th);
+					for (var j = 0; j < medicamentos.length; j++) {
+						td = document.createElement("td");
+						if (esta_contido(horario_global[i], medicamentos[j].horario)) {
+							td.innerHTML = "X";
+						}
+						tr.appendChild(td);
+					}
+					table_medicamentos.appendChild(tr);
+				}
+			}
+			var get_horario = function(intervalo, h, m) {
+				var horario = [];
+				numero_dosagens_dia = parseInt(24 / intervalo);
+				for (var i = 0; i < numero_dosagens_dia; i++) {
+					horario.push(formatar_numero(h) + ":" + m);
+					h += intervalo;
+					if (h > 24) {
+						h -= 24;
+					}
+				}
+				horario.sort();
+				return horario;
+			}
+			var adicionarMedicamento = function() {
+				var descricao = input_descricao.value;
+				var intervalo = parseInt(input_intervalo.value);
+				var primeira_dose = input_primeira_dose.value;
+				var horario;
+				var ahm = hora_minuto(primeira_dose);
+				var h = parseInt(ahm[0]);
+				var m = parseInt(ahm[1]);
+				var numero_dosagens_dia = 0;
+				if (h > 0 && divisivel_por(intervalo, 24)) {
+					horario = get_horario(intervalo, h, m);
+					var medicamento = new Medicamento(descricao, intervalo, horario);
+					medicamentos.push(medicamento);
+					limpar_inputs();
+					atualizar_tabela();
+				}
+			}
+			button_adicionar.addEventListener("click", function() {
+				adicionarMedicamento();
+			});
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
+		}
+		</script>
+	</head>
+	<body>
+		<center>
+		<h1>Medicamentos</h1>
+		<table>
+			<tr>
+				<td colspan="2">Descrição do medicamento</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="text" style="width: 100%" id="descricao_medicamento"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Intervalo (horas)</td>
+				<td>Horário da primeira dose</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" id="intervalo"/>
+				</td>
+				<td>
+					<input type="text" id="primeira_dose"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button id="adicionar">Adicionar Medicamento</button>
+				</td>
+			</tr>
+		</table>
+		<h3>Horário</h3>
+		<table id="medicamentos" border="1"></table>
+		</center>
+	</body>
+</html>
