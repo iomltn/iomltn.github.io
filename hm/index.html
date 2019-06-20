@@ -16,6 +16,31 @@
 			padding: 5px;
 			text-align: center;
 		}
+		#table_input td {
+			padding: 3px;
+			text-align: center;
+		}
+		input {
+			padding: 5px;
+			border: solid 2px gray;
+			border-radius: 10px;
+			text-align: center;
+		}
+		input, button {
+			outline: none;
+			border-radius: 10px;
+		}
+		button {
+			padding: 5px 10px 5px 10px;
+			background: lightblue;
+			font-weight: bold;
+			border: none;
+			color: darkblue;
+			cursor: pointer;
+		}
+		h3 {
+			padding: 10px;
+		}
 		</style>
 		<script type="text/javascript" src="../js/global.js"></script>
 		<script type="text/javascript" src="../js/menubar.js"></script>
@@ -152,25 +177,25 @@
 	<body>
 		<center>
 		<h1>Medicamentos</h1>
-		<table>
+		<table id="table_input">
 			<tr>
 				<td colspan="2">Descrição do medicamento</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="text" style="width: 100%" id="descricao_medicamento"/>
+					<input type="text" id="descricao_medicamento" size="30"/>
 				</td>
 			</tr>
 			<tr>
-				<td>Intervalo <small>(horas)</small></td>
-				<td>Primeira Dose <small>(hh:mm)</small></td>
+				<td>Intervalo<br/><small>(horas)</small></td>
+				<td>Primeira Dose<br/><small>(hh:mm)</small></td>
 			</tr>
 			<tr>
 				<td>
-					<input type="text" id="intervalo"/>
+					<input type="text" id="intervalo" size="4"/>
 				</td>
 				<td>
-					<input type="text" id="primeira_dose"/>
+					<input type="text" id="primeira_dose" size="9"/>
 				</td>
 			</tr>
 			<tr>
