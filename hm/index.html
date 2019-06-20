@@ -56,12 +56,15 @@
 			var button_imprimir = document.getElementById("imprimir");
 
 			button_imprimir.addEventListener("click", function() {
+				var hoje = new Date();
 				var h2 = document.createElement("h2");
 				h2.innerHTML = "Horário de Medicamentos";
 				var h3 = document.createElement("h3");
 				h3.innerHTML = "Paciente: " + input_paciente.value;
 				var style = document.createElement("style");
 				var small = document.createElement("small");
+				var h3_2 = document.createElement("h3");
+				h3_2.innerHTML = formatar_numero(hoje.getDate()) + "/" + formatar_numero(hoje.getMonth() + 1) + "/" + hoje.getFullYear();
 				small.innerHTML = "http://iomltn.github.io/hm";
 				style.innerHTML = "* {margin: 0; padding: 0;} body {font-family: arial; text-align: center; padding: 10px} h3 {margin: 10px} table {border-collapse: collapse; margin: 10 auto} table th, td {padding: 5px; text-align: center} small {margin: 10px;}";
 				var j = window.open("", "_blank", "");
@@ -69,6 +72,7 @@
 				j.document.body.appendChild(h2);
 				j.document.body.appendChild(h3);
 				j.document.body.appendChild(table_medicamentos.cloneNode(true));
+				j.document.body.appendChild(h3_2);
 				j.document.body.appendChild(small);
 				j.window.focus();
 				setInterval(function() {
