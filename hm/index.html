@@ -5,43 +5,7 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
-		<style>
-		* {
-			font-family: arial;
-		}
-		#medicamentos {
-			border-collapse: collapse;
-		}
-		#medicamentos td, th {
-			padding: 5px;
-			text-align: center;
-		}
-		#table_input td {
-			padding: 3px;
-			text-align: center;
-		}
-		input {
-			padding: 5px;
-			border: solid 2px gray;
-			border-radius: 10px;
-			text-align: center;
-		}
-		input, button {
-			outline: none;
-			border-radius: 10px;
-		}
-		button {
-			padding: 5px 10px 5px 10px;
-			background: lightblue;
-			font-weight: bold;
-			border: none;
-			color: darkblue;
-			cursor: pointer;
-		}
-		h3 {
-			padding: 10px;
-		}
-		</style>
+		<link rel="stylesheet" type="text/css" href="estilo.css"/>
 		<script type="text/javascript" src="../js/global.js"></script>
 		<script type="text/javascript" src="../js/menubar.js"></script>
 		<script type="text/javascript" src="../js/footbar.js"></script>
@@ -84,10 +48,31 @@
 		}
 		window.onload = function() {
 			var button_adicionar = document.getElementById("adicionar");
+			var input_paciente = document.getElementById("paciente");
 			var input_descricao = document.getElementById("descricao_medicamento");
 			var input_intervalo = document.getElementById("intervalo");
 			var input_primeira_dose = document.getElementById("primeira_dose");
 			var table_medicamentos = document.getElementById("medicamentos");
+			var button_imprimir = document.getElementById("imprimir");
+
+			button_imprimir.addEventListener("click", function() {
+				var h2 = document.createElement("h2");
+				h2.innerHTML = "Horário de Medicamentos";
+				var h3 = document.createElement("h3");
+				h3.innerHTML = "Paciente: " + input_paciente.value;
+				var style = document.createElement("style");
+				var small = document.createElement("small");
+				small.innerHTML = "http://iomltn.github.io/hm";
+				style.innerHTML = "* {margin: 0; padding: 0;} body {font-family: arial; text-align: center; padding: 10px} h3 {margin: 10px} table {border-collapse: collapse; margin: 10 auto} table th, td {padding: 5px; text-align: center} small {margin: 10px;}";
+				var j = window.open("", "", "");
+				j.document.body.appendChild(style);
+				j.document.body.appendChild(h2);
+				j.document.body.appendChild(h3);
+				j.document.body.appendChild(table_medicamentos.cloneNode(true));
+				j.document.body.appendChild(small);
+				j.window.print();
+				j.close();
+			});
 
 			var limpar_inputs = function() {
 				input_descricao.value = "";
@@ -175,37 +160,46 @@
 		</script>
 	</head>
 	<body>
-		<center>
-		<h1>Medicamentos</h1>
-		<table id="table_input">
-			<tr>
-				<td colspan="2">Descrição do medicamento</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="text" id="descricao_medicamento" size="30"/>
-				</td>
-			</tr>
-			<tr>
-				<td>Intervalo<br/><small>(horas)</small></td>
-				<td>Primeira Dose<br/><small>(hh:mm)</small></td>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" id="intervalo" size="4"/>
-				</td>
-				<td>
-					<input type="text" id="primeira_dose" size="9"/>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button id="adicionar">Adicionar Medicamento</button>
-				</td>
-			</tr>
-		</table>
-		<h3>Horário</h3>
-		<table id="medicamentos" border="1"></table>
-		</center>
+		<div id="container">
+			<h1>Medicamentos</h1>
+			<table id="table_input">
+				<tr>
+					<td colspan="2">Nome do Paciente</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" id="paciente" size="30"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">Descrição do medicamento</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" id="descricao_medicamento" size="30"/>
+					</td>
+				</tr>
+				<tr>
+					<td>Intervalo<br/><small>(horas)</small></td>
+					<td>Primeira Dose<br/><small>(hh:mm)</small></td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" id="intervalo" size="4"/>
+					</td>
+					<td>
+						<input type="text" id="primeira_dose" size="9"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button id="adicionar">Adicionar Medicamento</button>
+					</td>
+				</tr>
+			</table>
+			<h3>Horário</h3>
+			<table id="medicamentos" border="1"></table>
+			<button id="imprimir">Imprimir</button>
+		</div>
 	</body>
 </html>

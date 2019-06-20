@@ -1,0 +1,42 @@
+* {
+	font-family: arial;
+}
+#container {
+	text-align: center;
+}
+table {
+	margin: 0 auto;
+}
+#medicamentos {
+	border-collapse: collapse;
+	margin-bottom: 5px;
+}
+#medicamentos td, th {
+	padding: 5px;
+	text-align: center;
+}
+#table_input td {
+	padding: 3px;
+	text-align: center;
+}
+input {
+	padding: 5px;
+	border: solid 2px gray;
+	border-radius: 10px;
+	text-align: center;
+}
+input, button {
+	outline: none;
+	border-radius: 10px;
+}
+button {
+	padding: 5px 10px 5px 10px;
+	background: lightblue;
+	font-weight: bold;
+	border: none;
+	color: darkblue;
+	cursor: pointer;
+}
+h3 {
+	padding: 10px;
+}
