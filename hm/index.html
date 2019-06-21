@@ -134,7 +134,7 @@
 				var horario = [];
 				numero_dosagens_dia = parseInt(24 / intervalo);
 				for (var i = 0; i < numero_dosagens_dia; i++) {
-					horario.push(formatar_numero(h) + ":" + m);
+					horario.push(formatar_numero(h) + ":" + formatar_numero(m));
 					h += intervalo;
 					if (h > 24) {
 						h -= 24;
