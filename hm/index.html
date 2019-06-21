@@ -46,6 +46,9 @@
 			}
 			return n;
 		}
+		var dias_semana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+		var desinencias = ["o", "a", "a", "a", "a", "a", "o"];
+		var meses = ["Janeiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 		window.onload = function() {
 			var button_adicionar = document.getElementById("adicionar");
 			var input_paciente = document.getElementById("paciente");
@@ -63,8 +66,8 @@
 				h3.innerHTML = "Paciente: " + input_paciente.value;
 				var style = document.createElement("style");
 				var small = document.createElement("small");
-				var h3_2 = document.createElement("h3");
-				h3_2.innerHTML = formatar_numero(hoje.getDate()) + "/" + formatar_numero(hoje.getMonth() + 1) + "/" + hoje.getFullYear();
+				var p = document.createElement("p");
+				p.innerHTML = "Criado n" + desinencias[hoje.getDay()] + " " + dias_semana[hoje.getDay()] + ", " + formatar_numero(hoje.getDate()) + " de " + meses[hoje.getMonth()] + " de " + hoje.getFullYear();
 				small.innerHTML = "http://iomltn.github.io/hm";
 				style.innerHTML = "* {margin: 0; padding: 0;} body {font-family: arial; text-align: center; padding: 10px} h3 {margin: 10px} table {border-collapse: collapse; margin: 10 auto} table th, td {padding: 5px; text-align: center} small {margin: 10px;}";
 				var j = window.open("", "_blank", "");
@@ -72,9 +75,9 @@
 				j.document.body.appendChild(h2);
 				j.document.body.appendChild(h3);
 				j.document.body.appendChild(table_medicamentos.cloneNode(true));
-				j.document.body.appendChild(h3_2);
+				j.document.body.appendChild(p);
 				j.document.body.appendChild(small);
-				setInterval(function() {
+				setTimeout(function() {
 					j.window.print();
 					//j.window.close();
 				}, 1000);
@@ -157,6 +160,12 @@
 					atualizar_tabela();
 				}
 			}
+			input_primeira_dose.addEventListener("keydown", function(e) {
+				if (e.keyCode == "13") {
+					adicionarMedicamento();
+					input_descricao.focus();
+				}
+			});
 			button_adicionar.addEventListener("click", function() {
 				adicionarMedicamento();
 			});
