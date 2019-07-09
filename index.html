@@ -4,11 +4,15 @@
 		<meta charset="utf-8"/>
 		<title>iomltn</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="./css/global.css"/>
 		<style>
+			body {
+				text-align: center;
+			}
 			.app {
 				display: inline-block;
 				vertical-align: top;
-				width: 150px;
+				width: 135px;
 				padding: 5px;
 				margin: 5px;
 			}
@@ -21,103 +25,46 @@
 			.app img {
 				margin: 5px;
 			}
-			.app .btn {
+			.app a {
 				display: block;
-				padding: 2px 5px 2px 5px;
-				margin: 5px;
-				border-radius: 10px;
-				color: black;
-				clear: both;
-				width: 50px;
 				text-decoration: none;
-				font-size: 12px;
-				font-weight: bold;
-				background: lightgray;
+				color: black;
+				text-align: center;
+			}
+			h1 {
+				padding: 10px;
 			}
 		</style>
+		<script type="text/javascript" src="./js/global.js"></script>
+		<script type="text/javascript" src="./js/footbar.js"></script>
+		<script type="text/javascript">
+		window.onload = function() {
+			for (var i = 0; i < aplicacoes.length; i++) {
+				var div_app = document.createElement("div");
+				div_app.setAttribute("class", "app");
+				var img = document.createElement("img");
+				img.setAttribute("src", "./" + aplicacoes[i].icone);
+				img.setAttribute("width", "50");
+				var div_titulo = document.createElement("div");
+				div_titulo.setAttribute("class", "titulo");
+				div_titulo.innerHTML = aplicacoes[i].rotulo;
+				var small = document.createElement("small");
+				small.innerHTML = aplicacoes[i].categoria;
+				var a = document.createElement("a");
+				a.setAttribute("href", "./" + aplicacoes[i].link);
+		
+				a.appendChild(img);
+				a.appendChild(div_titulo);
+				a.appendChild(small);
+
+				div_app.appendChild(a);
+				document.body.appendChild(div_app);
+			}
+			document.body.appendChild(footbar);
+		}
+		</script>
 	</head>
 	<body>
-		<center>
 			<h1>Minhas Aplicações</h1>
-			<div class="app">
-				<img src="./img/weight-balance.svg" width="50"/>
-				<div class="titulo">Contribuição Justa</div>
-				<small>Calculadora</small>
-				<a href="./cj" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/beaker.svg" width="50"/>
-				<div class="titulo">Massa Molar</div>
-				<small>Calculadora</small>
-				<a href="./mm" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/locator.svg" width="50"/>
-				<div class="titulo">Determinante</div>
-				<small>Calculadora</small>
-				<a href="./determinante" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/locator.svg" width="50"/>
-				<div class="titulo">Sistemas Lineares</div>
-				<small>Calculadora</small>
-				<a href="./sistemaslineares" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/calendar-with-spring-binder-and-date-blocks.svg" width="50"/>
-				<div class="titulo">Desafio 52 Semanas</div>
-				<small>Tabela com datas e valores</small>
-				<a href="./desafio52" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/java.svg" width="50"/>
-				<div class="titulo">Jarvis</div>
-				<small>Criador de CRUD</small>
-				<a href="./jarvis" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/network.svg" width="50"/>
-				<div class="titulo">Dividir em Grupos</div>
-				<small>Divisão aleatória em grupos.</small>
-				<a href="./dg" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/python-file-symbol.svg" width="50"/>
-				<div class="titulo">8 páginas em 1</div>
-				<small>Ordem das páginas na impressão.</small>
-				<a href="./8p1" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/bingo.svg" width="50"/>
-				<div class="titulo">Bingo</div>
-				<small>Sorteio aleatório de números</small>
-				<a href="./bingo" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/children.svg" width="50"/>
-				<div class="titulo">Infantil IV e V</div>
-				<small>Calculadora</small>
-				<a href="./cinf" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/classroom.svg" width="50"/>
-				<div class="titulo">Questionário Honey-Alonso</div>
-				<small>Estilos e Aprendizagem</small>
-				<a href="./honey-alonso" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/software.svg" width="50"/>
-				<div class="titulo">MSige</div>
-				<small>Extrair dados do Sige</small>
-				<a href="./sige" class="btn">Acessar</a>
-			</div>
-			<div class="app">
-				<img src="./img/debt.svg" width="50"/>
-				<div class="titulo">Beth's Calculadora</div>
-				<small>Calculadora de compra/venda</small>
-				<a href="./calc" class="btn">Acessar</a>
-			</div>
-		<p><small>by <a href="http://api.whatsapp.com/send?1=pt_BR&phone=5588988418921" target="_blank">Milton Rodrigues</a> - <a href="mailto:iomltn@gmail.com">iomltn@gmail.com</a></small></p>
-		</center>
 	</body>
 </html>

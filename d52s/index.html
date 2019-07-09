@@ -1,7 +1,9 @@
 <html>
 	<head>
 		<title>Desafio 52 Semanas</title>
+		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
 		<style>
 		table {	
 			margin: 0 auto;
@@ -24,7 +26,10 @@
 			font-size: 10px;
 		}
 		</style>
-		<script>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript">
 		var Desafio = function() {
 			this.getDomingo = function(data) {
 				var novaData = new Date(data.getFullYear(), data.getMonth(), data.getDate());
@@ -55,7 +60,14 @@
 			}
 			this.iniciar = function() {
 				var dataPtn = /\d{2}\/\d{2}\/\d{4}/i;
-				var dataStr = prompt("Data inicial(dd/mm/yyyy):", "");
+				var data = new Date();
+				var dia = data.getDate();
+				var mes = data.getMonth() + 1;
+				var ano = data.getFullYear();
+				dia = dia < 10 ? "0" + dia : dia;
+				mes = mes < 10 ? "0" + mes : mes;
+				data = dia + "/" + mes + "/" + ano;
+				var dataStr = prompt("Data inicial(dd/mm/yyyy):", data);
 				while (!dataPtn.test(dataStr)) {
 					dataStr = prompt("Formato inválido!\nData inicial(dd/mm/yyyy):", "");
 				}
@@ -67,11 +79,11 @@
 					data.setDate(data.getDate() - 1);
 				}
 				
-				var valorStr = prompt("Valor inicial:", "");
+				var valorStr = prompt("Valor inicial:", "5");
 				if (valorStr.indexOf(",") != -1) {
 					valorStr = valorStr.replace(",", ".");
 				}
-				while (isNaN(valorStr)) {
+				while (isNaN(valorStr) || valorStr == "") {
 					valorStr = prompt("Valor inválido!\nValor inicial:", "");
 					if (valorStr.indexOf(",") != -1) {
 						valorStr = valorStr.replace(",", ".");
@@ -127,6 +139,8 @@
 		window.onload = function() {
 			var desafio = new Desafio();
 			desafio.iniciar();
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
 		}
 		</script>
 	</head>
@@ -134,7 +148,7 @@
 		<table border="1">
 			<tr>
 				<th colspan="5">
-					<h1>Desafio 52 Semanas <small>by iomltn@gmail.com</small></h1>
+					<h1>Desafio 52 Semanas</h1>
 				</th>
 			</tr>
 			<tr>
@@ -145,6 +159,5 @@
 				<th>Valor Acumulado</th>
 			</tr>
 		</table>
-		<p><small>by <a href="http://api.whatsapp.com/send?1=pt_BR&phone=5588988418921" target="_blank">Milton Rodrigues</a> - <a href="mailto:iomltn@gmail.com">iomltn@gmail.com</a></small></p>
 	</body>
 </html>

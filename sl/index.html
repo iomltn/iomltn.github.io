@@ -1,7 +1,39 @@
 <DOCTYPE html>
 <html pt="pt-br">
 	<head>
-		<script>
+		<meta charset="utf-8"/>
+		<title>Sistema Linear</title>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<style>
+		#container {
+			text-align: center;
+		}
+		#container * {
+			margin: 5px;
+		}
+		#tableMatriz_nxn, #tableMatriz_nx1, #tableMatriz_1xn {
+			display: inline-block;
+		}
+		#tableMatriz_nxn, #tableMatriz_nx1 {
+			vertical-align: middle;
+		}
+		#tableMatriz_nx1 {
+			background: lightgray;
+			border-radius: 10px;
+		}
+		.input {
+			text-align: center;
+		}
+		#tabelas {
+			clear: both;
+			overflow: auto;
+		}
+		</style>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript">
 		function d2(m) {
 			var d = m[0] * m[3] - m[2] * m[1];
 			return d;
@@ -134,34 +166,11 @@
 				setMatriz_1xn(matrix_1xn);
 			});
 			criarInputs();
+
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
 		}
 		</script>
-		<style>
-		#container {
-			text-align: center;
-		}
-		#container * {
-			margin: 5px;
-		}
-		#tableMatriz_nxn, #tableMatriz_nx1, #tableMatriz_1xn {
-			display: inline-block;
-		}
-		#tableMatriz_nxn, #tableMatriz_nx1 {
-			vertical-align: middle;
-		}
-		#tableMatriz_nx1 {
-			background: lightgray;
-		}
-		.input {
-			text-align: center;
-		}
-		#tabelas {
-			clear: both;
-			overflow: auto;
-		}
-		</style>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width">
 	</head> 
 	<body>
 		<div id="container">
@@ -174,7 +183,6 @@
 			</div>
 			<button id="calcular">Calcular</button><br>
 			<table id="tableMatriz_1xn"></table><br>
-			<p><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
 		</div>
 	</body>
 </html>

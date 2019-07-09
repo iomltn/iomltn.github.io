@@ -1,27 +1,37 @@
 <html>
 	<head>
 		<title>Jarvis</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width"/>
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
 		<style>
 		body {
-			background-color: black;
-			color: white;
+			background-color: darkgray;
+			color: black;
 		}
-		* {
-			font-family: 'Lucida Console';
+		p, table * {
+			font-size: 13px;
 		}
 		#pacote {
 			display: inline-block;
+		}
+		p, center a {
+			margin: 10px;
+		}
+		center a {
+			color: black;
+			text-decoration: none;
 		}
 		#origem {
 			display: block;
 			width: 100%;
 			height: 100px;
 		}
-		button {
+		td button {
 			display: inline-block;
 			text-align: center;
 			cursor: pointer;
-			background: darkgreen;
+			background: black;
 			color: white;
 			border-radius: 10px;
 			border: 0;
@@ -29,11 +39,22 @@
 			padding: 2px 7px 2px 7px;
 		}
 		</style>
-		<script src="js/gerador.js"></script>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript" src="js/gerador.js"></script>
+		<script type="text/javascript">
+		window.onload = function() {
+			load();
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
+		}
+		</script>
 	</head>
 	<body>
 		<center>
 			<h1>Jarvis</h1>
+			<p>Objetivo: Criar um CRUD rápido usando JavaFX com SQLite.</p>
 			<table>
 				<tr>
 					<td><input type="text" id="pacote" value="br.iomltn"/></td>
@@ -57,9 +78,8 @@ FloatProperty compra SimpleFloatProperty float real Float</textarea>
 					</td>
 				</tr>
 			</table>
-			<p><a href="ConexaoFactory.java" target="_black">ConexaoFactory.java</a></p>
-			<p><a href="https://bitbucket.org/xerial/sqlite-jdbc/downloads/" target="_black">Sqlite JDBC</a></p>
-			<p id="sobre"><small>by Milton Rodrigues - iomltn@gmail.com</small></p>
+			<p><a href="ConexaoFactory.java" target="_black">Baixar ConexaoFactory.java</a></p>
+			<p><a href="https://bitbucket.org/xerial/sqlite-jdbc/downloads/" target="_black">Baixar Sqlite JDBC</a></p>
 		</center>
 	</body>
 </html>

@@ -1,7 +1,29 @@
 <DOCTYPE html>
 <html pt="pt-br">
 	<head>
-		<script>
+		<meta charset="utf-8"/>
+		<title>Determinante</title>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<style>
+		#container {
+			text-align: center;
+		}
+		#container * {
+			margin: 5px;
+		}
+		#tableMatriz {
+			display: inline-block;
+		}
+		.input {
+			text-align: center;
+		}
+		</style>
+
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript">
 		function d2(m) {
 			var d = m[0] * m[3] - m[2] * m[1];
 			return d;
@@ -82,24 +104,11 @@
 			});
 
 			criarInputs();
+
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
 		}
 		</script>
-		<style>
-		#container {
-			text-align: center;
-		}
-		#container * {
-			margin: 5px;
-		}
-		#tableMatriz {
-			display: inline-block;
-		}
-		.input {
-			text-align: center;
-		}
-		</style>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width">
 	</head> 
 	<body>
 		<div id="container">
@@ -110,6 +119,5 @@
 			<button id="calcularDeterminante">Calcular Determinante</button><br>
 			<input type="text" id="determinante" class="input"/><br>
 		</div>
-		<p><small>by <a href="http://api.whatsapp.com/send?1=pt_BR&phone=5588988418921" target="_blank">Milton Rodrigues</a> - <a href="mailto:iomltn@gmail.com">iomltn@gmail.com</a></small></p>
 	</body>
 </html>
