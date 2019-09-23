@@ -1,0 +1,65 @@
+<DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Whatsapp Sem Contato</title>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<style>
+		body {
+			font-family: Arial;
+		}
+		h1, p {
+			margin: 10px;
+		}
+		#container {
+			margin: 0 auto;
+			max-width: 400px;
+		}
+		input {
+			border: solid 2px gray;
+			font-size: 18px;
+			padding: 10px;
+			border-radius: 10px;
+			outline: none;
+		}
+		button {
+			background: black;
+			color: white;
+			padding: 5px 10px 5px 10px;
+			border-radius: 30px;
+			border: 0px;
+			cursor: pointer;
+		}
+		</style>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script>
+		window.onload = function() {
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
+
+			var btnEnviar = document.getElementById("enviar");
+			var inputNumero = document.getElementById("numero");
+			btnEnviar.addEventListener("click", function() {
+				var numero = "55" + inputNumero.value.replace(/ /g, "");
+				window.location = "http://api.whatsapp.com/sendphone=" + numero;
+			});
+			
+		}
+		</script>
+	</head>
+	<body>
+		<div id="container">
+		<h1>Whatsapp Sem Contato</h1>
+		<p>
+		Número <small>(com DDD)</small><br/>
+			<input type="text" id="numero" placeholder="XX X XXXXXXXX"/>
+		</p>
+		<p>
+			<button id="enviar">Enviar</button>
+		</p>
+		</div>
+	</body>
+</html>
