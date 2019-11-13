@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<style>
+		#container {
+			text-align: center;
+		}
+		.form {
+			margin: 0 auto;
+			max-width: 400px;
+			padding: 5px;
+			text-align: center;
+		}
+		.form * {
+			margin: 5px;
+		}
+		table {
+			margin: 0 auto;
+			display: inline-block;
+		}
+		#table_pontos {
+			display: inline-block;
+		}
+		</style>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript" src="./js/grafico_svg.js"></script>
+		<script>
+		var grafico_json = {
+			"titulo_principal": "Título do gráfico",
+			"titulo_x": "Título X",
+			"titulo_y": "Título Y",
+			"pontos_xy": [],
+			"largura": 400,
+			"altura": 300,
+			"largura_borda": 2,
+		}
+		var nova_linha = function() {
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			var input = document.createElement("input");
+			input.setAttribute("class", "x");
+			input.setAttribute("size", "4");
+			td.appendChild(input);
+			tr.appendChild(td);
+			td = document.createElement("td");
+			input = document.createElement("input");
+			input.setAttribute("class", "y");
+			input.setAttribute("size", "4");
+			td.appendChild(input);
+			tr.appendChild(td);
+			return tr;
+		}
+		window.onload = function() {
+			var esvg = document.getElementById("grafico");
+			var gsvg = new GraficoSVG(grafico_json, esvg);
+			var input_titulo = document.getElementById("titulo");
+			var input_titulo_x = document.getElementById("titulo_x");
+			var input_titulo_y = document.getElementById("titulo_y");
+			var button_atualizar = document.getElementById("atualizar");
+			var button_adicionar = document.getElementById("adicionar");
+			var button_download = document.getElementById("download");
+			button_atualizar.addEventListener("click", function() {
+				grafico_json.titulo_principal = input_titulo.value;
+				grafico_json.titulo_x = input_titulo_x.value;
+				grafico_json.titulo_y = input_titulo_y.value;
+				grafico_json.pontos_xy = [];
+				var inputs_ponto_x = document.getElementsByClassName("x");
+				var inputs_ponto_y = document.getElementsByClassName("y");
+				for (var i = 0; i < inputs_ponto_x.length; i++) {
+					var ponto = {"x": inputs_ponto_x[i].value, "y": inputs_ponto_y[i].value};
+					grafico_json.pontos_xy.push(ponto);
+				}
+				gsvg.plotar();
+			});
+			var table_pontos = document.getElementById("table_pontos");
+			var tr_button_adicionar = document.getElementById("tr_button_adicionar");
+			button_adicionar.addEventListener("click", function() {
+				var trs_table_pontos = table_pontos.getElementsByTagName("tr");
+				var tr_a_duplicar = nova_linha();
+				table_pontos.appendChild(tr_a_duplicar);
+			});
+			button_download.addEventListener("click", function() {
+				var a = document.createElement("a");
+				var svg = "<svg>";
+				svg += esvg.innerHTML;
+				svg += "</svg>";
+      
+				var blob = new Blob([svg], {"type": "text/plain"});
+				var url = window.URL.createObjectURL(blob);
+				a.href = url;
+				a.download = grafico_json.titulo_principal + ".svg";
+				a.click();
+				window.URL.revokeObjectURL(url);
+				a.remove();
+			});
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
+		}
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<h1>Gráfico SVG</h1>
+			<div class="form">
+				<table>
+					<tr>
+						<td>Título do gráfico</td>
+						<td><input type="text" id="titulo"/></td>
+					</tr>
+					<tr>
+						<td>Título X</td>
+						<td><input type="text" id="titulo_x"/></td>
+					</tr>
+					<tr>
+						<td>Título Y</td>
+						<td><input type="text" id="titulo_y"/></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center">
+							<table id="table_pontos">
+								<tr>
+									<th>x</th>
+									<th>y</th>
+									<th>&nbsp;</th>
+								</tr>
+								<tr>
+									<td><input type="text" class="x" size="4"/></td>
+									<td><input type="text" class="y" size="4"/></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td><input type="text" class="x" size="4"/></td>
+									<td><input type="text" class="y" size="4"/></td>
+									<td></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<p><button id="adicionar">Adicionar</button></p>
+				<p><button id="atualizar">Atualizar</button></p>
+			</div>
+			<svg id="grafico"></svg>
+			<div class="form">
+				<p><button id="download">Download</button></p>
+			</div>
+		</div>
+	</body>
+</html>
