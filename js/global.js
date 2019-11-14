@@ -4,7 +4,8 @@ var categorias = [
 	{nome: "JavaFX e SQLite"},
 	{nome: "Aleatório"},
 	{nome: "Aplicação Python"},
-	{nome: "Tabela"}
+	{nome: "Tabela"},
+	{nome: "SVG"},
 ];
 var autor = {
 	nome: "Milton Rodrigues",
@@ -12,6 +13,7 @@ var autor = {
 	whatsapp: "5588988418921"
 }
 var aplicacoes = [
+	{rotulo: "Gráfico de Barras", icone: "img/statistics.svg", categoria: categorias[6].nome, link: "grafico"},
 	{rotulo: "Horário de Medicamentos", icone: "img/medicine.svg", categoria: categorias[5].nome, link: "hm"},
 	{rotulo: "Medida Certa", icone: "img/weight-balance.svg", categoria: categorias[0].nome, link: "mc"},
 	{rotulo: "Contribuição Justa", icone: "img/weight-balance.svg", categoria: categorias[0].nome, link: "cj"},
