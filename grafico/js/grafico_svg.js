@@ -48,15 +48,17 @@ var GraficoSVG = function(grafico_json, elemento_svg) {
 		return this.grafico_json.altura - 140;
 	}
 	this.altura_minima = function() {
-		var altura = 0;
+		/*var altura = 0;
 		if (this.menor_y != 0) {
 			altura = this.altura_maxima() * 0.1;
 		}
-		return altura;
+		return altura;*/
+		return 0;
 	}
-	this.altura_coluna = function(y, maior_y, menor_y) {
+	this.altura_coluna = function(y, maior_y) {
 		var altura_max = this.altura_maxima();
 		var altura_min = this.altura_minima();
+		menor_y = 0;
 		return (((altura_max - 2 * this.grafico_json.largura_borda - altura_min) * (y - menor_y)) / (maior_y - menor_y)) + 2 * this.grafico_json.largura_borda + altura_min;
 	}
 	this.menor_y = function() {
