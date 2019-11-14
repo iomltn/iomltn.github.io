@@ -56,6 +56,11 @@
 			return tr;
 		}
 		window.onload = function() {
+			var largura_pagina = document.body.clientWidth;
+			var largura_maxima_grafico = largura_pagina - 2 * grafico_json.largura_borda;
+			if (largura_maxima_grafico < grafico_json.largura) {
+				grafico_json.largura = largura_maxima_grafico;
+			}
 			var esvg = document.getElementById("grafico");
 			var gsvg = new GraficoSVG(grafico_json, esvg);
 			var input_titulo = document.getElementById("titulo");
