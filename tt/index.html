@@ -3,14 +3,8 @@
 	<head>
 		<title>Yucumã</title>
 		<meta charset="utf-8"/>
-		<script type="text/javascript" src=""></script>
-		<script type="text/javascript" src=""></script>
-		<script>
-		window.onload = function() {
-			var tamanho_tela = document.getElementById("tamanho_tela");
-			tamanho_tela.innerHTML = screen.width + " x " + screen.height;
-		}
-		</script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+		<script type="text/javascript" src="http://malsup.github.io/jquery.cycle.all.js"></script>
 		<style>
 		body {
 			background: gray;
@@ -30,6 +24,14 @@
 		</style>
 	</head>
 	<body>
-		<div id="tamanho_tela"></div>
+		<div id="yucuma" style="overflow: hidden; height: 720; width: 1280">
+			<img src="./img1.png" height="720" width="1280"/>
+			<img src="./img2.png" height="720" width="1280"/>
+		</div>
+		<script>
+		$("#yucuma").cycle({
+			fx: 'turnDown'
+		});
+		</script>
 	</body>
 </html>
