@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>Yucumã</title>
+		<meta charset="utf-8"/>
+		<script type="text/javascript" src=""></script>
+		<script type="text/javascript" src=""></script>
+		<script>
+		window.onload = function() {
+			var tamanho_tela = document.getElementById("tamanho_tela");
+			tamanho_tela.innerHTML = screen.width + " x " + screen.height;
+		}
+		</script>
+		<style>
+		body {
+			background: gray;
+			text-align: center;
+			font-family: arial;
+		}
+		#tamanho_tela {
+			display: inline-block;
+			padding: 10px;
+			font-weight: bold;
+			font-size: 80pt;
+			background: black;
+			color: white;
+			border-radius: 10px;
+			margin: 20px;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="tamanho_tela"></div>
+	</body>
+</html>
