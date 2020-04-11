@@ -10,7 +10,7 @@ var categorias = [
 var autor = {
 	nome: "Milton Rodrigues",
 	email: "iomltn@gmail.com",
-	whatsapp: "5588988418921"
+	whatsapp: "5588994562458"
 }
 var aplicacoes = [
 	{rotulo: "Gráfico de Barras", icone: "img/statistics.svg", categoria: categorias[6].nome, link: "grafico"},
