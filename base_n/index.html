@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>Base Milton</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<style>
+		p {
+			margin: 7px;
+		}
+		input, button {
+			padding: 5px 10px 5px 10px;
+		}
+		input[type="text"] {
+			font-family: monospace;
+			font-size: 15pt;
+		}
+		</style>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
+		<script type="text/javascript">
+		var algarismos = "0123456789abcdfeghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#@?/+-.*=$!&%:\\^~";
+		function dezParaN(n10, algarismos) {
+			n10 = parseInt(n10);
+			var base = algarismos.length;
+			var novoNumero = [];
+			var q = parseInt(n10 / base);
+			var r = n10 - (base * q);
+			novoNumero.push(algarismos[r]);
+			n10 = q;
+			while (q >= base) {
+				q = parseInt(n10 / base);
+				r = n10 - (base * q);
+				novoNumero.push(algarismos[r]);
+				n10 = q;
+			};
+			if (q < base) {
+				novoNumero.push(algarismos[q]);
+			}
+			return novoNumero.reverse().join("");
+		}
+		function nParaDez(n, algarismos) {
+			var base = algarismos.length;
+			var n10 = 0;
+			var p = n.length - 1;
+			for (var i = 0; i < n.length; i++) {
+				n10 += algarismos.indexOf(n[i]) * Math.pow(base, p);
+				p--;
+			}
+			return n10;
+		}
+		window.onload = function() {
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
+			var n10_input = document.getElementById("n10");
+			var n_input = document.getElementById("n");
+			var algarismos_input = document.getElementById("algarismos");
+			algarismos_input.value = algarismos;
+			document.getElementById("n10n").onclick = function() {
+				algarismos = document.getElementById("algarismos").value;
+				n_input.value = dezParaN(n10_input.value, algarismos);
+			};
+			document.getElementById("nn10").onclick = function() {	
+				algarismos = document.getElementById("algarismos").value;
+				n10_input.value = nParaDez(n_input.value, algarismos);				
+			};
+		}
+		</script>
+	</head>
+	<body>
+		<center>
+			<h1>Base N<br></h1>
+			<p>
+				Algarismos<br>
+				<input type="text" value="0123456789abcdefghijklmnopqrstuvwxyz" id="algarismos"/>
+			</p>
+			<p>
+				Número (base 10):<br>
+				<input type="text" value="0" id="n10"/>
+			</p>
+			<p>
+				Número (base N):<br>
+				<input type="text" value="0" id="n"/>
+			</p>
+			<p>
+				<button id="n10n">Decimal -> N</button>
+				<button id="nn10">N -> Decimal</button>
+			</p>
+		</center>
+	</body>
+</html>
