@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<script>
+		function novaLinha(rotulo, atributo, tipo) {
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			var input = document.createElement("input");
+			input.setAttribute("type", "text");
+			input.setAttribute("size", 7);
+			input.setAttribute("autocomplete", "off");
+			input.setAttribute("name", "rotulo");
+			input.setAttribute("placeholder", "Rótulo");
+			input.setAttribute("value", rotulo);
+			td.appendChild(input);
+			tr.appendChild(td);
+			
+			td = document.createElement("td");
+			input = document.createElement("input");
+			input.setAttribute("type", "text");
+			input.setAttribute("size", 7);
+			input.setAttribute("autocomplete", "off");
+			input.setAttribute("name", "atributo");
+			input.setAttribute("placeholder", "atributo");
+			input.setAttribute("value", atributo);
+			td.appendChild(input);
+			tr.appendChild(td);
+			
+			td = document.createElement("td");
+			var select = document.createElement("select");
+			select.setAttribute("name", "tipo");
+			var tipos = ["text", "integer", "float"];
+			for (var i = 0; i < tipos.length; i++) {
+				var option = document.createElement("option");
+				option.setAttribute("value", tipos[i]);
+				option.innerHTML = tipos[i];
+				if (tipos[i] == tipo) {
+					option.setAttribute("selected", "");
+				}
+				select.appendChild(option);
+			}
+			td.appendChild(select);
+			tr.appendChild(td);
+			
+			td = document.createElement("td");
+			var button = document.createElement("button");
+			button.innerHTML = "-";
+			button.addEventListener("click", function() {
+				tr.parentElement.removeChild(tr);
+			});
+			td.appendChild(button);
+			tr.appendChild(td);
+			
+			return tr;
+		}
+		function adicionarLinha() {
+			var table = document.getElementsByTagName("table")[0];
+			table.appendChild(novaLinha('', '', ''));
+		}
+		function baixarArquivo(nome, conteudo) {
+			var a = document.createElement("a");
+			var blob = new Blob([conteudo], {"type": "text/plain"});
+			var url = window.URL.createObjectURL(blob);
+			a.href = url;
+			a.download = nome + ".php";
+			a.click();
+			window.URL.revokeObjectURL(url);
+			a.remove();
+		}
+		function gerar() {
+			var t = document.getElementsByName("rotulo").length;
+			var singular = document.getElementById("singular").value;
+			var plural = document.getElementById("plural").value;
+			var interrogacoes = function(t) {
+				var interrogacoes = [];
+				for (var i = 0; i < t; i++) {
+					interrogacoes.push("?");
+				}
+				return interrogacoes.join(", ");
+			}
+			var pMai = function (str) {
+				return str.charAt(0).toUpperCase() + str.substring(1, str.length);
+			}
+			var pMin = function (str) {
+				return str.charAt(0).toLowerCase() + str.substring(1, str.length);
+			}
+			var rotulos = [];
+			var atributos = [];
+			var tipos = [];
+			for (var i = 0; i < t; i++) {
+				rotulos.push(document.getElementsByName("rotulo")[i].value);
+				atributos.push(document.getElementsByName("atributo")[i].value);
+				tipos.push(document.getElementsByName("tipo")[i].value);
+			}
+			var bean = "<?php\n";
+			bean += "class " + pMai(singular) + " {\n";
+			for (var i = 0; i < t; i++) {
+				bean += "\tprivate $" + atributos[i] + ";\n";
+			}
+			for (var i = 0; i < t; i++) {
+				bean += "\tpublic function set" + pMai(atributos[i]) + "($" + atributos[i] + ") {\n";
+				bean += "\t\t$this->" + atributos[i] + " = $" + atributos[i] + ";\n";
+				bean += "\t}\n";
+				bean += "\tpublic function get" + pMai(atributos[i]) + "() {\n";
+				bean += "\t\treturn $this->" + atributos[i] + ";\n";
+				bean += "\t}\n";
+			}
+			bean += "}";
+						
+			var dao = "<?php\n";
+			dao += "class " + pMai(singular) + "DAO {\n";
+			dao += "\tprivate $db;\n"
+			dao += "\tpublic function __construct($db) {\n";
+			dao += "\t\t$this->db = $db;\n";
+			dao += "\t\t$this->db->query('CREATE TABLE IF NOT EXISTS " + pMin(plural) + " ('. \n";
+			for (var i = 0; i < t; i++) {
+				dao += "\t\t\t'" + atributos[i] + " " + tipos[i];
+				if (i == 0) {
+					dao += " primary key autoincrement,' . \n";
+				} else if (i < t - 1) {
+					dao += ",' . \n";
+				} else {
+					dao += ")'); \n";
+				}
+			}
+			dao += "\t}\n";
+			dao += "\tpublic function cadastrar($" + pMin(singular) + ") {\n";
+			var temp = atributos.slice();
+			dao += "\t\t$stmt = $this->db->prepare('insert into " + pMin(plural) + " (" + temp.splice(1).join(", ") + ") values (" + interrogacoes(t - 1) + ")');\n";
+			for (var i = 1; i < t; i++) {
+				dao += "\t\t$stmt->bindParam(" + (i) + ", $" + atributos[i] + ");\n";
+			};
+			for (var i = 1; i < t; i++) {
+				dao += "\t\t$" + atributos[i] + " = $" + pMin(singular) + "->get" + pMai(atributos[i]) + "();\n";
+			};
+			dao += "\t\t$stmt->execute();\n";
+			dao += "\t}\n";
+			dao += "\tpublic function alterar($" + pMin(singular) + ") {\n";
+			dao += "\t\t$stmt = $this->db->prepare('update " + pMin(plural) + " set ";
+			for (var i = 1; i < t; i++) {
+				dao += atributos[i] + " = ?";
+				if (i < t - 1) {
+					dao += ", ";
+				} else {
+					dao += " where " + atributos[0] + " = ?');\n";
+				}
+			}
+			for (var i = 1; i < t; i++) {
+				dao += "\t\t$stmt->bindParam(" + (i) + ", $" + atributos[i] + ");\n";
+			};
+			dao += "\t\t$stmt->bindParam(" + (t) + ", $" + atributos[0] + ");\n";
+			for (var i = 1; i < t; i++) {
+				dao += "\t\t$" + atributos[i] + " = $" + pMin(singular) + "->get" + pMai(atributos[i]) + "();\n";
+			};
+			dao += "\t\t$" + atributos[0] + " = $" + pMin(singular) + "->get" + pMai(atributos[0]) + "();\n";
+			dao += "\t\t$stmt->execute();\n";
+			dao += "\t}\n";
+			dao += "\tpublic function listar() {\n";
+			dao += "\t\t$" + pMin(plural) + " = [];\n";
+			dao += "\t\t$stmt = $this->db->prepare('select " + atributos.join(", ") + " from " + pMin(plural) + " order by " + atributos[1] + "');\n";
+			dao += "\t\t$res = $stmt->execute();\n";
+			dao += "\t\twhile($row = $res->fetchArray()) {\n";
+			dao += "\t\t\t$" + pMin(singular) + " = new " + pMai(singular) + "();\n";
+			for (var i = 0; i < t; i++) {
+				dao += "\t\t\t$" + pMin(singular) + "->set" + pMai(atributos[i]) + "($row['" + atributos[i] + "']);\n";
+			}
+			dao += "\t\t\t$" + pMin(plural) + "[] = $" + pMin(singular) + ";\n";
+			dao += "\t\t};\n";
+			dao += "\t\treturn $" + pMin(plural) + ";\n";
+			dao += "\t}\n";
+			dao += "\tpublic function get($id) {\n";
+			dao += "\t\t$stmt = $this->db->prepare('select " + atributos.join(", ") + " from " + pMin(plural) + " where " + atributos[0] + " = ? order by " + atributos[1] + "');\n";
+			dao += "\t\t$stmt->bindParam(1, $" + atributos[0] + ");\n";
+			dao += "\t\t$res = $stmt->execute();\n";
+			dao += "\t\twhile($row = $res->fetchArray()) {\n";
+			dao += "\t\t\t$" + pMin(singular) + " = new " + pMai(singular) + "();\n";
+			for (var i = 0; i < t; i++) {
+				dao += "\t\t\t$" + pMin(singular) + "->set" + pMai(atributos[i]) + "($row['" + atributos[i] + "']);\n";
+			}
+			dao += "\t\t\treturn  $" + pMin(singular) + ";\n";
+			dao += "\t\t};\n";
+			dao += "\t\treturn NULL;\n";
+			dao += "\t}\n";
+			dao += "\tpublic function remover($id) {\n";
+			dao += "\t\t$stmt = $this->db->prepare('delete from " + pMin(plural) + " where " + atributos[0] + " = ?');\n";
+			dao += "\t\t$stmt->bindParam(1, $" + atributos[0] + ");\n";
+			dao += "\t\t$stmt->execute();\n";
+			dao += "\t}\n";
+			dao += "}\n";
+			
+			var testInput = "<?php\n";
+			testInput += "function test_input($data) {\n";
+			testInput += "\t$data = trim($data);\n";
+			testInput += "\t$data = stripslashes($data);\n";
+			testInput += "\t$data = htmlspecialchars($data);\n";
+			testInput += "\treturn $data;\n";
+			testInput += "}\n";
+			
+			var form = "<?php\n";
+			form += "require_once '" + pMin(singular) + ".php';\n";
+			form += "require_once '" + pMin(singular) + "DAO.php';\n";
+			form += "require_once 'testInput.php';\n";
+			form += "$" + pMin(singular) + "DAO = new " + pMai(singular) + "DAO(new SQLite3('dados.db'));\n";
+			form += "if (";
+			var temp = [];
+			for (var i = 1; i < t; i++) {
+				temp.push("isset($_POST['" + atributos[i] + "'])");
+			}
+			form += temp.join(" and ");
+			form += " and !isset($_POST['" + atributos[0] + "'])) {\n";
+			form += "\t$" + pMin(singular) + " = new " + pMai(singular) + "();\n";
+			for (var i = 1; i < t; i++) {
+				form += "\t$" + pMin(singular) + "->set" + pMai(atributos[i]) + "(test_input($_POST['" + atributos[i] + "']));\n";				
+			}
+			form += "\t$" + pMin(singular) + "DAO->cadastrar($" + pMin(singular) + ");\n";
+			form += "\theader('Location: ' . $_SERVER['PHP_SELF']);\n"
+			form += "} else if (";
+			var temp = [];
+			for (var i = 0; i < t; i++) {
+				temp.push("isset($_POST['" + atributos[i] + "'])");
+			}
+			form += temp.join(" and ");
+			form += ") {\n";
+			form += "\t$" + pMin(singular) + " = $" + pMin(singular) + "DAO->get(test_input($_POST['" + atributos[0] + "']));\n";
+			form += "\tif ($" + pMin(singular) + " != NULL) {\n";
+			for (var i = 1; i < t; i++) {
+				form += "\t\t$" + pMin(singular) + "->set" + pMai(atributos[i]) + "(test_input($_POST['" + atributos[i] + "']));\n";
+				
+			}
+			form += "\t\t$" + pMin(singular) + "DAO->alterar($" + pMin(singular) + ");\n";
+			form += "\t};\n";
+			form += "\theader('Location: ' . $_SERVER['PHP_SELF']);\n";
+			form += "}\n";
+			form += "$" + pMin(singular) + " = new " + pMai(singular) + "();\n";
+			form += "if (isset($_GET['" + atributos[0] + "'])) {\n";
+			form += "\t$" + pMin(singular) + " = $" + pMin(singular) + "DAO->get(test_input($_GET['" + atributos[0] + "']));\n";
+			form += "\tif ($" + pMin(singular) + " == NULL) {\n";
+			form += "\t\t$" + pMin(singular) + " = new " + pMai(singular) + "();\n";
+			form += "\t};\n";
+			form += "};\n";
+			form += "$" + pMin(plural) + " = $" + pMin(singular) + "DAO->listar();\n";
+			form += "?>\n";
+			form += "<!DOCTYPE html>\n";
+			form += '<html lang="pt-br">\n';
+			form += "\t<head>\n";
+			form += "\t</head>\n";
+			form += "\t<body>\n";
+			form += "\t\t<center>\n";
+			form += "\t\t<h1>" + pMai(plural) + "</h1>\n";
+			form += "\t\t<p>\n";
+			form += '\t\t\t<form method="POST">\n';
+			form += "<?php if (isset($_GET['" + atributos[0] + "'])): ?>\n";
+			form += '\t\t\t\t<input type="hidden" name="' + atributos[0];
+			form += '" value="<?=$' + pMin(singular) + "->get" + pMai(atributos[0]) + '()?>"/>\n';
+			form += "<?php endif; ?>\n";
+			for (var i = 1; i < t; i++) {
+				form += '\t\t\t\t<input type="text" name="' + atributos[i];
+				form += '" value="<?=$' + pMin(singular) + "->get" + pMai(atributos[i]) + '()?>" placeholder="' + atributos[i] + '"/>\n';
+			}
+			form += '\t\t\t\t<input type="submit" value="';
+			form += "<?php if (isset($_GET['" + atributos[0] + "'])) echo 'Alterar'; else echo 'Cadastrar'; ?>" + '"/>' + "\n";
+			
+			form += '\t\t\t</form>' + "\n";
+			form += "\t\t</p>\n";
+			form += "\t\t<table>\n";
+			form += "\t\t\t<tr>\n";
+			for (var i = 0; i < t; i++) {
+				form += "\t\t\t\t<th>" + pMai(atributos[i]) + "</th>\n";
+			}
+			form += "\t\t\t\t<th></th>\n";
+			form += "\t\t\t</tr>\n";
+			form += "<?php foreach ($" + pMin(plural) + " as $" + pMin(singular) + "): ?>\n";
+			form += "\t\t\t<tr>\n";
+			for (var i = 0; i < t; i++) {
+				form += "\t\t\t\t<td><?=$" + pMin(singular) + "->get" + pMai(atributos[i]) + "()?></td>\n";
+			}
+			form += "\t\t\t\t<td><a href=\"<?php echo $_SERVER['PHP_SELF'] . '?id=' . $" + pMin(singular) + "->get" + pMai(atributos[0]) + "(); ?>\">Editar</a></td>\n";
+			form += "\t\t\t</tr>\n";
+			form += "<?php endforeach; ?>\n";
+			form += "\t\t</table>\n";
+			form += "\t\t</center>\n";
+			form += "\t</body>\n";
+			form += "</html>\n";
+			baixarArquivo("testInput", testInput);
+			baixarArquivo(pMin(singular) + "Form", form);
+			baixarArquivo(pMin(singular), bean);
+			baixarArquivo(pMin(singular) + "DAO", dao);
+		}
+		window.onload = function() {
+			var table = document.getElementsByTagName("table")[0];
+			table.appendChild(novaLinha('Id', 'id', 'integer'));
+			table.appendChild(novaLinha('Nome', 'nome', 'text'));
+			table.appendChild(novaLinha('Nascimento', 'nascimento', 'text'));
+		}
+		</script>
+		<style>
+		body {
+			background:  #0033cc;
+			color: white;
+		}
+		</style>
+	</head>
+	<body>
+		<center>
+			<h1>Gerador PHP</h1>
+			<p>
+				<input type="text" id="singular" placeholder="Singular" value="objeto"/>
+			</p>
+			<p>
+				<input type="text" id="plural" placeholder="Plural" value="objetos"/>
+			</p>
+			<table></table>
+			<p>
+				<button onClick="adicionarLinha()">Adicionar Linha</button>
+			</p>
+			<p>
+				<button onClick="gerar()">Baixar Arquivos PHP</button>
+			</p>
+		</center>
+	</body>
+</html>
