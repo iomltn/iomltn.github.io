@@ -2,7 +2,7 @@
 <html lang="pt-br">
 	<head>
 		<script>
-		function novaLinha(rotulo, atributo, tipo) {
+		function novaLinha(rotulo, atributo, tipo, chaveEstrangeira, tabela) {
 			var tr = document.createElement("tr");
 			var td = document.createElement("td");
 			var input = document.createElement("input");
@@ -41,6 +41,23 @@
 			}
 			td.appendChild(select);
 			tr.appendChild(td);
+			td = document.createElement("tr");
+			var checkBox = document.createElement("input");
+			checkBox.setAttribute("type", "checkBox");
+			checkBox.setAttribute("name", "chaveEstrangeira");
+			td.appendChild(checkBox);
+			tr.appendChild(td);
+			
+			td = document.createElement("td");
+			input = document.createElement("input");
+			input.setAttribute("type", "text");
+			input.setAttribute("size", 7);
+			input.setAttribute("autocomplete", "off");
+			input.setAttribute("name", "tabela");
+			input.setAttribute("placeholder", "tabela");
+			input.setAttribute("value", '');
+			td.appendChild(input);
+			tr.appendChild(td);
 			
 			td = document.createElement("td");
 			var button = document.createElement("button");
@@ -55,7 +72,7 @@
 		}
 		function adicionarLinha() {
 			var table = document.getElementsByTagName("table")[0];
-			table.appendChild(novaLinha('', '', ''));
+			table.appendChild(novaLinha('', '', '', '', ''));
 		}
 		function baixarArquivo(nome, conteudo) {
 			var a = document.createElement("a");
@@ -87,10 +104,18 @@
 			var rotulos = [];
 			var atributos = [];
 			var tipos = [];
+			var chavesEstrangeiras = [];
+			var tabelas = [];
 			for (var i = 0; i < t; i++) {
 				rotulos.push(document.getElementsByName("rotulo")[i].value);
 				atributos.push(document.getElementsByName("atributo")[i].value);
 				tipos.push(document.getElementsByName("tipo")[i].value);
+				tabelas.push(document.getElementsByName("tabela")[i].value);
+				if (document.getElementsByName("chaveEstrangeira")[i].checked) {
+					chavesEstrangeiras.push(true);
+				} else {
+					chavesEstrangeiras.push(false);
+				};
 			}
 			var bean = "<?php\n";
 			bean += "class " + pMai(singular) + " {\n";
@@ -120,6 +145,11 @@
 				} else if (i < t - 1) {
 					dao += ",' . \n";
 				} else {
+					for (var j = 0; j < t; j++) {
+						if (chavesEstrangeiras[j]) {
+							dao += ",\n\t\t\tFOREIGN KEY (" + atributos[j] + ") REFERENCES " + tabelas[j] + "(id)";
+						}
+					}
 					dao += ")'); \n";
 				}
 			}
@@ -197,6 +227,7 @@
 			testInput += "}\n";
 			
 			var form = "<?php\n";
+			form += "set_include_path('../../poo');\n";
 			form += "require_once '" + pMin(singular) + ".php';\n";
 			form += "require_once '" + pMin(singular) + "DAO.php';\n";
 			form += "require_once 'testInput.php';\n";
@@ -254,8 +285,10 @@
 			form += '" value="<?=$' + pMin(singular) + "->get" + pMai(atributos[0]) + '()?>"/>\n';
 			form += "<?php endif; ?>\n";
 			for (var i = 1; i < t; i++) {
-				form += '\t\t\t\t<input type="text" name="' + atributos[i];
+				form += '\t\t\t\t<p><label>\n\t\t\t\t' + rotulos[i] + ':<br>' + "\n";
+				form += '\t\t\t\t\t<input type="text" name="' + atributos[i];
 				form += '" value="<?=$' + pMin(singular) + "->get" + pMai(atributos[i]) + '()?>" placeholder="' + atributos[i] + '"/>\n';
+				form += "\t\t\t\t</label></p>\n";
 			}
 			form += '\t\t\t\t<input type="submit" value="';
 			form += "<?php if (isset($_GET['" + atributos[0] + "'])) echo 'Alterar'; else echo 'Cadastrar'; ?>" + '"/>' + "\n";
@@ -309,7 +342,7 @@
 			<p>
 				<input type="text" id="plural" placeholder="Plural" value="objetos"/>
 			</p>
-			<table></table>
+			<table><tr><th>Rótulo</th><th>Atributo</th><th>Tipo SQLite3</th><th>Chave Estrangeira</th><th>Tabela SQLite3</th></table>
 			<p>
 				<button onClick="adicionarLinha()">Adicionar Linha</button>
 			</p>
