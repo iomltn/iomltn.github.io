@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<script>
+		function mensagemCripto(mensagem, chave) {
+			var novaMensagem = '';
+			for (var i = 0; i < mensagem.length; i++) {
+				novaMensagem += String.fromCharCode(mensagem[i].charCodeAt(0) ^ chave);
+			}
+			return novaMensagem;
+		}
+		function criptografar() {
+			var mensagem = document.getElementById("mensagem");
+			var chave = parseInt(document.getElementById("chave").value);
+			var novaMensagem = mensagemCripto(mensagem.value, chave);
+			mensagem.value = novaMensagem;
+		}
+		</script>
+	</head>
+	<body>
+		<p>Mensagem:<br/><textarea id="mensagem"></textarea></p>
+		<p>Chave:<br/><input type="text" value="31" id="chave"></p>
+		<p><button onclick="criptografar()">Criptografar</button></p>
+	</body>
+</html>
