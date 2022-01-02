@@ -1,11 +1,12 @@
 var categorias = [
 	{nome: "Calculadora"},
 	{nome: "Orçamento"},
-	{nome: "JavaFX e SQLite"},
+	{nome: "Programação"},
 	{nome: "Aleatório"},
 	{nome: "Aplicação Python"},
 	{nome: "Tabela"},
 	{nome: "SVG"},
+	{nome: "Criptografia"}
 ];
 var autor = {
 	nome: "Milton Rodrigues",
@@ -24,5 +25,6 @@ var aplicacoes = [
 	{rotulo: "Jarvis", icone: "img/java.svg", categoria: categorias[2].nome, link: "j"},
 	{rotulo: "Dividir em Grupos", icone: "img/network.svg", categoria: categorias[3].nome, link: "dg"},
 	{rotulo: "8 > 1", icone: "img/python-file-symbol.svg", categoria: categorias[4].nome, link: "8p1"},
+	{rotulo: "XOR", icone: "img/secret.svg", categoria: categorias[7].nome, link: "xor"},
 ];
 

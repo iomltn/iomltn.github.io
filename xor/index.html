@@ -2,6 +2,12 @@
 <html lang="pt-br">
 	<head>
 		<title>Criptografia XOR</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
 		<script>
 		function mensagemCripto(mensagem, chave) {
 			var novaMensagem = '';
@@ -16,11 +22,26 @@
 			var novaMensagem = mensagemCripto(mensagem.value, chave);
 			mensagem.value = novaMensagem;
 		}
+		window.onload = function() {
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
+		}
 		</script>
+		<style>
+		#container {
+			text-align: center;
+		}
+		p {
+			margin: 10px;
+		}
+		</style>
 	</head>
 	<body>
-		<p>Mensagem:<br/><textarea id="mensagem"></textarea></p>
-		<p>Chave:<br/><input type="text" value="31" id="chave"></p>
-		<p><button onclick="criptografar()">Criptografar</button></p>
+		<div id="container">
+			<h1>Criptografia XOR</h1>
+			<p>Mensagem:<br/><textarea id="mensagem" cols="40" rows="10"></textarea></p>
+			<p>Chave:<br/><input type="text" value="31" id="chave" size="5"></p>
+			<p><button onclick="criptografar()">Criptografar</button></p>
+		</div>
 	</body>
 </html>
