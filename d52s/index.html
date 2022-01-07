@@ -79,7 +79,8 @@
 				}
 				var dataArray = dataStr.split("/");
 				var data = new Date(dataArray[2], dataArray[1] - 1, dataArray[0]);
-			
+				dataProxima = new Date(dataArray[2], dataArray[1] - 1, dataArray[0]);
+
 				//retornando até o domingo anterior
 				while (data.getDay() != 0) {
 					data.setDate(data.getDate() - 1);
@@ -152,6 +153,9 @@
 
 					data.setDate(data.getDate() - 1);
 					dataProxima.setDate(dataProxima.getDate() - 1);
+
+					//console.log(data);
+					//console.log(dataProxima);
 
 					if (((data.getMonth() != dataProxima.getMonth()))|| i == 52) {
 						var tr2 = document.createElement("tr");
