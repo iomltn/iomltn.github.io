@@ -59,9 +59,14 @@
 				mes = mes < 10 ? "0" + mes : mes;
 				return dia + "/" + mes + "/" + ano;				
 			}
+			this.ultimoDiaMes = function(data) {
+				var d = new Date(data.getYear(), data.getMonth() + 1, 0);
+				return d;
+			}
 			this.iniciar = function() {
 				var dataPtn = /\d{2}\/\d{2}\/\d{4}/i;
 				var data = new Date();
+				var dataProxima = new Date();
 				var dia = data.getDate();
 				var mes = data.getMonth() + 1;
 				var ano = data.getFullYear();
@@ -79,8 +84,11 @@
 				while (data.getDay() != 0) {
 					data.setDate(data.getDate() - 1);
 				}
-				
-				var valorStr = prompt("Valor inicial:", "5");
+				while (dataProxima.getDay() != 0) {
+					dataProxima.setDate(dataProxima.getDate() + 1);
+				}
+
+				var valorStr = prompt("Valor inicial:", "4");
 				if (valorStr.indexOf(",") != -1) {
 					valorStr = valorStr.replace(",", ".");
 				}
@@ -90,21 +98,24 @@
 						valorStr = valorStr.replace(",", ".");
 					}
 				}
-
 				var valor = parseFloat(valorStr);
 				var valorAcumulado = 0.0;
+				var valorAcumuladoMes = 0;
 
 				var tabela = document.getElementsByTagName("table")[0];
 
 				for (var i = 1; i <= 52; i++) {
 					//var periodo = this.getDataFormatada(data);
 					data.setDate(data.getDate() + 6);
+					dataProxima.setDate(dataProxima.getDate() + 6);
 					var vencimento = this.getDataFormatada(data);
 					//periodo += " - " + vencimento;
 					data.setDate(data.getDate() + 1);
+					dataProxima.setDate(dataProxima.getDate() + 1);
 
 					var valorSemana = valor + (i - 1) * valor;
 					valorAcumulado += valorSemana;
+					valorAcumuladoMes += valorSemana;
 
 					var valorSemanaStr = valorSemana.toFixed(2);
 					valorSemanaStr = "R$ " + valorSemanaStr.replace(".", ",");
@@ -128,12 +139,34 @@
 					tdDepositar.innerHTML = valorSemanaStr;
 					tdAcumulado.innerHTML = valorAcumuladoStr;
 
+					if (i == 52) {
+						tdAcumulado.setAttribute("style", "color: black; font-weight: bold;");
+					}
+
 					tr.appendChild(tdSemana);
 					//tr.appendChild(tdPeriodo);
 					tr.appendChild(tdVencimento);
 					tr.appendChild(tdDepositar);
 					tr.appendChild(tdAcumulado);
 					tabela.appendChild(tr);
+
+					data.setDate(data.getDate() - 1);
+					dataProxima.setDate(dataProxima.getDate() - 1);
+
+					if (((data.getMonth() != dataProxima.getMonth()))|| i == 52) {
+						var tr2 = document.createElement("tr");
+						var td2 = document.createElement("td");
+						td2.setAttribute("colspan", "4");
+						td2.setAttribute("style", "font-size: 11px; text-align: right");
+						var valorAcumuladoMesStr = valorAcumuladoMes.toFixed(2);
+						td2.innerHTML = "Total à depositar no mês: <b>R$ " + valorAcumuladoMesStr.replace(".", ",") + "</b>";
+						tr2.append(td2);
+						tabela.appendChild(tr2);
+						valorAcumuladoMes = 0;
+					}
+
+					data.setDate(data.getDate() + 1);
+					dataProxima.setDate(dataProxima.getDate() + 1);
 				}
 			}
 		};
