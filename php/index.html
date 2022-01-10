@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
+		<title>PHP</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"">
+		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/menubar.js"></script>
+		<script type="text/javascript" src="../js/footbar.js"></script>
 		<script>
 		function novaLinha(rotulo, atributo, tipo, chaveEstrangeira, tabela) {
 			var tr = document.createElement("tr");
@@ -324,6 +331,9 @@
 			table.appendChild(novaLinha('Id', 'id', 'integer'));
 			table.appendChild(novaLinha('Nome', 'nome', 'text'));
 			table.appendChild(novaLinha('Nascimento', 'nascimento', 'text'));
+
+			document.body.insertBefore(menubar, document.body.firstElementChild);
+			document.body.appendChild(footbar);
 		}
 		</script>
 		<style>

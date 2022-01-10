@@ -26,5 +26,6 @@ var aplicacoes = [
 	{rotulo: "Dividir em Grupos", icone: "img/network.svg", categoria: categorias[3].nome, link: "dg"},
 	{rotulo: "8 > 1", icone: "img/python-file-symbol.svg", categoria: categorias[4].nome, link: "8p1"},
 	{rotulo: "XOR", icone: "img/secret.svg", categoria: categorias[7].nome, link: "xor"},
+	{rotulo: "PHP", icone: "img/php.svg", categoria: categorias[2].nome, link: "php"},
 ];
 
