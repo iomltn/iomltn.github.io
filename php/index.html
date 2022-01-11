@@ -205,6 +205,21 @@
 			dao += "\t\t};\n";
 			dao += "\t\treturn $" + pMin(plural) + ";\n";
 			dao += "\t}\n";
+			dao += "\tpublic function pesquisar($" + atributos[1] + ") {\n";
+			dao += "\t\t$" + pMin(plural) + " = [];\n";
+			dao += "\t\t$stmt = $this->db->prepare('select " + atributos.join(", ") + " from " + pMin(plural) + " where " + atributos[1] + " like ? order by " + atributos[1] + "');\n";
+			dao += "\t\t$" + atributos[1] + " = '%' . $" + atributos[1] + " . '%';\n";
+			dao += "\t\t$stmt->bindParam(1, $" + atributos[1] + " );\n";
+			dao += "\t\t$res = $stmt->execute();\n";
+			dao += "\t\twhile($row = $res->fetchArray()) {\n";
+			dao += "\t\t\t$" + pMin(singular) + " = new " + pMai(singular) + "();\n";
+			for (var i = 0; i < t; i++) {
+				dao += "\t\t\t$" + pMin(singular) + "->set" + pMai(atributos[i]) + "($row['" + atributos[i] + "']);\n";
+			}
+			dao += "\t\t\t$" + pMin(plural) + "[] = $" + pMin(singular) + ";\n";
+			dao += "\t\t};\n";
+			dao += "\t\treturn $" + pMin(plural) + ";\n";
+			dao += "\t}\n";
 			dao += "\tpublic function get($id) {\n";
 			dao += "\t\t$stmt = $this->db->prepare('select " + atributos.join(", ") + " from " + pMin(plural) + " where " + atributos[0] + " = ? order by " + atributos[1] + "');\n";
 			dao += "\t\t$stmt->bindParam(1, $" + atributos[0] + ");\n";
@@ -276,15 +291,26 @@
 			form += "\t\t$" + pMin(singular) + " = new " + pMai(singular) + "();\n";
 			form += "\t};\n";
 			form += "};\n";
-			form += "$" + pMin(plural) + " = $" + pMin(singular) + "DAO->listar();\n";
+			form += "$mostrarFormulario = false;\n";
+			form += "if (isset($_GET['novo']) or isset($_GET['id'])) {\n";
+			form += "\t$mostrarFormulario = true;\n";
+			form += "}\n";
+			form += "if (isset($_GET['query'])) {\n";
+			form += "\t$" + pMin(plural) + " = $" + pMin(singular) + "DAO->pesquisar(test_input($_GET['query']));\n";
+			form += "} else {\n";
+			form += "\t$" + pMin(plural) + " = $" + pMin(singular) + "DAO->listar();\n";
+			form += "}\n";
 			form += "?>\n";
 			form += "<!DOCTYPE html>\n";
 			form += '<html lang="pt-br">\n';
 			form += "\t<head>\n";
+			form += "\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+			form += "\t\t<link rel=\"stylesheet\" href=\"../css/w3.css\">\n";
 			form += "\t</head>\n";
 			form += "\t<body>\n";
-			form += "\t\t<center>\n";
+			form += "\t\t<div class=\"w3-container\">\n";
 			form += "\t\t<h1>" + pMai(plural) + "</h1>\n";
+			form += "<?php if ($mostrarFormulario): ?>\n";
 			form += "\t\t<p>\n";
 			form += '\t\t\t<form method="POST">\n';
 			form += "<?php if (isset($_GET['" + atributos[0] + "'])): ?>\n";
@@ -302,23 +328,33 @@
 			
 			form += '\t\t\t</form>' + "\n";
 			form += "\t\t</p>\n";
-			form += "\t\t<table>\n";
-			form += "\t\t\t<tr>\n";
+			form += "<?php else: ?>";
+			form += "\t\t\t<div class=\"w3-responsive\">\n"
+			form += "\t\t\t<div class=\"w3-bar\">\n";
+			form += "\t\t\t\t<form>\n";
+			form += "\t\t\t\t<input type=\"text\" placeholder=\"Pesquisar...\" class=\"w3-bar-item w3-right\" name=\"query\"/>\n";
+			form += "\t\t\t\t</form>\n";
+			form += "\t\t\t\t<a href=\"<?php echo $_SERVER['PHP_SELF'] . '?novo'?>\"  class=\"w3-bar-item w3-button\">Novo</a>\n";
+			form += "\t\t\t</div>";
+			form += "\t\t\t\t<table class=\"w3-table-all\">\n";
+			form += "\t\t\t\t<tr class=\"w3-teal\">\n";
 			for (var i = 0; i < t; i++) {
-				form += "\t\t\t\t<th>" + pMai(atributos[i]) + "</th>\n";
+				form += "\t\t\t\t\t<th>" + pMai(rotulos[i]) + "</th>\n";
 			}
-			form += "\t\t\t\t<th></th>\n";
-			form += "\t\t\t</tr>\n";
+			form += "\t\t\t\t\t<th></th>\n";
+			form += "\t\t\t\t</tr>\n";
 			form += "<?php foreach ($" + pMin(plural) + " as $" + pMin(singular) + "): ?>\n";
 			form += "\t\t\t<tr>\n";
 			for (var i = 0; i < t; i++) {
-				form += "\t\t\t\t<td><?=$" + pMin(singular) + "->get" + pMai(atributos[i]) + "()?></td>\n";
+				form += "\t\t\t\t\t<td><?=$" + pMin(singular) + "->get" + pMai(atributos[i]) + "()?></td>\n";
 			}
-			form += "\t\t\t\t<td><a href=\"<?php echo $_SERVER['PHP_SELF'] . '?id=' . $" + pMin(singular) + "->get" + pMai(atributos[0]) + "(); ?>\">Editar</a></td>\n";
-			form += "\t\t\t</tr>\n";
+			form += "\t\t\t\t\t<td><a href=\"<?php echo $_SERVER['PHP_SELF'] . '?id=' . $" + pMin(singular) + "->get" + pMai(atributos[0]) + "(); ?>\">Alterar</a></td>\n";
+			form += "\t\t\t\t</tr>\n";
 			form += "<?php endforeach; ?>\n";
-			form += "\t\t</table>\n";
-			form += "\t\t</center>\n";
+			form += "\t\t\t</table>\n";
+			form += "\t\t</div>\n";
+			form += "<?php endif; ?>";
+			form += "\t\t</div>\n";
 			form += "\t</body>\n";
 			form += "</html>\n";
 
@@ -340,7 +376,6 @@
 			table.appendChild(novaLinha('Id', 'id', 'integer'));
 			table.appendChild(novaLinha('Nome', 'nome', 'text'));
 			table.appendChild(novaLinha('Nascimento', 'nascimento', 'text'));
-
 			document.body.insertBefore(menubar, document.body.firstElementChild);
 			document.body.appendChild(footbar);
 		}
