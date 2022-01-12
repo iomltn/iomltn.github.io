@@ -325,7 +325,7 @@
 			for (var i = 1; i < t; i++) {
 				form += '\t\t\t\t<p><label>\n\t\t\t\t' + rotulos[i] + ':<br>' + "\n";
 				form += '\t\t\t\t\t<input type="text" class="w3-input w3-border" name="' + atributos[i];
-				form += '" value="<?=$' + pMin(singular) + "->get" + pMai(atributos[i]) + '()?>" placeholder="' + atributos[i] + '"/>\n';
+				form += '" value="<?=$' + pMin(singular) + "->get" + pMai(atributos[i]) + '()?>" placeholder="' + rotulos[i] + '"/>\n';
 				form += "\t\t\t\t</label></p>\n";
 			}
 			form += '\t\t\t\t<input type="submit" class="w3-button w3-teal w3-right" value="';
