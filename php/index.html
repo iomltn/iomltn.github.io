@@ -160,6 +160,7 @@
 					dao += ")'); \n";
 				}
 			}
+			dao += "\t\t$this->db->exec('PRAGMA foreign_keys = ON;');\n";
 			dao += "\t}\n";
 			dao += "\tpublic function cadastrar($" + pMin(singular) + ") {\n";
 			var temp = atributos.slice();
@@ -295,6 +296,10 @@
 			form += "if (isset($_GET['novo']) or isset($_GET['id'])) {\n";
 			form += "\t$mostrarFormulario = true;\n";
 			form += "}\n";
+			form += "if (isset($_GET['r'])) {\n";
+			form += "\t$id = test_input($_GET['r']);\n";
+			form += "\t$" + pMin(singular) + "DAO->remover($id);\n";
+			form += "}\n";
 			form += "if (isset($_GET['query'])) {\n";
 			form += "\t$" + pMin(plural) + " = $" + pMin(singular) + "DAO->pesquisar(test_input($_GET['query']));\n";
 			form += "} else {\n";
@@ -319,11 +324,11 @@
 			form += "<?php endif; ?>\n";
 			for (var i = 1; i < t; i++) {
 				form += '\t\t\t\t<p><label>\n\t\t\t\t' + rotulos[i] + ':<br>' + "\n";
-				form += '\t\t\t\t\t<input type="text" name="' + atributos[i];
+				form += '\t\t\t\t\t<input type="text" class="w3-input w3-border" name="' + atributos[i];
 				form += '" value="<?=$' + pMin(singular) + "->get" + pMai(atributos[i]) + '()?>" placeholder="' + atributos[i] + '"/>\n';
 				form += "\t\t\t\t</label></p>\n";
 			}
-			form += '\t\t\t\t<input type="submit" value="';
+			form += '\t\t\t\t<input type="submit" class="w3-button w3-teal w3-right" value="';
 			form += "<?php if (isset($_GET['" + atributos[0] + "'])) echo 'Alterar'; else echo 'Cadastrar'; ?>" + '"/>' + "\n";
 			
 			form += '\t\t\t</form>' + "\n";
@@ -342,6 +347,7 @@
 				form += "\t\t\t\t\t<th>" + pMai(rotulos[i]) + "</th>\n";
 			}
 			form += "\t\t\t\t\t<th></th>\n";
+			form += "\t\t\t\t\t<th></th>\n";
 			form += "\t\t\t\t</tr>\n";
 			form += "<?php foreach ($" + pMin(plural) + " as $" + pMin(singular) + "): ?>\n";
 			form += "\t\t\t<tr>\n";
@@ -349,6 +355,7 @@
 				form += "\t\t\t\t\t<td><?=$" + pMin(singular) + "->get" + pMai(atributos[i]) + "()?></td>\n";
 			}
 			form += "\t\t\t\t\t<td><a href=\"<?php echo $_SERVER['PHP_SELF'] . '?id=' . $" + pMin(singular) + "->get" + pMai(atributos[0]) + "(); ?>\">Alterar</a></td>\n";
+			form += "\t\t\t\t\t<td><a href=\"<?php echo $_SERVER['PHP_SELF'] . '?r=' . $" + pMin(singular) + "->get" + pMai(atributos[0]) + "(); ?>\">Remover</a></td>\n";
 			form += "\t\t\t\t</tr>\n";
 			form += "<?php endforeach; ?>\n";
 			form += "\t\t\t</table>\n";
