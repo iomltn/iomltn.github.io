@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Desafio 52 Semanas</title>
@@ -5,10 +6,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="../css/global.css"/>
 		<style>
+		body {
+			font-family: arial;
+		}
+		h1 {
+			text-align: center;
+		}
+		input {
+			font-size: 12pt;
+		}
+		input[type="text"] {
+			width: 60px;
+			text-align: right;
+			font-size: 12pt;
+		}
 		table {	
+			text-align: center;
 			margin: 0 auto;
 			border-collapse: collapse;
-			font-family: arial;
 		}
 		table th, td {
 			padding: 5px;
@@ -58,52 +73,80 @@
 				mes = mes < 10 ? "0" + mes : mes;
 				return dia + "/" + mes + "/" + ano;				
 			}
-			this.iniciar = function() {
+			this.ultimoDiaMes = function(data) {
+				var d = new Date(data.getYear(), data.getMonth() + 1, 0);
+				return d;
+			}
+			this.iniciar = function(dataStr, valorStr) {
 				var dataPtn = /\d{2}\/\d{2}\/\d{4}/i;
 				var data = new Date();
+				var dataProxima = new Date();
 				var dia = data.getDate();
 				var mes = data.getMonth() + 1;
 				var ano = data.getFullYear();
 				dia = dia < 10 ? "0" + dia : dia;
 				mes = mes < 10 ? "0" + mes : mes;
 				data = dia + "/" + mes + "/" + ano;
-				var dataStr = prompt("Data inicial(dd/mm/yyyy):", data);
-				while (!dataPtn.test(dataStr)) {
+				//var dataStr = prompt("Data inicial(dd/mm/yyyy):", data);
+				/*while (!dataPtn.test(dataStr)) {
 					dataStr = prompt("Formato inválido!\nData inicial(dd/mm/yyyy):", "");
-				}
+				}*/
 				var dataArray = dataStr.split("/");
 				var data = new Date(dataArray[2], dataArray[1] - 1, dataArray[0]);
-			
+				dataProxima = new Date(dataArray[2], dataArray[1] - 1, dataArray[0]);
+
 				//retornando até o domingo anterior
 				while (data.getDay() != 0) {
 					data.setDate(data.getDate() - 1);
 				}
-				
-				var valorStr = prompt("Valor inicial:", "5");
+				while (dataProxima.getDay() != 0) {
+					dataProxima.setDate(dataProxima.getDate() + 1);
+				}
+
+				//var valorStr = prompt("Valor inicial:", "4");
 				if (valorStr.indexOf(",") != -1) {
 					valorStr = valorStr.replace(",", ".");
 				}
-				while (isNaN(valorStr) || valorStr == "") {
+				/*while (isNaN(valorStr) || valorStr == "") {
 					valorStr = prompt("Valor inválido!\nValor inicial:", "");
 					if (valorStr.indexOf(",") != -1) {
 						valorStr = valorStr.replace(",", ".");
 					}
-				}
-
+				}*/
 				var valor = parseFloat(valorStr);
 				var valorAcumulado = 0.0;
+				var valorAcumuladoMes = 0;
 
-				var tabela = document.getElementsByTagName("table")[0];
+				var tabela = document.getElementsByTagName("table")[1];
+				tabela.innerHTML = "";
+				var tr = document.createElement("tr");
+
+				var th = document.createElement("th");
+				th.innerHTML = "Semana";
+				tr.appendChild(th);
+				th = document.createElement("th");
+				th.innerHTML = "Vencimento";
+				tr.appendChild(th);
+				th = document.createElement("th");
+				th.innerHTML = "Valor à depositar";
+				tr.appendChild(th);
+				th = document.createElement("th");
+				th.innerHTML = "Valor Acumulado";
+				tr.appendChild(th);
+				tabela.appendChild(tr);
 
 				for (var i = 1; i <= 52; i++) {
 					//var periodo = this.getDataFormatada(data);
 					data.setDate(data.getDate() + 6);
+					dataProxima.setDate(dataProxima.getDate() + 6);
 					var vencimento = this.getDataFormatada(data);
 					//periodo += " - " + vencimento;
 					data.setDate(data.getDate() + 1);
+					dataProxima.setDate(dataProxima.getDate() + 1);
 
 					var valorSemana = valor + (i - 1) * valor;
 					valorAcumulado += valorSemana;
+					valorAcumuladoMes += valorSemana;
 
 					var valorSemanaStr = valorSemana.toFixed(2);
 					valorSemanaStr = "R$ " + valorSemanaStr.replace(".", ",");
@@ -127,37 +170,85 @@
 					tdDepositar.innerHTML = valorSemanaStr;
 					tdAcumulado.innerHTML = valorAcumuladoStr;
 
+					if (i == 52) {
+						tdAcumulado.setAttribute("style", "color: black; font-weight: bold;");
+					}
+
 					tr.appendChild(tdSemana);
 					//tr.appendChild(tdPeriodo);
 					tr.appendChild(tdVencimento);
 					tr.appendChild(tdDepositar);
 					tr.appendChild(tdAcumulado);
 					tabela.appendChild(tr);
+
+					data.setDate(data.getDate() - 1);
+					dataProxima.setDate(dataProxima.getDate() - 1);
+
+					//console.log(data);
+					//console.log(dataProxima);
+
+					if (((data.getMonth() != dataProxima.getMonth()))|| i == 52) {
+						var tr2 = document.createElement("tr");
+						var td2 = document.createElement("td");
+						td2.setAttribute("colspan", "4");
+						td2.setAttribute("style", "font-size: 11px; text-align: right");
+						var valorAcumuladoMesStr = valorAcumuladoMes.toFixed(2);
+						td2.innerHTML = "Total à depositar no mês: <b>R$ " + valorAcumuladoMesStr.replace(".", ",") + "</b>";
+						tr2.append(td2);
+						tabela.appendChild(tr2);
+						valorAcumuladoMes = 0;
+					}
+
+					data.setDate(data.getDate() + 1);
+					dataProxima.setDate(dataProxima.getDate() + 1);
 				}
 			}
 		};
-		window.onload = function() {
+		function iniciarDesafio(porValorFinal) {
+			var dataInicial = document.getElementById("data");
+			var valorInicial = document.getElementById("valorInicial");
+			var valorFinal = document.getElementById("valorFinal");
 			var desafio = new Desafio();
-			desafio.iniciar();
+
+			var array = dataInicial.value.split('-');
+			var data = array[2] + '/' + array[1] + '/' + array[0];
+
+			if (porValorFinal) {
+				var valor = parseFloat(valorFinal.value) / 1378;
+				valor = valor.toFixed(2);
+				valorInicial.value = valor;
+				desafio.iniciar(data, valor);
+			} else {
+				desafio.iniciar(data, valorInicial.value);
+				valorFinal.value = parseFloat(valorInicial.value) * 1378;
+			}
+		}
+		window.onload = function() {
 			document.body.insertBefore(menubar, document.body.firstElementChild);
 			document.body.appendChild(footbar);
 		}
 		</script>
 	</head>
 	<body>
+		<h1>Desafio 52 Semanas</h1>
+		<table>
+			<tr>
+				<th>Início em</th>
+				<th>Valor Inicial</th>
+				<th>Valor Almejado</th>
+			</tr>
+			<tr>
+				<td><input type="date" id="data"/></td>
+				<td><input type="text" id="valorInicial"/></td>
+				<td><input type="text" id="valorFinal"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button onclick="iniciarDesafio(false)">Calcular por valor inicial</button></td>
+				<td><button onclick="iniciarDesafio(true)">Calcular por valor final</button></td>
+			</tr>
+		</table>
 		<table border="1">
-			<tr>
-				<th colspan="5">
-					<h1>Desafio 52 Semanas</h1>
-				</th>
-			</tr>
-			<tr>
-				<th>Semana</th>
-				<!--<th>Período</th>-->
-				<th>Vencimento</th>
-				<th>Valor a depositar</th>
-				<th>Valor Acumulado</th>
-			</tr>
 		</table>
 	</body>
 </html>
