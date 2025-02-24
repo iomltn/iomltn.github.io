@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>Amortização PRICE</title>
+		<meta name="viewport" content="width=device-width"/>
+		<meta charset="utf-8"/>
+		<script>
+
+		var pmts_extras = [];
+		function coluna_juros(i, saldo_devedor) {
+			return i * saldo_devedor;
+		}
+		function coeficiente(i, n) {
+			var c = (i * Math.pow((1 + i), n)) / (Math.pow((1 + i), n) - 1);
+			return c;
+		}
+		function coluna_amortizacao(n, pmt, cj) {
+			return pmt - cj;
+		}
+		function removerExtra(i, pmt) {
+			var novos_pmts_extras = [];
+			for (var m = 0; m < pmts_extras.length; m++) {
+				if (pmts_extras[m][0] == i && pmts_extras[m][1] == pmt) {
+					
+				} else {
+					var n_extra = pmts_extras[m][0];
+					var pmt_extra = pmts_extras[m][1];
+					novos_pmts_extras.push([n_extra, pmt_extra]);
+				}
+			}
+			pmts_extras = novos_pmts_extras.slice();
+			atualizarTabelaExtra();
+		}
+		function atualizarTabelaExtra() {
+			var tabela = document.getElementById("tabela_acrescimo");
+			tabela.innerHTML = "";
+			
+			var tr = document.createElement("tr");
+			var th = document.createElement("th");
+			th.innerHTML = "Pagamentos Extras";
+			th.setAttribute("colspan", 3);
+			tr.appendChild(th);
+			tabela.appendChild(tr);
+			tr = document.createElement("tr");
+			th = document.createElement("th");
+			th.innerHTML = "n";
+			tr.appendChild(th);
+			th = document.createElement("th");
+			th.innerHTML = "Valor";
+			tr.appendChild(th);
+			th = document.createElement("th");
+			th.innerHTML = "";
+			tr.appendChild(th);
+			tabela.appendChild(tr);
+			tr = document.createElement("tr");
+			td = document.createElement("td");
+			var input = document.createElement("input");
+			input.setAttribute("type", "number");
+			input.setAttribute("style", "width:30px");
+			input.setAttribute("id", "n_extra");
+			td.appendChild(input);
+			tr.appendChild(td);
+			
+			td = document.createElement("td");
+			input = document.createElement("input");
+			input.setAttribute("type", "text");
+			input.setAttribute("style", "");
+			input.setAttribute("id", "pmt_extra");
+			td.appendChild(input);
+			tr.appendChild(td);
+			
+			td = document.createElement("td");
+			button = document.createElement("button");
+			button.innerHTML = "Adicionar";
+			button.setAttribute("onClick", "adicionarPmtExtra()");
+			td.appendChild(button);
+			tr.appendChild(td);
+			tabela.appendChild(tr);
+			
+			for (var m = 0; m < pmts_extras.length; m++) {
+				tr = document.createElement("tr");
+				td = document.createElement("td");
+				td.innerHTML = pmts_extras[m][0];
+				tr.appendChild(td);
+				td = document.createElement("td");
+				td.innerHTML = pmts_extras[m][1];
+				tr.appendChild(td);
+				td = document.createElement("td");
+				button = document.createElement("button");
+				button.innerHTML = "Remover";
+				button.setAttribute("onClick", "removerExtra(" + pmts_extras[m][0] + "," + pmts_extras[m][1] + ")");
+				td.appendChild(button);
+				tr.appendChild(td);
+				tabela.appendChild(tr);
+			}
+			gerarTabela();			
+		}
+		function adicionarPmtExtra() {
+			var n_extra = parseInt(document.getElementById("n_extra").value);
+			var pmt_extra = parseFloat(document.getElementById("pmt_extra").value.replace(",", "."));
+			document.getElementById("n_extra").value = '';
+			document.getElementById("pmt_extra").value = '';
+			pmts_extras.push([n_extra, pmt_extra]);
+			atualizarTabelaExtra();
+		}
+		function gerarTabela() {
+			var tabela = document.getElementById("tabela_amortizacao");
+			tabela.innerHTML = "";
+			var n = parseInt(document.getElementById("n").value);
+			var i = parseFloat(document.getElementById("i").value.replace(",", "."));
+			var pv = parseFloat(document.getElementById("pv").value.replace(",", "."));
+			var k = coeficiente(i, n);
+			var pmt = pv * k;
+			var tr = document.createElement("tr");
+			var th = document.createElement("th");
+			th.innerHTML = "n";
+			tr.appendChild(th);
+			th = document.createElement("th");
+			th.innerHTML = "Juros";
+			tr.appendChild(th);
+			th = document.createElement("th");
+			th.innerHTML = "Amortização";
+			tr.appendChild(th);
+			th = document.createElement("th");
+			th.innerHTML = "Pagamento";
+			tr.appendChild(th);
+			th = document.createElement("th");
+			th.innerHTML = "Saldo Devedor";
+			tr.appendChild(th);
+			tabela.appendChild(tr);
+			var saldo_devedor = pv;
+			for (var y = 0; y <= n; y++) {
+				if (y == 0) {
+					for (var w = 0; w < pmts_extras.length; w++) {
+						if (pmts_extras[w][0] == y) {
+							saldo_devedor = saldo_devedor - pmts_extras[w][1];
+						}
+					}
+				
+					var tr = document.createElement("tr");
+					var td = document.createElement("td");
+					td.innerHTML = y;
+					tr.appendChild(td);
+					td = document.createElement("td");
+					td.innerHTML = "R$ 0";
+					tr.appendChild(td);
+					td = document.createElement("td");
+					td.innerHTML = "R$ 0";
+					tr.appendChild(td);
+					td = document.createElement("td");
+					td.innerHTML = "R$ 0";
+					tr.appendChild(td);
+					td = document.createElement("td");
+					td.innerHTML = "R$ " + saldo_devedor;
+					tr.appendChild(td);
+					tabela.appendChild(tr);
+				} else {
+					var cj = coluna_juros(i, saldo_devedor);
+					var pmt_temp = pmt;
+					
+					for (var w = 0; w < pmts_extras.length; w++) {
+						if (pmts_extras[w][0] == y) {
+							pmt_temp = pmt + pmts_extras[w][1];
+						}
+					}				
+					
+					var amortizacao = coluna_amortizacao(y, pmt_temp, cj);
+					saldo_devedor = saldo_devedor - amortizacao;
+					
+					var tr = document.createElement("tr");
+					var td = document.createElement("td");
+					
+					
+					td.innerHTML = y;
+					tr.appendChild(td);
+					td = document.createElement("td");
+					td.innerHTML = "R$ " + Math.round(cj * 100)/100;
+					tr.appendChild(td);
+					td = document.createElement("td");
+					td.innerHTML = "R$ " + Math.round(amortizacao * 100)/100;
+					tr.appendChild(td);
+					td = document.createElement("td");
+					td.innerHTML = "R$ " + Math.round(pmt_temp * 100)/100;
+					tr.appendChild(td);
+					td = document.createElement("td");
+					td.innerHTML = "R$ " + Math.round(saldo_devedor * 100)/100;
+					tr.appendChild(td);
+					tabela.appendChild(tr);
+
+					if (Math.round((coluna_juros(i, saldo_devedor)+saldo_devedor)*100) < Math.round(pmt_temp*100)) {
+						if (Math.round(saldo_devedor * 100) == 0) break;
+						var cj = coluna_juros(i, saldo_devedor);
+						var pmt_temp = cj + saldo_devedor;
+						
+						for (var w = 0; w < pmts_extras.length; w++) {
+							if (pmts_extras[w][0] == y+1) {
+								pmt_temp = pmt + pmts_extras[w][1];
+							}
+						}				
+						
+						var amortizacao = coluna_amortizacao(y+1, pmt_temp, cj);
+						saldo_devedor = saldo_devedor - amortizacao;
+						
+						var tr = document.createElement("tr");
+						var td = document.createElement("td");
+												
+						td.innerHTML = y+1;
+						tr.appendChild(td);
+						td = document.createElement("td");
+						td.innerHTML = "R$ " + Math.round(cj * 100)/100;
+						tr.appendChild(td);
+						td = document.createElement("td");
+						td.innerHTML = "R$ " + Math.round(amortizacao * 100)/100;
+						tr.appendChild(td);
+						td = document.createElement("td");
+						td.innerHTML = "R$ " + Math.round(pmt_temp * 100)/100;
+						tr.appendChild(td);
+						td = document.createElement("td");
+						td.innerHTML = "R$ " + Math.round(saldo_devedor * 100)/100;
+						tr.appendChild(td);
+						tabela.appendChild(tr);
+					
+						break;
+					}
+				}
+				
+			}
+		}
+		window.onload = function() {
+			atualizarTabelaExtra();
+		}
+		</script>
+		<style>
+		* {
+			font-family: arial;
+			text-align: center;
+		}
+		td {
+			padding: 3px;
+		}
+		.right {
+			text-align: right;
+		}
+		#tabela_amortizacao, #tabela_acrescimo {
+			display: inline-block;
+			font-size: small;
+			border-collapse: collapse;
+		}
+		#tabela_amortizacao td, th {
+			padding: 3px;
+		}
+		#tabela_acrescimo td, th {
+			padding: 3px;
+		}
+		#tabela_amortizacao th {
+			background: lightgray;
+		}
+		#tabela_acrescimo th {
+			background: lightgray;
+		}
+		</style>
+	</head>
+	<body>
+		<h1>Amortização PRICE</h1>
+		<p>
+		<table style="display: inline-block">
+			<tr>
+				<td class="right">Valor Financiado</td>
+				<td><input type="text" id="pv"/></td>
+				
+			</tr>
+			<tr>
+				<td class="right">Quantidade de Parcelas</td>
+				<td><input type="number" id="n"/></td>
+				
+			</tr>
+			<tr>
+				<td class="right">Juros (decimal)</td>
+				<td><input type="text" id="i"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="right"><button onClick="gerarTabela()">Gerar Tabela</button></td>
+				
+			</tr>
+		</table>
+		</p>
+		<p>
+		<table border="1" id="tabela_acrescimo">
+			<tr>
+				<th colspan="3">Pagamentos Extras</th>
+			</tr>
+			<tr>
+				<th>n</th>
+				<th>Valor</th>
+				<th></td>
+			</tr>
+			<tr>
+				<td><input type="number" id="n_extra" style="width:50px"/></td>
+				<td><input type="text" id="pmt_extra"/></td>
+				<td style="text-align: right"><button onClick="adicionarPmtExtra()">Adicionar</button></td>
+			</tr>
+		</table>
+		</p>
+		<table id="tabela_amortizacao" border="1">
+		
+		</table>
+	</body>
+</html>
